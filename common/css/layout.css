@@ -1,0 +1,178 @@
+/* PC */
+#header {
+	box-shadow: -2px 0px 6.2px 0.8px rgba(0, 0, 0, 0.22);
+	background-color: #ffffff;
+	padding: 0 24px;
+	text-align: center;
+	position: relative;
+	z-index: 10;
+	min-width: 1500px;
+	position: fixed;
+	top: 0;
+	left: 0;
+    width: calc(100% - 48px);
+}
+
+#header .main-logo {
+	float: left;
+	margin-right: 40px;
+}
+
+#header .main-logo a {
+	display: block;
+    width: 183px;
+    height: calc(64px - 16px);
+    padding: 8px 0;
+}
+
+#header .sdot-btn {
+	display:inline-block;
+	border: 2px solid #426aff;
+	border-radius: 10px;
+	line-height: 39px;
+	height: 40px;
+	/* padding: 0 53px; */
+	width: 160px;
+	text-align: center;
+	box-sizing: border-box;
+	float: left;
+	margin-top: 12px;
+}
+
+#header .sdot-btn span {
+	font-size: 20px;
+	color: #426aff;
+	font-family: 'NotoSansKR-Bold';
+}
+
+#header .gnb-menu {
+	display: inline-block;
+	vertical-align: top;
+	padding-right: 175px;
+}
+
+#header .gnb-menu li {
+	float:left;
+	margin-right: 40px;
+}
+#header .gnb-menu li:last-child {
+	margin-right: 0;
+}
+
+#header .gnb-menu li a {
+	display: block;
+	height: 64px;
+	line-height: 56px;
+}
+
+#header .gnb-menu li a span {
+	color: #002160;
+	font-family: 'NotoSansKR-Medium';
+	vertical-align: middle;
+	
+}
+
+#header .gnb-menu li a em {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 8px;
+}
+#header .gnb-menu .data-icon {
+	background: url('/common/images/ic-gnb-menu-data.png') no-repeat;
+	width: 17px;
+	height: 17px;
+	background-size: contain;
+}
+#header .gnb-menu .visual-icon {
+	background: url('/common/images/ic-gnb-menu-visual.png') no-repeat;
+	width: 20px;
+	height: 14px;
+	background-size: contain;
+}
+#header .gnb-menu .community-icon {
+	background: url('/common/images/ic-gnb-menu-community.png') no-repeat;
+	width: 20px;
+	height: 20px;
+	background-size: contain;
+}
+#header .gnb-menu .mypage-icon {
+	background: url('/common/images/ic-gnb-menu-my.png') no-repeat;
+	width: 19px;
+	height: 21px;
+	background-size: contain;
+}
+#header .gnb-menu .info-icon {
+	background: url('/common/images/ic-gnb-menu-info.png') no-repeat;
+	width: 23px;
+	height: 23px;
+	background-size: contain;
+}
+#header .gnb-menu .admin-icon {
+	background: url('/common/images/ic-gnb-menu-admin.png') no-repeat;
+	width: 24px;
+	height: 22px;
+	background-size: contain;
+}
+
+#header .sub-menu {
+	float:right;
+	margin-top: 20px;
+}
+
+#header .sub-menu a {
+	position: relative;
+	display: block;
+	width: 22px;
+	height: 22px;
+	float:left;
+	margin-right: 23px;
+}
+#header .sub-menu a:last-child {
+	margin-right: 0;
+}
+
+#header .sub-menu .info-icon {
+	background: url('/common/images/ic-gnb-info.png') center no-repeat;
+	background-size: 19px 22px;
+}
+#header .sub-menu .alarm-icon {
+	background: url('/common/images/fa-bell-o.png') center no-repeat;
+	background-size: 18px 22px;
+}
+#header .sub-menu .mypage-icon {
+	background: url('/common/images/user-ico.png') center no-repeat;
+	background-size: 19px 22px;
+}
+
+#header .sub-menu .icon-label {
+	font-size: 15px;
+	position: absolute;
+	display: block;
+	color: #fff;
+	background: #ff1e1e;
+	width: 24px;
+	line-height: 16px;
+	height: 18px;
+	border-radius: 9px;
+	right: -13px;
+    top: -11px;
+}
+
+
+/* footer */
+#footer {
+	min-width: 1200px;
+	border-top: 1px solid #adadad;
+	background: #fff;
+	padding-top: 24px;
+	height: 61px;
+	box-sizing: border-box;
+}
+
+#footer .inner {
+	width: 1080px;
+	margin: 0 auto;
+}
+
+#footer .copy {float:left; font-family: 'NotoSansKR-Medium'; font-size: 12px; line-height: 1;}
+#footer .footer-info {float:right; font-size: 12px; line-height: 1;}

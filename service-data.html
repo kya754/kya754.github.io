@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스열람 > 서비스데이터</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/layout.css">
+    <link rel="stylesheet" href="/common/css/sub.css">
+    <!-- js -->
+    <script src="/common/js/jquery.js"></script>
+    <!-- <script src="/common/js/layout.js"></script> -->
+</head>
+<body>
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="#" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <ul class="gnb-menu clfix">
+                <li>
+                    <a href="#">
+                        <em class="data-icon" aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="visual-icon" aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="community-icon" aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="mypage-icon" aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="info-icon" aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="admin-icon" aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    <em class="icon-label">3</em>
+                </a>
+                <a href="#" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    <em class="icon-label">5</em>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- end : header -->
+    <!-- start : contents -->
+    <div id="contents">
+        <section class="service-data inner">
+            <h2 class="sub-ttl">서비스 데이터</h2>
+            <p class="sub-txt">S-DoT 센서 데이터를 수집하는 서비스에 대한 상세 정보를 제공합니다.</p>
+            <div class="search-bar clfix">
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">기관</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">서비스 상위 분류</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">서비스 하위 분류</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">서비스명</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">센서구분</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">서비스상태</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="form-wrap search-box">
+                    <input type="text" class="search-input">
+                    <button type="button" class="search-btn">
+                        <span class="hidden-txt">검색</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrap type01">
+                <table>
+                    <caption>
+                        서비스 데이터 표 : 번호, 서비스분류, 기관명, 서비스명, 센서구분, 설치 수, 누적 데이터 수, 서비스 상태, 등록일자
+                    </caption>
+                    <colgroup>
+                        <col width="61px">
+                        <col width="80px">
+                        <col width="80px">
+                        <col width="80px">
+                        <col width="300px">
+                        <col width="80px">
+                        <col width="71px">
+                        <col width="100px">
+                        <col width="80px">
+                        <col width="139px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th colspan="2">서비스 분류</th>
+                            <th>기관명</th>
+                            <th>서비스명</th>
+                            <th>센서구분</th>
+                            <th>설치 수</th>
+                            <th>누적 데이터 수</th>
+                            <th>서비스 상태</th>
+                            <th>등록일자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>48</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>47</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>46</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>45</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>44</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>43</td>
+                            <td>복지</td>
+                            <td>일반복지</td>
+                            <td></td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>1049</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>42</td>
+                            <td>환경</td>
+                            <td>일반복지</td>
+                            <td>강남구</td>
+                            <td class="text-left">청정공기 휴게공간</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>41</td>
+                            <td>안전</td>
+                            <td>시설물 안전</td>
+                            <td>강남구</td>
+                            <td class="text-left">양방향 보안등 관제시스템_강북구</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>40</td>
+                            <td>환경</td>
+                            <td>일반복지</td>
+                            <td>강남구</td>
+                            <td class="text-left">실내 환경 모니터링 서비스</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                        <tr>
+                            <td>39</td>
+                            <td>안전</td>
+                            <td>시설물 안전</td>
+                            <td>강남구</td>
+                            <td class="text-left">실내 환경 모니터링 서비스</td>
+                            <td>물리센서</td>
+                            <td>849</td>
+                            <td>2,421,793</td>
+                            <td>활성</td>
+                            <td>2020.02.18. 23:55:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="option-bar">
+                <div class="form-wrap">
+                    <select id="" name="" class="select-form">
+                        <option value="">10</option>
+                        <option value="">옵션1</option>
+                        <option value="">옵션2</option>
+                        <option value="">옵션3</option>
+                    </select>
+                </div>
+                <div class="pagination">
+                    <button type="button" class="prev-btn bttn">
+                        <span class="hidden-txt">prev</span>
+                    </button>
+                    <ul>
+                        <li><a href="#" class="active">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                    <button type="button" class="next-btn bttn">
+                        <span class="hidden-txt">prev</span>
+                    </button>
+                </div>
+            </div>
+            
+        </section>
+        
+    </div>
+    <!-- end : contents -->
+    <!-- start : footer -->
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <!-- end : footer -->
+</body>
+</html>

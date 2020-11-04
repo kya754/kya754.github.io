@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/reset.css"> <!-- 20201030 : reset css 추가 -->
+        <!-- datapicker 관련 소스 -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
+        <!-- map 관련 소스 -->
+    <link rel="stylesheet" href="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapCss">
+    <link rel="stylesheet" href="/common/css/layout.css"> <!-- 20201103 : layout css 추가 -->
+    <link rel="stylesheet" href="/common/css/main.css">
+
+    <!-- js -->
+    <script src="/common/js/jquery.js"></script>
+        <!-- datapicker 관련 소스 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- map 관련 소스 -->
+    <script src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=6413fff343724983b9a0c343239f8654"></script>
+    <script src="/common/js/api.js"></script>
+
+    <script>
+        //<![CDATA[
+        var map = null;
+        $(document).ready(function () {
+            mapInit();
+            // setPoint();
+        });
+
+        function mapInit() {
+            map = L.map('map', {
+                continuousWorld: true
+                , worldCopyJump: false
+                , zoomControl: false
+                , zoomAnimation: true
+                , markerZoomAnimation: true
+                , fadeAnimation: true
+                , inertia: false
+                , closePopupOnClick: false
+                , attributionControl: true
+                , center: [37.5683206, 126.9905207]
+                , zoom: 11
+            });
+
+            BaseMapChange(map, L.Dawul.BASEMAP_GEN);  // 일반지도
+
+            // 줌
+            // var slider = new L.Control.Zoomslider({
+            //     position: 'bottomright'
+            // });
+            // // 스케일바
+            // var scaleBar = new L.Control.Scale({
+            //     position: 'bottomright'
+            // });
+            // // 거리, 면적
+            // var userBtns = new L.Control.UserBtns({
+            //     position: 'bottomright'
+            // });
+            // map.addControl(scaleBar);
+            // map.addControl(slider);
+            // map.addControl(userBtns);
+        }
+
+
+        
+        $(document).ready(function(){
+
+            // datepicker
+            // datepicker 공통 옵션 설정
+            $.datepicker.setDefaults({
+                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+                monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+                monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                yearSuffix: '년',
+                dateFormat: 'yy-mm-dd',
+                showMonthAfterYear:true,
+                constrainInput: true    
+            });
+
+            // datepicker 영역 선언
+            $("#sch_start_ymd").datepicker();
+            $("#sch_end_ymd").datepicker();
+
+            // 초기값 설정
+            // (today / -nD: n일전 / +nD: n일후 / -nM: n달전 / +nM: n달후 / -nY: n년전 / +nY: n년후)
+            $("#sch_start_ymd").datepicker('setDate', 'today');
+            $("#sch_end_ymd").datepicker('setDate', '+1D');
+
+
+
+            //s: 20201103 수정
+
+            // 그래프 영역 열림
+            $('.open-btn').on('click', function(){
+                if($('.graph-section').hasClass('on')){
+                    $('.graph-section').removeClass('on');
+                }else {
+                    $('.graph-section').addClass('on');
+                }
+            });
+
+
+            //SectionScroll('스크롤 될 부분의 부모선택자')
+            SectionScroll('.filter-section');
+            SectionScroll('#periodSection');
+
+
+            // 그래프 영역 스크롤 높이 지정
+            function SectionScroll(element){
+
+                var openSection = $(element);
+                var scrollSection = openSection.children('.wrapper');
+                var TopSection = openSection.children('.top-cont');
+
+                var scrollHeight = window.innerHeight - TopSection.height() - 64;
+
+                scrollSection.css({
+                    'height' : scrollHeight,
+                    'overflow-y' : 'scroll'
+                });
+
+                $(window).resize(function () {
+                    scrollHeight = window.innerHeight - TopSection.height() - 64;
+
+                    scrollSection.css({
+                        'height' : scrollHeight,
+                        'overflow-y' : 'scroll'
+                    });
+                });
+
+            }
+
+            //e: 20201103 수정
+
+            //s: 20201104 header 가로스크롤
+
+            function bodyWidthSet(){
+                $('body').css({
+                    'width' : window.innerWidth
+                });
+
+                if($('body').width() < 1550) {
+                    $('body').css({
+                        'width' : 1550
+                    });
+                }
+            }
+            
+            bodyWidthSet();
+
+            $(window).resize(function () {
+                bodyWidthSet();
+            });
+
+            // header fixed일때 가로스크롤 시 보이게
+            $(window).scroll(function() {
+                $('#header').css({left: 0 - $(this).scrollLeft()});
+            });
+
+            //e: 20201104 header 가로스크롤
+
+
+        });
+
+
+    </script>
+    
+</head>
+<body>
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="#" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <ul class="gnb-menu clfix">
+                <li>
+                    <a href="#">
+                        <em class="data-icon" aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="visual-icon" aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="community-icon" aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="mypage-icon" aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="info-icon" aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <em class="admin-icon" aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    <em class="icon-label">3</em>
+                </a>
+                <a href="#" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    <em class="icon-label">5</em>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- end : header -->
+    <!-- start : contents -->
+    <div id="contents" class="clfix">
+        <div class="map-section">
+            <div id="map" style="height: 100%;">
+            
+                <!-- start : 맵 커스텀 -->
+
+                <!-- 일반/3d 버튼 -->
+                <!-- bttn에 on클래스 활성화 -->
+                <div class="custom-3d">
+                    <button type="button" class="bttn on">
+                        <span>일반</span>
+                    </button>
+                    <button type="button" class="bttn">
+                        <span>항공</span><!-- 20201103 텍스트 수정 -->
+                    </button>
+                </div>
+
+                <!-- 저장 메뉴 -->
+                <div class="custom-menu sec01">
+                    <button type="button" class="btn on"> <!-- 20201103 활성화 시 on 클래스 추가 -->
+                        <em class="ico-map" aria-hidden="true"></em>
+                        <span>지도 저장</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-data" aria-hidden="true"></em>
+                        <span>데이터 저장</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-keep" aria-hidden="true"></em>
+                        <span>보관하기</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-view" aria-hidden="true"></em>
+                        <span>시각화 시작</span>
+                    </button>
+                </div>
+
+                <!-- 측정 메뉴 -->
+                <div class="custom-menu sec02">
+                    <button type="button" class="btn">
+                        <em class="ico-radius" aria-hidden="true"></em>
+                        <span>반경</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-square" aria-hidden="true"></em>
+                        <span>면적</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-distance" aria-hidden="true"></em>
+                        <span>거리</span>
+                    </button>
+                </div>
+
+                <!-- 줌 버튼 -->
+                <div class="custom-zoom">
+                    <button type="button" class="zoom-in btn" title="Zoom in"></button>
+                    <button type="button" class="zoom-out btn" title="Zoom out"></button>
+                </div>
+
+                <!-- 툴팁 -->
+                <div class="custom-tooltip" style="top: 200px; left: 200px">
+                    <button class="tooltip-close-btn">
+                        <span class="hidden-txt">닫기</span>
+                    </button>
+                    <div class="inner">
+                        <p class="head-ttl">미세먼지</p>
+                        <p class="sub-ttl">도시데이터센서(S-DoT) 측정 데이터</p>
+                        <p class="txt">서울시 성북구 북악산로 913</p>
+                        <div class="info">
+                            <dl class="clfix">
+                                <dt>미세먼지</dt>
+                                <dd>5 ㎍/㎥</dd>
+                            </dl>
+                            <dl class="clfix">
+                                <dt>초미세먼지</dt>
+                                <dd>50 ㎍/㎥</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="date">
+                        <span>2020-10-20 18:18</span>
+                    </div>
+                </div>
+
+                <!-- end : 맵 커스텀 -->
+
+            </div>
+        </div>
+        <!-- start : 검색 필터 영역 -->
+        <div class="filter-section">
+            <!-- s: 20201103 top-cont 추가 -->
+            <div class="top-cont">
+                <div class="filter-box">
+                    <div class="title-wrap clfix">
+                        <p class="title">검색기준</p>
+                        <button type="button" class="refresh-btn">
+                            <span class="hidden-txt">새로고침</span>
+                        </button>
+                    </div>
+                    <div class="cont-wrap">
+                        <div class="select-wrap clfix">
+                            <select id="" name="" class="select-form class01">
+                                <option value="">지역</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                                <option value="">옵션3</option>
+                                <option value="">옵션4</option>
+                            </select>
+                            <select id="" name="" class="select-form class02">
+                                <option value="">양천구</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                                <option value="">옵션3</option>
+                                <option value="">옵션4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- e: 20201103 top-cont 추가 -->
+            <!-- s: 20201103 wrapper 추가 -->
+            <div class="wrapper">
+                <div class="filter-box">
+                    <div class="title-wrap">
+                        <p class="title">서비스 목록</p>
+                    </div>
+                    <!-- cont-wrap에 y-scroll를 추가하면 영역이 스크롤 됨 -->
+                    <div class="cont-wrap y-scroll">
+                        <div class="list-wrap">
+                            <div class="check_list">
+                                <input type="checkbox" id="chk01" name="" class="custom_chk" checked>
+                                <label for="chk01">도시데이터센서(S-DoT) 측정 데이터</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk02" name="" class="custom_chk" checked>
+                                <label for="chk02">실내환경 모니터링 서비스</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk03" name="" class="custom_chk">
+                                <label for="chk03">도서관 공기질 현황</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk04" name="" class="custom_chk">
+                                <label for="chk04">홀몸어르신 고독사 관리</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk05" name="" class="custom_chk">
+                                <label for="chk05">소음 모니터링 및 저감장치</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk06" name="" class="custom_chk">
+                                <label for="chk06">스크롤 테스트</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk07" name="" class="custom_chk">
+                                <label for="chk07">스크롤 테스트</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-box">
+                    <div class="title-wrap">
+                        <p class="title">표준 측정 항목</p>
+                    </div>
+                    <div class="cont-wrap">
+                        <div class="circle-wrap clfix">
+                            <div class="check_list">
+                                <input type="checkbox" id="chk08" name="" class="circle-type" checked>
+                                <label for="chk08">미세먼지</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk09" name="" class="circle-type">
+                                <label for="chk09">온도</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk10" name="" class="circle-type">
+                                <label for="chk10">습도</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk11" name="" class="circle-type">
+                                <label for="chk11">조도</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk12" name="" class="circle-type">
+                                <label for="chk12">소음</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk13" name="" class="circle-type">
+                                <label for="chk13">자외선</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk14" name="" class="circle-type">
+                                <label for="chk14">진동</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk15" name="" class="circle-type">
+                                <label for="chk15">바람</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk16" name="" class="circle-type">
+                                <label for="chk16">사람</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk17" name="" class="circle-type">
+                                <label for="chk17">전력량</label>
+                            </div>
+                            <div class="check_list">
+                                <input type="checkbox" id="chk18" name="" class="circle-type">
+                                <label for="chk18">장치</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-box">
+                    <div class="title-wrap">
+                        <p class="title">기간별 조회</p>
+                    </div>
+                    <div class="cont-wrap clfix">
+                        <button type="button" class="search-btn">
+                            <span>기간별 변동 추이 확인</span>
+                            <em class="calendar-icon" aria-hidden="true"></em>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- e: 20201103 wrapper 추가 -->
+        </div>
+        <!-- end : 검색 필터 영역 -->
+
+        <!-- start : 측정 항목별 변동 추이 영역 -->
+        <!-- graph-section에 on클래스 활성화 -->
+        <div class="graph-section" id="measurementSection"><!-- 20201102 임의로 id값 추가, 변경되어도 상관없음 -->
+            <button type="button" class="open-btn"></button>
+            <div class="top-cont">
+                <div class="head">
+                    <p class="head-ttl">측정 항목별 변동 추이</p>
+                    <span class="period">최근 1개월</span>
+                </div>
+            </div>
+            <!-- wrapper 높이 스크립트 처리 필요 -->
+            <div class="wrapper">
+                <div class="title-wrap clfix">
+                    <p class="title">미세먼지</p>
+                </div>
+                <div class="cont-wrap">
+                    <!-- 그래프 영역 -->
+                </div>
+                <div class="title-wrap clfix">
+                    <p class="title">초미세먼지</p>
+                </div>
+                <div class="cont-wrap">
+                    <!-- 그래프 영역 -->
+                </div>
+            </div>
+        </div>
+        <!-- end : 측정 항목별 변동 추이 영역 -->
+
+        <!-- start : 기간별 변동 추이 영역 -->
+        <!-- graph-section에 on클래스 활성화 -->
+        <div class="graph-section" id="periodSection"><!-- 20201102 임의로 id값 추가, 변경되어도 상관없음 -->
+            <button type="button" class="open-btn"></button>
+            <div class="top-cont">
+                <div class="head">
+                    <p class="head-ttl">기간별 변동 추이</p>
+                </div>
+                <div class="option-wrap">
+                    <div class="date-wrap">
+                        <dl>
+                            <dt>조회기간</dt>
+                            <dd>
+                                <input type="text" class="calendar-input" id="sch_start_ymd" name="sch_start_ymd" placeholder="검색 시작일" value="2020.10.28"/>
+                                <input type="text" class="calendar-input" id="sch_end_ymd" name="sch_end_ymd" placeholder="검색 종료일" value="2020.10.28"/>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="list-wrap">
+                        <dl>
+                            <dt>지역</dt>
+                            <dd>양천구</dd>
+                        </dl>
+                        <dl>
+                            <dt>서비스</dt>
+                            <dd>도시데이터센서(S-DoT) 측정 데이터,<br>
+                                스마트 가로보안등-양천구,<br>
+                                장애인주차구역 지킴이 서비스
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <!-- wrapper 높이 스크립트 처리 필요 -->
+            <div class="wrapper">
+                <div class="title-wrap clfix">
+                    <p class="title">미세먼지</p>
+                </div>
+                <div class="cont-wrap">
+                    <!-- 그래프 영역  -->
+
+                    <!-- 테스트 p 태그 -->
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam neque quasi cum consectetur rerum debitis, velit nobis quibusdam porro adipisci magnam officia vero voluptate fugit aut corporis nesciunt in ipsum hic facilis esse reiciendis ipsa consequatur? Voluptatem dolores temporibus tenetur, nemo, ipsa vitae modi ad alias, aspernatur accusamus repellat rem nam. Possimus in quasi sed odit, doloremque itaque provident debitis voluptas pariatur, minus aliquid atque, incidunt aperiam sequi voluptatibus quaerat. Totam esse nisi ea odit sint. Blanditiis dolorem, sapiente quisquam doloremque deleniti vel possimus cupiditate et architecto aperiam eius quia iure ullam ratione tempora eligendi ducimus in! Nulla, aperiam similique!</p>
+                </div>
+                <div class="title-wrap clfix">
+                    <p class="title">온도</p>
+                </div>
+                <div class="cont-wrap">
+                    <!-- 그래프 영역  -->
+
+                    <!-- 테스트 p 태그 -->
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis laborum quisquam autem ab esse vitae id saepe asperiores vero quia nobis tenetur cumque ullam sunt atque cum officiis nesciunt accusantium, et perferendis nihil at quos animi accusamus. Deserunt ratione consequatur soluta natus autem maxime inventore minus quis, quibusdam numquam dignissimos corporis quaerat optio ab quia vitae odio sapiente. Aliquam possimus non iusto quas fugit ea pariatur harum, dicta modi ipsa repellat doloremque soluta aliquid reprehenderit tenetur ut sed dignissimos molestiae dolorem ex amet voluptas cumque magnam! A soluta ab cumque voluptatum numquam neque! Debitis qui incidunt atque, beatae perferendis tempore quos quia perspiciatis suscipit velit nulla excepturi blanditiis officia ratione dolor, at repellendus laborum consectetur ipsa consequuntur neque quam deserunt! Debitis aperiam minus distinctio, tempora nemo eveniet possimus omnis aspernatur laudantium enim beatae sunt impedit fugit. Repellat eveniet laudantium officia excepturi quaerat, nihil reprehenderit odit sed, ipsum recusandae id nesciunt. Quam hic minima expedita officiis, quis repellendus magni quos, nobis ipsum dolorum fugit quod. Voluptates eum at aperiam nisi? Tempore eius facilis enim vel velit deserunt, soluta blanditiis hic neque voluptatem suscipit? Incidunt consequatur nemo quibusdam eos delectus possimus molestias dolorum doloremque excepturi distinctio reiciendis expedita, ex laborum omnis vitae? 끝 </p>
+                </div>
+            </div>
+            
+        </div>
+        <!-- end : 기간별 변동 추이 영역 -->
+        
+    
+            
+        
+    </div>
+    <!-- end : contents -->
+</body>
+</html>

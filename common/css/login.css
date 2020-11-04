@@ -1,0 +1,660 @@
+
+/********* login.css **********/
+
+/* PC */
+
+/* 체크박스 */
+input[class="custom_chk"] + label:before {
+	content:'';
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	border-radius: 3px;
+	border: solid 2px #c5caea;
+	background-color: transparent;
+	cursor: pointer;
+	margin-right: 8px;
+	vertical-align: middle;
+	margin-bottom: 3px;
+}
+input[class="custom_chk"]:checked + label:before {
+	border: solid 2px #426aff;
+	background: #426aff url('/common/images/check-solid.png') center no-repeat;
+	background-size: 70%;
+} 
+input[class="custom_chk"] {
+	display: none;
+}
+
+/* header */
+#header {
+	border-bottom: 1px solid #adadad;
+	background: #fff;
+	height: 64px;
+	padding: 0 15px;
+	position: fixed;
+	width: 100%;
+}
+
+#header .inner {
+	max-width: 1080px;
+	/* height: 64px; */
+	margin: 0 auto;
+}
+
+#header .login-main-logo {float:left;}
+#header .login-main-logo a {display:inline-block; height: 64px; line-height: 56px;}
+#header .login-main-logo a img {vertical-align: middle;}
+
+#header .gide_btn {
+	float:right;
+	margin-top: 15px;
+}
+#header .gide_btn span {
+	display:inline-block;
+	border-radius: 3px;
+	border: solid 1px #426aff;
+	background-color: #e7e6f7;
+	box-sizing: border-box;
+	font-size: 16px;
+	color: #426aff;
+	line-height: 32px;
+	height: 34px;
+	/* padding: 0 22px; */
+	width: 263px;
+	text-align: center;
+	font-family: 'NotoSansKR-Bold';
+}
+
+/* contents */
+#contents {
+	background-color: #f2f5f8;
+	padding: 0 15px;
+	padding-bottom: 37px;
+	padding-top: 64px;
+}
+
+#contents .inner {
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+#contents .login-section {
+	width: calc(50% - 16.5px);
+	float: left;
+	padding-top: 59px;
+}
+
+#contents .submit-btn {
+	display:block;
+	width: 100%;
+	height: 56px;
+	line-height: 56px;
+	border: 0;
+	background: #426aff;
+	font-size: 18px;
+	color: #fff;
+	font-family: 'NotoSansKR-Medium';
+	cursor: pointer;
+}
+
+#contents .sign-wrap {
+	display: flex;
+	margin-top: 12px;
+}
+
+#contents .sign-wrap .sign-btn {
+	flex: 1;
+	padding-left: 27px;
+	height: 56px;
+	line-height: 56px;
+}
+
+#contents .sign-wrap .sign-btn span {
+	font-size: 16px;
+	font-family: 'NotoSansKR-Bold';
+	color: #fff;
+}
+#contents .sign-wrap .sign-btn.btn01 {
+	margin-right: 12px;
+	background: #2148d9;
+}
+#contents .sign-wrap .sign-btn.btn02 {
+	background: #8795ff;
+}
+
+#contents .sign-wrap .sign-btn .icon {
+	margin-right: 17px;
+}
+
+#contents .sign-wrap .sign-btn.btn01 .icon {
+	display: inline-block;
+	background: url('/common/images/btn-floating-adduser.png') no-repeat;
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	position: relative;
+	top: 8px;
+}
+#contents .sign-wrap .sign-btn.btn02 .icon {
+	display: inline-block;
+	background: url('/common/images/btn-floating-data.png') no-repeat;
+	background-size: contain;
+	width: 29px;
+	height: 29px;
+	position: relative;
+	top: 8px;
+}
+
+
+
+
+#contents .login-form {
+	margin-top: 15px;
+}
+
+#contents .input-text{
+	width: 100%;
+    height: 79px;
+	/* padding: 35px 0; */
+	font-size: 18px;
+	color: #595959;
+	border-width: 0 0 1px 0;
+    border-color: #adadad;
+    outline: 0;
+    border-radius: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	font-family: 'NotoSansKR-Regular';
+}
+
+#contents .check_info {
+	float: left;
+}
+
+#contents .check_info .login_check_box {
+	float:left; 
+	margin-right: 40px;
+}
+
+#contents .check_info .login_check_box:last-child {
+	margin-right: 0;
+}
+
+#contents .check_info .login_check_box label {
+	font-size: 18px;
+	color: #3c3c3c;
+}
+
+#contents .find_info {
+	float: right;
+	font-size: 18px;
+	color: #3c3c3c;
+}
+
+#contents .add-section {
+	margin: 23px 0 24px;
+}
+
+
+#contents .bg-section {
+	width: calc(50% - 16.5px);
+	float: right;
+}
+#contents  .list-section {
+	width: 100%;
+	float:left;
+	margin-top: 32px;
+	display: flex;
+}
+
+#contents .head-ttl {
+	font-family: 'NotoSansKR-Bold';
+	font-size: 24px;
+	margin-bottom: 10px;
+	/* line-height: 1; */
+	line-height: 1.4;
+	color: #000;
+}
+#contents .head-txt {
+	font-size: 16px;
+	/* line-height: 1; */
+	line-height: 1.4;
+	color: #000;
+}
+
+#contents .bg-section {
+	background: url('/common/images/img-login-banner.png') top center no-repeat;
+	background-size: 100%;
+	/* padding-top: 450px; */
+	padding-top: 35%;
+	margin-top: 34px;
+}
+
+#contents .bg-section .txt {
+	margin: 0 auto;
+	width: 80%;
+	font-family:'NotoSansKR-Light';
+	font-size: 19px;
+	color: #3b2bae;
+	line-height: 1.42;
+	margin-top: 6px;
+}
+
+#contents .list-section .list-box {
+	width: 50%;
+	min-height: 231px;
+	background: #fff;
+	border-radius: 11px;
+	border: solid 1px #dad8f6;
+	margin-right: 12px;
+
+}
+
+
+#contents .list-section .list-box:last-child {
+	margin-right: 0;
+}
+
+#contents .list-section .list-box .list-wrap {
+	padding: 23px 25px;
+}
+
+#contents .flex-box {
+	display: inline-flex;
+	width: 50%;
+	margin-right: 12px;
+}
+
+#contents .flex-box:last-child {
+	margin-right: 0;
+}
+
+#contents .list-section .list-box .list-wrap .icon-wrap {
+	margin-bottom: 15px;
+}
+
+#contents .list-section .list-box .list-wrap .icon {
+	float:left;
+}
+
+#contents .list-section .list-box .list-wrap .icon01 {
+	display:inline-block;
+	width:24px;
+	height: 33px;
+	background: url('/common/images/img-login-sub-1.png') no-repeat;
+	background-size: contain;
+}
+#contents .list-section .list-box .list-wrap .icon02 {
+	display:inline-block;
+	width:30px;
+	height: 26px;
+	background: url('/common/images/img-login-sub-2.png') no-repeat;
+	background-size: contain;
+}
+#contents .list-section .list-box .list-wrap .icon03 {
+	display:inline-block;
+	width:26px;
+	height: 26px;
+	background: url('/common/images/img-login-sub-3.png') no-repeat;
+	background-size: contain;
+}
+#contents .list-section .list-box .list-wrap .icon04 {
+	display:inline-block;
+	width:26px;
+	height: 26px;
+	background: url('/common/images/img-login-sub-4.png') no-repeat;
+	background-size: contain;
+}
+
+
+#contents .list-section .list-box .list-wrap .label {
+	box-sizing: border-box;
+	padding: 0 17px;
+	border-radius: 16px;
+	font-size: 16px;
+	font-family: 'NotoSansKR-Bold';
+	line-height: 28px;
+	/* height: 30px; */
+	float:right;
+}
+#contents .list-section .list-box .list-wrap .label.blue {
+	border: 1px solid #426aff;
+	color: #426aff;
+}
+#contents .list-section .list-box .list-wrap .label.pink {
+	border: 1px solid #fc3f87;
+	color: #fc3f87;
+}
+
+#contents .list-section .list-box .list-wrap .ttl {
+	font-size: 18px;
+	font-family: 'NotoSansKR-Bold';
+	margin-bottom: 10px;
+}
+
+#contents .list-section .list-box .list-wrap .info-list li {
+	font-size: 14px;
+	line-height: 1.92;
+	position: relative;
+	padding-left: 14px;
+}
+
+#contents .list-section .list-box .list-wrap .info-list li:before {
+	display:block;
+	content:'';
+	width: 6px;
+	height: 6px;
+	background: #b2b6b9;
+	border-radius: 6px;
+	position: absolute;
+	top: 12px;
+	left: 0;
+}
+
+/* floating banner */
+/* .floating-banner {
+	position: fixed;
+	right: 0;
+	top: 242px;
+}
+
+.floating-banner .btn-wrap {
+	width:76px;
+	height: 125px;
+	display:block;
+	border-radius: 10px 0 0 10px;
+	text-align: center;
+}
+.floating-banner .btn-wrap.btn01 {
+    background: #2148d9 url('/common/images/btn-floating-adduser.png') center no-repeat;
+    background-size: 42px 42px;
+    background-position: 20px 28px;
+}
+.floating-banner .btn-wrap.btn02 {
+    background: #8795ff url(/common/images/btn-floating-data.png) center no-repeat;
+    background-size: 42px 42px;
+    background-position: 22px 20px;
+}
+
+.floating-banner .btn-wrap span {
+	color:#fff;
+	display:block;
+	line-height: 1.25;
+	font-size: 16px;
+}
+
+.floating-banner .btn-wrap.btn01 span {
+	padding-top: 80px;
+}
+.floating-banner .btn-wrap.btn02 span {
+	padding-top: 70px;
+} */
+
+
+/* footer */
+#footer {
+	border-top: 1px solid #adadad;
+	background: #fff;
+	/* padding: 25px 15px; */
+	padding: 0 15px;
+	padding-top: 24px;
+	height: 61px;
+	box-sizing: border-box;
+}
+
+#footer .inner {
+	max-width: 1080px;
+	margin: 0 auto;
+}
+
+#footer .copy {float:left; font-family: 'NotoSansKR-Medium'; font-size: 12px; line-height: 1;}
+#footer .footer-info {float:right; font-size: 12px; line-height: 1;}
+
+
+
+/* tablet */
+@media screen and (max-width: 1024px){
+
+	/* contents */
+	#signUpModal .modal-dialog {
+		width: 80% !important;
+		margin: 30px auto;
+	}
+
+	.floating-banner {
+		top: unset;
+		bottom: 10vh;
+	}
+
+	#contents .login-section {
+		width: 50%;
+	}
+	#contents .bg-section {
+		width: 47%;
+		padding-top: 36%;
+		margin-top: 65px;
+	}
+
+	#contents .list-section {
+		display: block;
+	}
+	#contents .flex-box {
+		display: flex;
+		margin-bottom: 15px;
+		width: 100%;
+	}
+
+	#contents .check_info {
+		width: 100%;
+	}
+
+	#contents .find_info {
+		float:left;
+		margin-top: 10px;
+	}
+
+	#contents .list-section .list-box {
+		margin-right: 15px;
+	}
+
+	#contents .sign-wrap .sign-btn.btn01 .icon {
+		width: 25px;
+		height: 25px;
+		top: 7px;
+	}
+	#contents .sign-wrap .sign-btn.btn02 .icon {
+		width: 25px;
+		height: 25px;
+		top: 7px;
+	}
+
+	#contents .sign-wrap .sign-btn .icon {
+		margin-right: 8px;
+	}
+
+	#contents .sign-wrap .sign-btn {
+		padding-left: 15px;
+	}
+
+	/* footer */
+
+	#footer {
+		height: auto;
+		padding: 25px 15px;
+	}
+
+	#footer .copy,
+	#footer .footer-info {
+		float: initial;
+		display:block;
+		text-align:center;
+		line-height: 1.6;
+	}
+
+	
+}
+
+
+/* 모바일 */
+@media screen and (max-width: 720px){
+
+	/* header */
+	#header .gide_btn span {
+		width: auto;
+		font-size: 14px;
+		padding: 0 8px;
+	}
+
+	/* contents */
+	#contents .login-section {
+		width: 100%;
+	}
+	#contents .bg-section {
+		width: 100%;
+		padding-top: 74%;
+		margin-top: 50px;
+	}
+
+	#contents .bg-section .txt {
+		width: 100%;
+		text-align: center;
+		font-size: 18px;
+	}
+
+	#contents .list-section .list-box .list-wrap {
+		padding: 15px;
+	}
+	
+	#contents .list-section .list-box .list-wrap .ttl {
+		font-size: 16px;
+	}
+
+	#contents .list-section .list-box .list-wrap .info-list li {
+		font-size: 14px;
+	}
+
+	#contents .list-section .list-box .list-wrap .info-list li {
+		padding-left: 10px;
+	}
+
+	#contents .list-section .list-box .list-wrap .info-list li:before {
+		width: 4px;
+		height: 4px;
+		border-radius: 4px;
+		top: 10px;
+	}
+
+	#contents .check_info {
+		width: auto;
+	}
+
+	#contents .list-section .list-box {
+		min-height: auto;
+	}
+
+	#contents .check_info .login_check_box {
+		margin-right: 12px;
+	}
+
+	#contents .check_info .login_check_box label {
+		font-size: 14px;
+	}
+
+	#contents .find_info {
+		font-size: 14px;
+		float:right;
+		margin-top: 0;
+		line-height: 26px;
+	}
+
+	#contents .submit-btn {
+		height: 56px;
+		line-height: 56px;
+		font-size: 18px;
+	}
+
+	#contents .input-text {
+		padding: 30px 0;
+		font-size: 18px;
+	}
+
+	#contents .login-section {
+		padding-top : 80px;
+	}
+
+	#contents .login-form {
+		margin-top: 40px;
+	}
+
+	
+
+	#contents .list-section .list-box .list-wrap .label {
+		box-sizing: border-box;
+		padding: 0 15px;
+		border-radius: 16px;
+		font-size: 16px;
+		font-family: 'NotoSansKR-Bold';
+		line-height: 27px;
+		height: auto;
+		float: right;
+	}
+
+
+	#contents .head-ttl {
+		font-size: 30px;
+	}
+
+	#contents .head-txt {
+		font-size: 18px;
+	}
+
+	input[class="custom_chk"] + label:before {
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+	}
+
+	/* floating banner */
+
+	/* .floating-banner .btn-wrap {
+		width: 66px;
+		height: 115px;
+	}
+	.floating-banner .btn-wrap.btn01 {
+		background: #2148d9 url('/common/images/btn-floating-adduser.png') center no-repeat;
+		background-size: 32px 32px;
+		background-position: 19px 30px;
+	}
+	.floating-banner .btn-wrap.btn02 {
+		background: #8795ff url(/common/images/btn-floating-data.png) center no-repeat;
+		background-size: 32px 32px;
+		background-position: 20px 19px;
+	}
+
+	.floating-banner .btn-wrap span {
+		font-size: 14px;
+	}
+
+	.floating-banner .btn-wrap.btn01 span {
+		padding-top: 70px;
+	}
+	.floating-banner .btn-wrap.btn02 span {
+		padding-top: 62px;
+	}
+
+	#signUpModal .modal-dialog {
+		width: 100% !important;
+		margin: 20px auto;
+	} */
+
+	/* footer */
+
+	#footer {
+		font-size: 14px;
+	}
+
+	
+
+	
+}

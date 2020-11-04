@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/common/css/font.css">
+
+    <!-- s:팝업 관련 파일 (기존 사이트 css와 동일) -->
+    <link rel="stylesheet" href="/common/css/bootstrap.css" media="screen" />
+    <link rel="stylesheet" href="/common/css/AdminLTE.css">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <!-- e:팝업 관련 파일 (기존 사이트 css와 동일) -->
+
+    <link rel="stylesheet" href="/common/css/reset.css"> <!-- 20201030 : reset css 추가 -->
+    <link rel="stylesheet" href="/common/css/login.css">
+
+    <!-- js -->
+    <script src="/common/js/jquery.js"></script>
+    <script src="/common/js/bootstrap.js"></script>
+    
+</head>
+<body>
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="login-main-logo">
+                <a href="#">
+                    <img src="/common/images/login_seoul_logo.png" alt="I SEOUL U 로고">
+                </a>
+            </h1>
+            <a href="#" class="gide_btn">
+                <span>데이터 활용 모델 수립 가이드 보기</span>
+            </a>
+        </div>
+    </div>
+    <!-- end : header -->
+    <!-- start : contents -->
+    <div id="contents">
+        <div class="inner clfix">
+            <div class="login-section">
+                <h2 class="head-ttl">서울시 IoT 도시데이터 플랫폼</h2>
+                <p class="head-txt">데이터를 바탕으로 다양한 도시 문제 해결을 위한 인사이트를 발견해 보세요</p>
+                <div class="login-form">
+                    <div class="id_area">
+                        <span class="input_box">
+                            <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요" maxlength="" value="" class="input-text">
+                        </span>
+					</div>
+                    <div class="pw_area">
+                        <span class="input_box">
+                            <input type="text" id="pw" name="pw" placeholder="비밀번호를 입력해주세요" maxlength="" value="" class="input-text">
+                        </span>
+                    </div>
+                    
+                    <div class="add-section clfix">
+                        <div class="check_info clfix">
+                            <div class="login_check_box">
+                                <input type="checkbox" id="id_chk" name="" class="custom_chk" checked>
+                                <label for="id_chk">아이디 저장</label>
+                            </div>
+                            <div class="login_check_box">
+                                <input type="checkbox" id="login_chk" name="" class="custom_chk">
+                                <label for="login_chk">자동 로그인</label>
+                            </div>
+                        </div>
+    
+                        <div class="find_info">
+                            <a href="#">아이디</a>
+                            <span>/</span>
+                            <a href="#">비밀번호 찾기</a>
+                        </div>
+                    </div>
+                    
+
+                    <input type="submit" title="로그인" alt="로그인" value="로그인" class="submit-btn">
+                    <!-- s:20201103 추가 -->
+                    <div class="sign-wrap">
+                        <a href="javascript:void(0);" class="sign-btn btn01" data-toggle="modal" data-target="#signUpModal">
+                            <em class="icon" aria-hidden="true"></em>
+                            <span>계정신청</span>
+                        </a>
+                        <a href="javascript:void(0);" class="sign-btn btn02" data-target="#dataApply">
+                            <em class="icon" aria-hidden="true"></em>
+                            <span>데이터 연계신청</span>
+                        </a>
+                    </div>
+                    <!-- e:20201103 추가 -->
+                </div>
+            </div>
+            <div class="bg-section">
+                <p class="txt">서울시 IoT 도시데이터 플랫폼은 IoT 도시데이터 활용과 도시데이터(S-DoT) 조회로 나뉘며 로그인 권한에 따라 각각의 서비스를 이용할 수 있습니다.</p>
+            </div>
+            <div class="list-section">
+                <div class="flex-box">
+                    <div class="list-box">
+                        <div class="list-wrap">
+                            <div class="icon-wrap clfix">
+                                <em class="icon icon01" aria-hidden="true"></em>
+                                <a href="#" class="label blue">활용</a>
+                            </div>
+                            <p class="ttl">지도 기반<br>데이터 통합 검색</p>
+                            <ul class="info-list">
+                                <li>분류항목별 검색</li>
+                                <li>서비스별 데이터 검색</li>
+                                <li>파일 다운로드 제공</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="list-box">
+                        <div class="list-wrap">
+                            <div class="icon-wrap clfix">
+                                <em class="icon icon02" aria-hidden="true"></em>
+                                <a href="#" class="label blue">활용</a>
+                            </div>
+                            <p class="ttl">융합 데이터<br>분석시각화 생성</p>
+                            <ul class="info-list">
+                                <li>쉽고 다양한 분석시각화<br>도구 제공</li>
+                                <li>그래프 생성, 편집, 다운로드</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-box">
+                    <div class="list-box">
+                        <div class="list-wrap">
+                            <div class="icon-wrap clfix">
+                                <em class="icon icon03" aria-hidden="true"></em>
+                                <a href="#" class="label blue">활용</a>
+                            </div>
+                            <p class="ttl">데이터 관리 및<br>활용사례 공유</p><!-- 20201103 br 추가 -->
+                            <ul class="info-list">
+                                <li>검색, 스크랩, 분석시각화 작업 저장 및 즐겨찾기</li>
+                                <li>공유 커뮤니티를 통한 사례 학습</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="list-box">
+                        <div class="list-wrap">
+                            <div class="icon-wrap clfix">
+                                <em class="icon icon04" aria-hidden="true"></em>
+                                <a href="#" class="label pink">조회</a>
+                            </div>
+                            <p class="ttl">도시데이터(S-DoT)<br>접근 및 조회</p><!-- 20201103 br 추가 -->
+                            <ul class="info-list">
+                                <li>서울시 전역에 설치된<br>IoT 센서 측정 데이터</li>
+                                <li>도시데이터 활용 시스템  제공</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- s: 20201103 삭제 -->
+        <!-- <div class="floating-banner">
+            <a href="#" class="btn-wrap btn01" data-toggle="modal" data-target="#signUpModal">
+                <span>계정신청</span>
+            </a>
+            <a href="#" class="btn-wrap btn02">
+                <span>데이터 연계신청</span>
+            </a>
+        </div> -->
+        <!-- e: 20201103 삭제 -->
+    </div>
+    <!-- end : contents -->
+    <!-- start : footer -->
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <!-- end : footer -->
+    <!-- start : popup -->
+    <!-- 사용자 등록 창 -->
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width:70%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align:left" >사용자 신청</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalInfo" name="modalInfo" method="post" action="/admin/user/insertRegistUserMgt.do">
+                        <input type="hidden" id="cttpc" name="modal_cttpc" />
+                        <input type="hidden" id="email" name="modal_email" />
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col style="width:15%;">
+                                <col style="width:35%;">
+                                <col style="width:15%;">
+                                <col style="width:35%;">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="2" class="required_field">사용자ID</th>
+                                    <td rowspan="2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="modal_user_id" name="modal_user_id" placeholder="사용자ID" onkeyup="cfLengthCheck('사용자ID는', this, 100);"/>
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" onclick="fnIdCheck('btn'); return false;">사용자ID 중복체크</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th class="required_field">비밀번호</th>
+                                    <td>
+                                        <input type="password" class="form-control" id="modal_password" name="modal_password" placeholder="비밀번호" onkeyup="cfLengthCheck('비밀번호는', this, 100);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="required_field">비밀번호 확인</th>
+                                    <td>
+                                        <input type="password" class="form-control" id="modal_check_password" name="modal_check_password" placeholder="비밀번호 확인" onkeyup="cfLengthCheck('비밀번호는', this, 100);" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="required_field">이름</th>
+                                    <td>
+                                        <input type="text" class="form-control" id="modal_user_nm" name="modal_user_nm" placeholder="이름" onkeyup="cfLengthCheck('이름은', this, 250);" />
+                                    </td>
+                                    <th class="required_field">기관</th>
+                                    <td>
+                                        <select class="form-control" id="modal_organ_code" name="modal_organ_code" >
+                                            <option value=''>선택</option><option value='220' >강남구</option><option value='240' >강동구</option><option value='190' >강북구</option><option value='250' >강서구</option><option value='200' >관악구</option><option value='210' >광진구</option><option value='110' >구로구</option><option value='130' >금천구</option><option value='180' >노원구</option><option value='260' >도봉구</option><option value='270' >동대문구</option><option value='100' >동작구</option><option value='160' >마포구</option><option value='390' >보건환경연구원</option><option value='280' >서대문구</option><option value='430' >서울관광재단</option><option value='360' >서울교통공사</option><option value='380' >서울디지털재단</option><option value='10' >서울시</option><option value='410' >서울시립대학교</option><option value='150' >서울시설공단</option><option value='460' >서울신용보증재단</option><option value='420' >서울에너지공사</option><option value='450' >서울연구원</option><option value='440' >서울주택도시공사</option><option value='290' >서초구</option><option value='140' >성동구</option><option value='300' >성북구</option><option value='370' >소방재난본부</option><option value='310' >송파구</option><option value='170' >양천구</option><option value='120' >영등포구</option><option value='320' >용산구</option><option value='230' >은평구</option><option value='330' >종로구</option><option value='340' >중구</option><option value='350' >중랑구</option><option value='400' >한강사업본부</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th class="required_field">신청권한</th>
+                                    <td>
+                                        <select class="form-control" id="modal_user_se_code" name="modal_user_se_code" >
+                                            <option value=''>선택</option><option value='30' >기관 담당자</option><option value='40' >서비스 담당자</option><option value='50' >일반 사용자</option>
+                                        </select> 
+                                    </td>
+                                    <th>부서명</th>
+                                    <td>
+                                        <input type="text" class="form-control" id="modal_user_dept_nm" name="modal_user_dept_nm" placeholder="부서명" onkeyup="cfLengthCheck('부서명은', this, 50);" />										
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이용업무</th>
+                                    <td colspan="3">
+                                        <div class="form-group" style="text-align:left">
+                                            <textarea class="form-control" rows="3" name="modal_user_role_desc" placeholder="업무 내용을 작성해주십시오." onkeyup="cfLengthCheck('업무내용은', this, 250);"></textarea>											
+                                        </div>
+                                    </td>
+                                </tr>									
+                                <tr>
+                                    <th>연락처</th>
+                                    <td colspan="3" class="modal_cttpc">
+                                        <div class="form-inline" style="text-align:left">
+                                            <select class="form-control" name="cttpc_se_code" style="width:80px; background:#f9f9f9; margin-right:15px;">
+                                                <option value='10' >집</option><option value='20' >직장</option><option value='30' >휴대폰</option>
+                                            </select>
+                                            <div class="form-group" style="text-align:left">
+                                                <input type="text" name="modal_cttpc1" class="form-control numeric" maxlength="4" title="전화번호 첫번째 입력칸입니다" style="width:80px;"/>
+                                                <span style="margin:5px">-</span>
+                                                <input type="text" name="modal_cttpc2" class="form-control numeric" maxlength="4" title="전화번호 두번째 입력칸입니다" style="width:80px;"/>
+                                                <span style="margin:5px">-</span>
+                                                <input type="text" name="modal_cttpc3" class="form-control numeric" maxlength="4" title="전화번호 세번째 입력칸입니다" style="width:80px;"/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이메일</th>
+                                    <td colspan="3">
+                                        <div class="form-group" style="text-align:left">
+                                            <input type="text" class="form-control" name="modal_email1" placeholder="이메일" maxlength="20" style="display:inline-block; width:150px"/>
+                                            <span style="margin:5px">@</span>
+                                            <input type="text" class="form-control" name="modal_email2" placeholder="도메인" maxlength="20" style="display:inline-block; width:150px"/>
+                                            <select class="emailSelect form-control" onchange="fnEmailSelect(this.value)" style="display:inline-block; width:150px; margin-left:5px; background:#f9f9f9;"></select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-center" style="color:red;font-weight: bold"> ※ 비밀번호 : ID를 제외한 특수문자 / 문자 / 숫자 포함 형태의 9자리 이상의 암호로 생성 </p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소</button>
+                    <button type="button" class="btn btn-info" onclick="fnGoInsert(); return false;"><i class="fa fa-pencil"></i> 확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end : popup -->
+</body>
+</html>
