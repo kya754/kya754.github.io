@@ -93,8 +93,6 @@
 
 
 
-            //s: 20201103 수정
-
             // 그래프 영역 열림
             $('.open-btn').on('click', function(){
                 if($('.graph-section').hasClass('on')){
@@ -103,6 +101,14 @@
                     $('.graph-section').addClass('on');
                 }
             });
+
+            // s:20201105 추가
+            // var graphSectionHeight = 
+
+            // $('.open-btn').css({
+            //     'top' : graphSectionHeight
+            // })
+            // e:20201105 추가
 
 
             //SectionScroll('스크롤 될 부분의 부모선택자')
@@ -135,7 +141,6 @@
 
             }
 
-            //e: 20201103 수정
 
 
         });
@@ -144,7 +149,7 @@
     </script>
     
 </head>
-<body>
+<body class="main"><!-- 20201105 main 클래스 추가 -->
     <!-- start : header -->
     <div id="header">
         <div class="inner clfix">
@@ -156,44 +161,139 @@
             <a href="#" class="sdot-btn">
                 <span>S-DoT</span>
             </a>
+            <!-- s:20201105 depth-wrap각각 클래스 추가 / depth2-menu 추가 -->
             <ul class="gnb-menu clfix">
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-data">
+                    <a href="#" class="depth1-menu">
                         <em class="data-icon" aria-hidden="true"></em>
                         <span>데이터</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">센서 데이터</a>
+                        </li>
+                        <li>
+                            <a href="#">서비스 데이터</a>
+                        </li>
+                        <li>
+                            <a href="#">데이터 수집 현황</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-tool">
+                    <a href="#" class="depth1-menu">
                         <em class="visual-icon" aria-hidden="true"></em>
                         <span>분석시각화 도구</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">데이터 시각화</a>
+                        </li>
+                        <li>
+                            <a href="#">분석 프로세스</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-community">
+                    <a href="#" class="depth1-menu">
                         <em class="community-icon" aria-hidden="true"></em>
                         <span>커뮤니티</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">시각화 그래프 공유</a>
+                        </li>
+                        <li>
+                            <a href="#">분석리포트 공유</a>
+                        </li>
+                        <li>
+                            <a href="#">외부 데이터 공유</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-my">
+                    <a href="#" class="depth1-menu">
                         <em class="mypage-icon" aria-hidden="true"></em>
                         <span>마이페이지</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">검색 히스토리</a>
+                        </li>
+                        <li>
+                            <a href="#">스크랩</a>
+                        </li>
+                        <li>
+                            <a href="#">나의 시각화 그래프</a>
+                        </li>
+                        <li>
+                            <a href="#">나의 분석 리포트</a>
+                        </li>
+                        <li>
+                            <a href="#">나의 외부 데이터</a>
+                        </li>
+                        <li>
+                            <a href="#">회원정보 관리</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-info">
+                    <a href="#" class="depth1-menu">
                         <em class="info-icon" aria-hidden="true"></em>
                         <span>이용안내</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">IoT 도시데이터 소개</a>
+                        </li>
+                        <li>
+                            <a href="#">주요서비스</a>
+                        </li>
+                        <li>
+                            <a href="#">자주 하는 질문</a>
+                        </li>
+                        <li>
+                            <a href="#">공지사항</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="depth-wrap category-admin">
+                    <a href="#" class="depth1-menu">
                         <em class="admin-icon" aria-hidden="true"></em>
                         <span>관리자도구</span>
                     </a>
+                    <ul class="depth2-menu">
+                        <li>
+                            <a href="#">데이터 대시보드</a>
+                        </li>
+                        <li>
+                            <a href="#">서비스 정보 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">서비스 수신 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">서비스 담당자 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">통합 SMS 수신 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">서비스별 SMS 수신 관리</a>
+                        </li>
+                        <li>
+                            <a href="#">공공데이터 신청관리</a>
+                        </li>
+                        <li>
+                            <a href="#">데이터 개방 현황</a>
+                        </li>
+                        <li>
+                            <a href="#">데이터 공개 관리</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
+            <!-- e:20201105 depth-wrap각각 클래스 추가 / depth2-menu 추가 -->
             <div class="sub-menu clfix">
                 <a href="#" class="info-icon">
                     <span class="hidden-txt">정보</span>
@@ -207,6 +307,16 @@
                     <em class="icon-label">5</em>
                 </a>
             </div>
+            <!-- s:20201105 user 팝업 -->
+            <div class="user-popup">
+                <p class="user-name"><span>김서울</span>&nbsp;님</p>
+                <ul>
+                    <li><a href="#">나의 정보 보기</a></li>
+                    <li><a href="#">비밀번호 변경</a></li>
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
+            <!-- e:20201105 user 팝업 -->
         </div>
     </div>
     <!-- end : header -->
