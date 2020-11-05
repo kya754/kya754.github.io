@@ -156,6 +156,10 @@ input[class="custom_chk"]:checked + label {
 	
 }
 #contents .filter-box .cont-wrap {
+	padding: 16px 24px;
+	
+}
+#contents .wrapper .filter-box:last-child .cont-wrap {
 	padding: 16px 24px 30px;
 	
 }
