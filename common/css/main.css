@@ -204,72 +204,72 @@ input[class="circle-type"]:checked + label {
 	background-position: center center;
 	background-repeat :no-repeat;
 }
-.check_list:nth-child(1) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.dust:before {
 	background-image: url('/common/images/ic-category-dust.png');
 }
-.check_list:nth-child(2) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.temperature:before {
 	background-image: url('/common/images/ic-category-temperature.png');
 }
-.check_list:nth-child(3) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.humidity:before {
 	background-image: url('/common/images/ic-category-humidity.png');
 }
-.check_list:nth-child(4) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.illumination:before {
 	background-image: url('/common/images/ic-category-brightness.png');
 }
-.check_list:nth-child(5) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.noise:before {
 	background-image: url('/common/images/ic-category-sound.png');
 }
-.check_list:nth-child(6) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.uv:before {
 	background-image: url('/common/images/ic-category-uv.png');
 }
-.check_list:nth-child(7) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.vibration:before {
 	background-image: url('/common/images/ic-category-wave.png');
 }
-.check_list:nth-child(8) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.wind:before {
 	background-image: url('/common/images/ic-category-wind.png');
 }
-.check_list:nth-child(9) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.people:before {
 	background-image: url('/common/images/ic-category-human.png');
 }
-.check_list:nth-child(10) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.electricity:before {
 	background-image: url('/common/images/ic-category-electro.png');
 }
-.check_list:nth-child(11) input[class="circle-type"] + label:before {
+.check_list input[class="circle-type"] + label.device:before {
 	background-image: url('/common/images/ic-category-facility.png');
 }
 
 /* 체크했을때 이미지 - 흰색 */
-.check_list:nth-child(1) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.dust:before {
 	background-image: url('/common/images/ic-category-dust-on.png');
 }
-.check_list:nth-child(2) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.temperature:before {
 	background-image: url('/common/images/ic-category-temperature-on.png');
 }
-.check_list:nth-child(3) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.humidity:before {
 	background-image: url('/common/images/ic-category-humidity-on.png');
 }
-.check_list:nth-child(4) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.illumination:before {
 	background-image: url('/common/images/ic-category-brightness-on.png');
 }
-.check_list:nth-child(5) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.noise:before {
 	background-image: url('/common/images/ic-category-sound-on.png');
 }
-.check_list:nth-child(6) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.uv:before {
 	background-image: url('/common/images/ic-category-uv-on.png');
 }
-.check_list:nth-child(7) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.vibration:before {
 	background-image: url('/common/images/ic-category-wave-on.png');
 }
-.check_list:nth-child(8) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.wind:before {
 	background-image: url('/common/images/ic-category-wind-on.png');
 }
-.check_list:nth-child(9) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.people:before {
 	background-image: url('/common/images/ic-category-human-on.png');
 }
-.check_list:nth-child(10) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.electricity:before {
 	background-image: url('/common/images/ic-category-electro-on.png');
 }
-.check_list:nth-child(11) input[class="circle-type"]:checked + label:before {
+.check_list input[class="circle-type"]:checked + label.device:before {
 	background-image: url('/common/images/ic-category-facility-on.png');
 }
 

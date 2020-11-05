@@ -21,6 +21,7 @@
         <!-- map 관련 소스 -->
     <script src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=6413fff343724983b9a0c343239f8654"></script>
     <script src="/common/js/api.js"></script>
+    <script src="/common/js/layout.js"></script> <!-- 20201105 : layout js 추가 -->
 
     <script>
         //<![CDATA[
@@ -135,33 +136,6 @@
             }
 
             //e: 20201103 수정
-
-            //s: 20201104 header 가로스크롤
-
-            function bodyWidthSet(){
-                $('body').css({
-                    'width' : window.innerWidth
-                });
-
-                if($('body').width() < 1550) {
-                    $('body').css({
-                        'width' : 1550
-                    });
-                }
-            }
-            
-            bodyWidthSet();
-
-            $(window).resize(function () {
-                bodyWidthSet();
-            });
-
-            // header fixed일때 가로스크롤 시 보이게
-            $(window).scroll(function() {
-                $('#header').css({left: 0 - $(this).scrollLeft()});
-            });
-
-            //e: 20201104 header 가로스크롤
 
 
         });
@@ -403,50 +377,52 @@
                     </div>
                     <div class="cont-wrap">
                         <div class="circle-wrap clfix">
+                            <!-- s:20201105 수정  -->
                             <div class="check_list">
                                 <input type="checkbox" id="chk08" name="" class="circle-type" checked>
-                                <label for="chk08">미세먼지</label>
+                                <label for="chk08" class="dust">미세먼지</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk09" name="" class="circle-type">
-                                <label for="chk09">온도</label>
+                                <label for="chk09" class="temperature">온도</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk10" name="" class="circle-type">
-                                <label for="chk10">습도</label>
+                                <label for="chk10" class="humidity">습도</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk11" name="" class="circle-type">
-                                <label for="chk11">조도</label>
+                                <label for="chk11" class="illumination">조도</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk12" name="" class="circle-type">
-                                <label for="chk12">소음</label>
+                                <label for="chk12" class="noise">소음</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk13" name="" class="circle-type">
-                                <label for="chk13">자외선</label>
+                                <label for="chk13" class="uv">자외선</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk14" name="" class="circle-type">
-                                <label for="chk14">진동</label>
+                                <label for="chk14" class="vibration">진동</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk15" name="" class="circle-type">
-                                <label for="chk15">바람</label>
+                                <label for="chk15" class="wind">바람</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk16" name="" class="circle-type">
-                                <label for="chk16">사람</label>
+                                <label for="chk16" class="people">사람</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk17" name="" class="circle-type">
-                                <label for="chk17">전력량</label>
+                                <label for="chk17" class="electricity">전력량</label>
                             </div>
                             <div class="check_list">
                                 <input type="checkbox" id="chk18" name="" class="circle-type">
-                                <label for="chk18">장치</label>
+                                <label for="chk18" class="device">장치</label>
                             </div>
+                            <!-- e:20201105 수정  -->
                         </div>
                     </div>
                 </div>
