@@ -8,9 +8,9 @@ $(document).ready(function(){
             'width' : window.innerWidth
         });
 
-        if($('body.main').width() < 1550) {
+        if($('body.main').width() < 1920) {
             $('body.main').css({
-                'width' : 1550
+                'width' : 1920
             });
         }
     }
@@ -37,4 +37,36 @@ $(document).ready(function(){
         })
     });
 
+    // user 팝업
+    $('.mypage-icon').on('click', function(){
+
+        if($('.mypage-icon').hasClass('on')){
+            $('.user-popup').hide();
+            $('.mypage-icon').removeClass('on');
+        }else {
+            $('.user-popup').show();
+            $('.mypage-icon').addClass('on');
+        }
+    })
+
 });
+
+
+$(window).load(function(){
+
+    // gnb depth1 메뉴 갯수에 따라 넓이 지정
+    var gnbWidthSum = 0;
+    var menuLength = $('.depth-wrap').length;
+
+    for(i = 0; i <= menuLength; i++){
+        var widthNum = $('.depth-wrap').eq(i).innerWidth();
+        gnbWidthSum += widthNum;
+
+    }
+
+    $('.gnb-menu').css({
+        'width' : gnbWidthSum + 1
+    });
+}); 
+
+
