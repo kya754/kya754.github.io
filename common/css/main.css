@@ -49,6 +49,22 @@ body {
 	margin-top: 14px;
 }
 
+#contents .check-btn {
+	width: 80px;
+	height: 27px;
+	float: right;
+	margin-top: 11px;
+	border-radius: 3px;
+	border: solid 1px #d3d8e4;
+	background-color: #fff;
+	box-sizing: border-box;
+}
+
+#contents .check-btn span {
+	font-size: 12px;
+	line-height: 1;
+}
+
 #contents .filter-section {
 	float: left;
 	/* position: absolute; */
@@ -376,15 +392,28 @@ input[class="circle-type"]:checked + label {
 	background: #f2f5f8;
 	height: 50px;
 	padding: 0 24px;
-	
+	cursor: pointer;
+	background: #f2f5f8 url('/common/images/main-arrow-down.png') no-repeat;
+	background-size: 18px 10px;
+	background-position: 94% 50%;
 }
+
+#contents .graph-section .title-wrap.open {
+	background: #f2f5f8 url('/common/images/main-arrow-up.png') no-repeat;
+	background-size: 18px 10px;
+	background-position: 94% 50%;
+}
+
 #contents .graph-section .title-wrap .title {
 	color:#272727; font-size: 18px;
 	font-family: 'NotoSansKR-Medium';
 	line-height: 50px;
+	float: left;
 }
+
 #contents .graph-section .cont-wrap {
 	padding: 16px 24px 30px;
+	display: none;
 }
 
 

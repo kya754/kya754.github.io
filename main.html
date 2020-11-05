@@ -102,14 +102,6 @@
                 }
             });
 
-            // s:20201105 추가
-            // var graphSectionHeight = 
-
-            // $('.open-btn').css({
-            //     'top' : graphSectionHeight
-            // })
-            // e:20201105 추가
-
 
             //SectionScroll('스크롤 될 부분의 부모선택자')
             SectionScroll('.filter-section');
@@ -142,6 +134,40 @@
             }
 
 
+            // s: 20201106 추가
+
+            // 서비스 목록 전체선택 -> 전체해제 버튼
+            var serviceListCheckBox = $('.filter-box .list-wrap input[type=checkbox]');
+
+            $(".check-btn").click(function(){ 
+                if($(".check-btn").hasClass('checked')) {
+                    $('.check-btn').removeClass('checked');
+                    serviceListCheckBox.prop("checked",false); 
+                    $(".check-btn span").html('전체선택');
+                } 
+                else {
+                    $('.check-btn').addClass('checked');
+                    serviceListCheckBox.prop("checked",true);
+                    $(".check-btn span").html('전체해제');
+                }
+            });
+
+            // graph-section 아코디언
+            $('.graph-section .title-wrap').on('click', function(){
+
+                if($(this).hasClass('open')){
+                    $(this).next().slideUp();
+                    $(this).removeClass('open');
+                }
+                else {
+                    $(this).next().slideDown();
+                    $(this).addClass('open');
+                }
+            })
+
+            // e: 20201106 추가
+
+
 
         });
 
@@ -149,7 +175,7 @@
     </script>
     
 </head>
-<body class="main"><!-- 20201105 main 클래스 추가 -->
+<body class="main"><!-- 20201106 main 클래스 추가 -->
     <!-- start : header -->
     <div id="header">
         <div class="inner clfix">
@@ -161,7 +187,7 @@
             <a href="#" class="sdot-btn">
                 <span>S-DoT</span>
             </a>
-            <!-- s:20201105 depth-wrap각각 클래스 추가 / depth2-wrap 추가 -->
+            <!-- s:20201106 수정 -->
             <div class="gnb-wrap">
                 <ul class="gnb-menu clfix">
                     <li class="depth-wrap category-data">
@@ -350,8 +376,7 @@
                     </li>
                 </ul>
             </div>
-            
-            <!-- e:20201105 depth-wrap각각 클래스 추가 / depth2-wrap 추가 -->
+            <!-- e:20201106 수정 -->
             <div class="sub-menu clfix">
                 <a href="#" class="info-icon">
                     <span class="hidden-txt">정보</span>
@@ -366,7 +391,7 @@
                     <em class="icon-label">5</em>
                 </a>
             </div>
-            <!-- s:20201105 user 팝업 -->
+            <!-- s:20201106 user 팝업 -->
             <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
             <div class="user-popup">
                 <p class="user-name"><span>김서울</span>&nbsp;님</p>
@@ -376,7 +401,7 @@
                     <li><a href="#">로그아웃</a></li>
                 </ul>
             </div>
-            <!-- e:20201105 user 팝업 -->
+            <!-- e:20201106 user 팝업 -->
         </div>
     </div>
     <!-- end : header -->
@@ -506,6 +531,11 @@
                 <div class="filter-box">
                     <div class="title-wrap">
                         <p class="title">서비스 목록</p>
+                        <!-- s: 20201106 추가  / script 상단 추가 -->
+                        <button type="button" class="check-btn">
+                            <span>전체선택</span>
+                        </button>
+                        <!-- e: 20201106 추가 / script 상단 추가 -->
                     </div>
                     <!-- cont-wrap에 y-scroll를 추가하면 영역이 스크롤 됨 -->
                     <div class="cont-wrap y-scroll">
