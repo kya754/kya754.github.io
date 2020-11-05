@@ -66,7 +66,7 @@ select.select-form::-ms-expand { display: none; }
 
 /* layout */
 #contents {
-    min-width: 1200px;
+    min-width: 1080px;
     padding-top: 64px;
     min-height: calc(100vh - 125px);
 }
@@ -98,6 +98,7 @@ section.inner {
 }
 
 .table-wrap table {
+    
     border-top: 1px solid #426aff;
     border-bottom: 1px solid #c4c6c8;
 }
@@ -124,6 +125,10 @@ section.inner {
 
 
 /* type01 */
+.table-wrap table {
+    width: 1080px;
+}
+
 .table-wrap.type01 table th {
     height: 50px;
     line-height: 50px;
