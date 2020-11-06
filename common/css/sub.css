@@ -67,10 +67,11 @@ select.select-form::-ms-expand { display: none; }
  
 
 /* layout */
+.content-wrapper,
 #contents {
     min-width: 1080px;
     padding-top: 64px;
-    min-height: calc(100vh - 125px);
+    min-height: calc(100vh - 125px) !important;
 }
 
 #contents > section:first-child {
@@ -82,12 +83,15 @@ section.inner {
     margin: 0 auto;
 }
 
+.content-header h1,
 .sub-ttl {
     font-family: 'NotoSansKR-Bold';
     font-size: 24px;
     color: #44474a;
 }
 
+
+.content-header h1 + small,
 .sub-txt {
     font-size: 16px;
     color: #44474a;
@@ -153,8 +157,8 @@ section.inner {
 }
 
 /* pagination */
-.option-bar {position: relative;}
-.pagination {
+#contents .option-bar {position: relative;}
+#contents .pagination {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -162,7 +166,7 @@ section.inner {
     display: flex;
 }
 
-.pagination .bttn {
+#contents .pagination .bttn {
     width: 32px;
     height: 32px;
     border: 1px solid #adadad;
@@ -170,26 +174,26 @@ section.inner {
     background: #fff;
 }
 
-.pagination .bttn.prev-btn {
+#contents .pagination .bttn.prev-btn {
     background: url('/common/images/bu_arrow_location.png') center no-repeat;
     background-size: 5px 9px;
 }
-.pagination .bttn.next-btn {
+#contents .pagination .bttn.next-btn {
     background: url('/common/images/bu_arrow_location_right.png') center no-repeat;
     background-size: 5px 9px;
 }
 
-.pagination ul {
+#contents .pagination ul {
     display: flex;
     margin: 0 24px;
 }
-.pagination li {
+#contents .pagination li {
     margin-right: 16px;
 }
-.pagination li:last-child {
+#contents .pagination li:last-child {
     margin-right: 0;
 }
-.pagination li a {
+#contents .pagination li a {
     display: block;
     width: 32px;
     height: 32px;
@@ -200,7 +204,7 @@ section.inner {
     text-align: center;
     font-size: 14px;
 }
-.pagination li a.active {
+#contents .pagination li a.active {
     background: #eef2fb;
     border: 1px solid #426aff;
     color: #426aff;

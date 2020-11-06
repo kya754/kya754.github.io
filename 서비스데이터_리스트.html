@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <!-- <base href="http://54.180.82.63:8080/"> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="http://54.180.82.63:8080/common/images/favicon.png">
+    <title>IoT도시데이터시스템
+    </title>
+    
+
+<!-- 주석처리 된 부분은 삭제 -->
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap.js"></script> -->
+
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/moment-with-locales.min.js"></script> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap-datetimepicker.min.js"></script> -->
+
+<!-- AdminLTE Setup -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/font-awesome.min.css">
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/ionicons.min.css">
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/AdminLTE.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/skin-blue-light.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/common.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/bootstrap/morris.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom-layout.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen"> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/AdminLTE/app.js"></script> -->
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+
+
+<!-- new css link -->
+<link rel="stylesheet" href="/common/css/font.css">
+<link rel="stylesheet" href="/common/css/reset.css">
+<link rel="stylesheet" href="/common/css/layout.css">
+<link rel="stylesheet" href="/common/css/renewal.css">
+
+<!-- new js link -->
+<script src="/common/js/layout.js"></script>
+
+
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+
+
+<!-- start : header -->
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="#">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="#" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix">
+                <li class="depth-wrap category-data">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="data-icon" aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">센서 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">서비스 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">데이터 수집 현황</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-tool">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="visual-icon" aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">데이터 시각화</a>
+                            </li>
+                            <li>
+                                <a href="#">분석 프로세스</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-community">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="community-icon" aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">시각화 그래프 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">분석리포트 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">외부 데이터 공유</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-my">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="mypage-icon" aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">검색 히스토리</a>
+                            </li>
+                            <li>
+                                <a href="#">스크랩</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 시각화 그래프</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 분석 리포트</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 외부 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">회원정보 관리</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-info">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="info-icon" aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">IoT 도시데이터 소개</a>
+                            </li>
+                            <li>
+                                <a href="#">주요서비스</a>
+                            </li>
+                            <li>
+                                <a href="#">자주 하는 질문</a>
+                            </li>
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-admin">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="admin-icon" aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                    <div class="depth2-wrap clfix">
+                        <!-- 서비스 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">서비스 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 정보 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 수신 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 담당자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">SMS 수신 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 시스템 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">시스템 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">공공데이터 이용 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 개방 현황</a>
+                                </li>
+                                <li>
+                                    <a href="#">시스템 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">메뉴관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">페이지뷰</a>
+                                </li>
+                                <li>
+                                    <a href="#">접속이력</a>
+                                </li>
+                                <li>
+                                    <a href="#">계정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한별 메뉴관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 개발자 도구 -->
+                        <div class="depth2-list">
+                            <p class="title">개발자 도구</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">API 인증키 운영 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">코드 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수동 파싱</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 공개 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                <em class="icon-label">3</em>
+            </a>
+            <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                <em class="icon-label">5</em>
+            </a>
+        </div>
+        <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+        <div class="user-popup">
+            <p class="user-name"><span>김서울</span>&nbsp;님</p>
+            <ul>
+                <li><a href="#">나의 정보 보기</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="#">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end : header -->
+
+
+<!-- <div class="modal fade" id="myPwCheckModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:30%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">비밀번호 확인</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalPwInfo" action="" method="post">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>기존 비밀번호</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" class="form-control" name="modal_password_original" maxlength="100" placeholder="기존 비밀번호" onkeydown="if(event.keyCode==13){fnCkeckPasswordModal(); return false;}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnCkeckPasswordModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- 나의정보 수정창 -->
+<!-- <div class="modal fade" id="myInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">나의 정보</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalInfo" action="/admin/user/updateUserMgtAjax.do" method="post">
+                    <input type="hidden" id="modal_cttpc" name="modal_cttpc">
+                    <input type="hidden" id="modal_email" name="modal_email">
+
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>사용자ID</th>
+                            <td>
+                                <input type="text" class="form-control user_id" disabled="disabled">
+                            </td>
+                            <th>비밀번호</th>
+                            <td>
+                                <label><input type="checkbox" id="modal_change_password_YN" name="modal_change_password_YN" value="Y">수정</label>
+                                <input type="password" class="form-control" name="modal_password" maxlength="100" placeholder="변경 비밀번호" style="display:none;">
+                                <input type="password" class="form-control" name="modal_password_check" maxlength="100" placeholder="변경 비밀번호 확인" style="display:none;margin-top:10px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_user_nm" placeholder="이름" disabled="disabled">
+                            </td>
+                            <th>기관</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_organ_code" placeholder="조직" disabled="disabled">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td colspan="3" class="cttpc">
+                                <div class="form-inline">
+                                    <select class="form-control" name="modal_cttpc_se_code" style="width:80px; background:#f9f9f9; margin-right:15px;">
+                                    </select>
+                                    <div class="form-group" style="text-align:left">
+                                        <input type="text" name="modal_cttpc1" class="form-control numeric" maxlength="3" title="전화번호 첫번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc2" class="form-control numeric" maxlength="4" title="전화번호 두번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc3" class="form-control numeric" maxlength="4" title="전화번호 세번째 입력칸입니다" style="width:80px;">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td colspan="3">
+                                <div class="form-group" style="text-align:left">
+                                    <input type="text" class="form-control" name="modal_email1" placeholder="이메일" maxlength="20" style="display:inline-block; width:150px">
+                                    <span style="margin:5px">@</span>
+                                    <input type="text" class="form-control" name="modal_email2" placeholder="도메인" maxlength="20" style="display:inline-block; width:150px">
+                                    <select class="emailSelect form-control" onchange="fnEmailSelect(this.value)" style="display:inline-block; width:150px; margin-left:5px; background:#f9f9f9;"><option value="직접입력">직접입력</option><option value="naver.com">naver.com</option><option value="hanmail.net">hanmail.net</option><option value="gmail.com">gmail.com</option><option value="nate.com">nate.com</option><option value="hotmail.com">hotmail.com</option></select>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-center" style="color:red;font-weight: bold"> ※ 비밀번호 : ID를 제외한 특수문자 / 문자 / 숫자 포함 형태의
+                        9자리 이상의 암호로 생성 </p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnGoUpdateModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 955px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>서비스 데이터</h1>
+            <small>S-DoT 센서 데이터를 수집하는 서비스에 대한 상세 정보를 제공합니다.</small>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form role="form" id="aform" method="post" action="/admin/user/selectPageListUserMgt.do">
+                        <input type="hidden" id="pageList_currentPage" name="pageList_currentPage">
+                        <input type="hidden" id="pageList_sch_row_per_page" name="pageList_sch_row_per_page">
+                        <input type="hidden" id="trnsmit_server_no" name="trnsmit_server_no">
+                        <input type="hidden" id="data_no" name="data_no">
+                        <input type="hidden" id="srvc_nm" name="srvc_nm">
+
+                        <div class="box box-success">
+                            <div class="box-body">
+                                <div class="text-right form-inline">
+                                    <!--  기관 구분 -->
+                                    <div class="form-group">
+                                        <select id="sch_organ_code" name="sch_organ_code" class="form-control input-sm" width="">
+                                            <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <select id="sch_srvc_hrank_code" name="sch_srvc_hrank_code" class="form-control input-sm" onchange="fnSetLRankCombo();"><option value="">서비스 상위분류</option><option value="50005">보건</option><option value="50006">일반행정</option><option value="50007">문화/관광</option><option value="50008">산업/경제</option><option value="50009">복지</option><option value="50010">환경</option><option value="50011">교통</option><option value="50012">도시관리</option><option value="50013">교육</option><option value="50014">안전</option><option value="50015">인구/가구</option><option value="50016">주택/건설</option></select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <select id="sch_srvc_lrank_code" name="sch_srvc_lrank_code" class="form-control input-sm" onchange="fnSetServiceNmCombo();" disabled="disabled"><option value="">서비스 하위분류</option></select>
+                                    </div>
+
+                                    <!--서비스 명콤보 -->
+                                    <div class="form-group" style="flex-grow: 2;"><!--20201106 style추가 flex-grow -->
+                                        <select id="sch_srvc_nm" name="sch_srvc_nm" class="form-control input-sm"><option value="">서비스 명</option><option value="1인가구 고독사 관리">1인가구 고독사 관리</option><option value="IoT 스마트 가로보안등-노원구">IoT 스마트 가로보안등-노원구</option><option value="IoT 스마트 가로보안등-양천구">IoT 스마트 가로보안등-양천구</option><option value="IoT기반 공기질 개선사업(인공지능형실내공기질개선)">IoT기반 공기질 개선사업(인공지능형실내공기질개선)</option><option value="IOT기반 유동 인구 분석 및 안전 상황 전파">IOT기반 유동 인구 분석 및 안전 상황 전파</option><option value="IoT악취저감서비스(복합악취측정)">IoT악취저감서비스(복합악취측정)</option><option value="S-DoT(서울시 도시데이터 센서)_관제자료">S-DoT(서울시 도시데이터 센서)_관제자료</option><option value="S-DoT(서울시 도시데이터 센서)_측정자료">S-DoT(서울시 도시데이터 센서)_측정자료</option><option value="공공시설실내환경개선모니터링(복합공기질측정센서)">공공시설실내환경개선모니터링(복합공기질측정센서)</option><option value="도서관공기질현황">도서관공기질현황</option><option value="도서관이용객패턴분석">도서관이용객패턴분석</option><option value="도서관주차현황알림">도서관주차현황알림</option><option value="마스보드 - 스마트 태양광 전자잉크 관광안내판">마스보드 - 스마트 태양광 전자잉크 관광안내판</option><option value="보행신호 음성보조장치(서버 교체중)">보행신호 음성보조장치(서버 교체중)</option><option value="서울시-어린이집 실내공기질 측정">서울시-어린이집 실내공기질 측정</option><option value="성동구-스트리트랩_실내측정">성동구-스트리트랩_실내측정</option><option value="성동구-스트리트랩_실외측정">성동구-스트리트랩_실외측정</option><option value="스마트 교차로 알림">스마트 교차로 알림</option><option value="스마트보안등(양방향보안등관제시스템)">스마트보안등(양방향보안등관제시스템)</option><option value="실내GPS시스템">실내GPS시스템</option><option value="양방향보안등관제시스템 - 강북구">양방향보안등관제시스템 - 강북구</option><option value="양방향보안등관제시스템 - 광진구">양방향보안등관제시스템 - 광진구</option><option value="양천구청 홀몸어르신 고독사 관리 서비스">양천구청 홀몸어르신 고독사 관리 서비스</option><option value="유동 인구 측정자료">유동 인구 측정자료</option><option value="자동심장충격기(AED)관리">자동심장충격기(AED)관리</option><option value="장애인주차구역 지킴이 서비스">장애인주차구역 지킴이 서비스</option><option value="장애인콜택시관리">장애인콜택시관리</option><option value="전기자전거">전기자전거</option><option value="정화조악취저감감시 서비스">정화조악취저감감시 서비스</option><option value="청정공기 휴게공간">청정공기 휴게공간</option><option value="캠핑장안전사고방지시스템">캠핑장안전사고방지시스템</option><option value="테스트">테스트</option><option value="화재감지시스템(사용안함, 서버이전)">화재감지시스템(사용안함, 서버이전)</option><option value="화재감지시스템(운영)">화재감지시스템(운영)</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--센서 구분-->
+                                        <select id="sch_senser_code" name="sch_senser_code" class="form-control input-sm">
+                                            <option value="">센서 구분</option><option value="10">물리센서</option><option value="20">화학센서</option><option value="30">바이오센서</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <select id="sch_srvc_status" name="sch_srvc_status" class="form-control input-sm">
+                                            <option value="">서비스 상태</option><option value="AC">활성</option><option value="INAC">비활성</option><option value="END">종료</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group search" style="flex-grow: 2;"><!--20201106 클래스추가 search / style추가 flex-grow -->
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control input-sm" id="sch_srvc_nm2" name="sch_srvc_nm2" placeholder="서비스 명 직접 입력" onkeydown="if(event.keyCode==13){fnSearch(); return false;}" value="">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-header -->
+                        </div>
+                        <div class="box">
+                            <div class="box-body">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                    <!-- s: 20201106 style 수정 -->
+                                    <tr>
+                                        <th style="width: 61px">번호</th>
+                                        <th style="width: 160px;" colspan="2">서비스 분류</th>
+                                        <th style="width: 80px;">기관 명</th>
+                                        <th style="width: auto;">서비스 명</th>
+                                        <th style="width: 80px;">센서 구분</th>
+                                        <th style="width: 71px;">설치 수</th>
+                                        <th style="width: 100px;">누적 데이터 수</th>
+                                        <th style="width: 80px;">서비스 상태</th>
+                                        <th style="width: 139px;">등록일자</th>
+                                    </tr>
+                                    <!-- e: 20201106 style 수정 -->
+                                    
+                                    
+                                        
+                                        
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">34 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">복지 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">일반복지 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">강남구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">청정공기 휴게공간 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">화학센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">1 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">
+                                                        544,383
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('35', '1', '청정공기 휴게공간')">2019.12.23 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">33 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">산업/경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">강북구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">양방향보안등관제시스템 - 강북구 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">984 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">
+                                                        128,101
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('36', '1', '양방향보안등관제시스템 - 강북구')">2020.01.06 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">32 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">산업/경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">광진구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">양방향보안등관제시스템 - 광진구 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">1085 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">
+                                                        866,191
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('34', '1', '양방향보안등관제시스템 - 광진구')">2019.12.17 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">31 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">환경 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">생활환경 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">구로구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">IoT기반 공기질 개선사업(인공지능형실내공기질개선) </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">화학센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">93 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">
+                                                        5,078,553
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '2', 'IoT기반 공기질 개선사업(인공지능형실내공기질개선)')">2018.12.28 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">30 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">교통 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">교통운영 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">구로구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">스마트 교차로 알림 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">2 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">
+                                                        222,496
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('13', '1', '스마트 교차로 알림')">2018.12.28 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">29 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">일반행정 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">정책 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">금천구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">IoT악취저감서비스(복합악취측정) </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">화학센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">8 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">
+                                                        114,961
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('14', '1', 'IoT악취저감서비스(복합악취측정)')">2019.01.04 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">28 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">복지 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">노인복지 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">금천구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">1인가구 고독사 관리 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">1005 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">
+                                                        0
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('40', '1', '1인가구 고독사 관리')">2020.02.03 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">27 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">안전 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">안전사고 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">노원구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">IoT 스마트 가로보안등-노원구 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">515 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">
+                                                        260,168
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('37', '1', 'IoT 스마트 가로보안등-노원구')">2020.01.15 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">26 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">산업/경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">경제 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">동작구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">스마트보안등(양방향보안등관제시스템) </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">200 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">
+                                                        546,554
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('17', '1', '스마트보안등(양방향보안등관제시스템)')">2019.01.04 </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">25 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">안전 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">시설물 안전 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">동작구 </td>
+                                                    <td class="td-text-left txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">보행신호 음성보조장치(서버 교체중) </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">물리센서 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">8 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">
+                                                        160,299
+                                                    </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">활성 </td>
+                                                    <td class="txt_overflow" onclick="fnDetail('2', '1', '보행신호 음성보조장치(서버 교체중)')">2018.12.20 </td>
+                                                </tr>
+                                            
+                                        
+                                    
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix text-center">
+                                <div class="pull-left form-inline">
+                                    <!-- Row Per Page --> <!-- 텍스트 삭제 -->
+                                    <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
+                                        <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
+                                    </select>
+                                </div>
+                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('4'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /.col-xs-12 -->
+            </div><!--  /.row -->
+        </section><!-- /.content -->
+    </div><!-- ./row -->
+
+</div><!-- /.content-wrapper -->
+
+<!-- footer -->
+
+<!-- start : footer -->
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<!-- end : footer -->
+
+<!-- start: wrap -->
+<div id="loading-wrap" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 11000; display: none;">
+		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://192.168.10.167:8080//common/images/common/code_loading.gif"></div>
+</div>
+<!-- end : wrap -->
+<!-- //fooer -->
+
+<!-- ./wrapper -->
+
+
+
+
+</body></html>

@@ -1,18 +1,37 @@
 @charset "utf-8";
+/********* 메인, 서브 공통헤더 **********/
+
+/* 공통 */
+.hidden-txt {
+	position:absolute !important;  
+	width:1px; 
+	height:1px; 
+	overflow:hidden;
+	clip:rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip:rect(1px, 1px, 1px, 1px);
+}
 
 /* PC */
 #header {
 	box-shadow: -2px 0px 6.2px 0.8px rgba(0, 0, 0, 0.22);
 	background-color: #ffffff;
-	padding: 0 24px;
 	text-align: center;
 	position: relative;
 	z-index: 10;
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: calc(100% - 48px);
+	width: 100%;
 	min-width: calc(1920px - 48px);
+	height: 64px;
+}
+
+body.main #header {
+	min-width: 1920px;
+}
+
+#header .inner {
+	padding: 0 24px;
 }
 
 #header .main-logo {
