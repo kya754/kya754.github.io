@@ -72,6 +72,7 @@ input[class="custom_chk"] {
 	padding: 0 15px;
 	padding-bottom: 37px;
 	padding-top: 64px;
+	min-height: calc(100vh - 61px);
 }
 
 #contents .inner {
