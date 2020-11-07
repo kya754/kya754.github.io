@@ -1,5 +1,16 @@
 
+
 $(document).ready(function(){
+    
+    // 커스텀 스크롤바
+    $('.table-responsive').addClass('scrollbar-outer');
+
+    jQuery(document).ready(function(){
+        jQuery('.scrollbar-outer').scrollbar();
+    });
+
+    
+
     // //header 가로스크롤
 
     // main.html 에서만 적용

@@ -31,19 +31,21 @@
 <!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom.css"> -->
 <!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/bootstrap/morris.css"> -->
 <!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom-layout.css"> -->
-<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen"> -->
-<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/AdminLTE/app.js"></script> -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen">
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/AdminLTE/app.js"></script>
 <script type="text/javascript" src="http://54.180.82.63:8080/common/js/common.js?update=20180619"></script>
 <script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
 
 
 <!-- new css link -->
 <link rel="stylesheet" href="/common/css/font.css">
+<link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
 <link rel="stylesheet" href="/common/css/reset.css">
 <link rel="stylesheet" href="/common/css/layout.css">
 <link rel="stylesheet" href="/common/css/renewal.css">
 
 <!-- new js link -->
+<script src="/common/js/jquery.scrollbar.min.js"></script>
 <script src="/common/js/layout.js"></script>
 
 
@@ -457,7 +459,7 @@
                                             <option value="">서비스 상태</option><option value="AC">활성</option><option value="INAC">비활성</option><option value="END">종료</option>
                                         </select>
                                     </div>
-                                    <div class="form-group search" style="flex-grow: 2;"><!--20201106 클래스추가 search / style추가 flex-grow -->
+                                    <div class="form-group" style="flex-grow: 2;"><!--20201106 style추가 flex-grow -->
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="form-control input-sm" id="sch_srvc_nm2" name="sch_srvc_nm2" placeholder="서비스 명 직접 입력" onkeydown="if(event.keyCode==13){fnSearch(); return false;}" value="">
                                             <div class="input-group-btn">
@@ -648,7 +650,7 @@
                             </div><!-- /.box-body -->
                             <div class="box-footer clearfix text-center">
                                 <div class="pull-left form-inline">
-                                    <!-- Row Per Page --> <!-- 텍스트 삭제 -->
+                                    <!-- Row Per Page --> <!-- 20201106 텍스트 삭제 -->
                                     <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
                                         <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
                                     </select>
@@ -677,7 +679,7 @@
 
 <!-- start: wrap -->
 <div id="loading-wrap" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 11000; display: none;">
-		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://192.168.10.167:8080//common/images/common/code_loading.gif"></div>
+		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://54.180.82.63:8080/common/images/common/code_loading.gif"></div>
 </div>
 <!-- end : wrap -->
 <!-- //fooer -->

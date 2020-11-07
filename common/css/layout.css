@@ -37,6 +37,8 @@ body.main #header {
 #header .main-logo {
 	float: left;
 	margin-right: 40px;
+	position: relative;
+    z-index: 2;
 }
 
 #header .main-logo a {
@@ -58,6 +60,8 @@ body.main #header {
 	box-sizing: border-box;
 	float: left;
 	margin-top: 12px;
+	position: relative;
+    z-index: 2;
 }
 
 #header .sdot-btn span {

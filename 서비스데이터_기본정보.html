@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="http://54.180.82.63:8080/common/images/favicon.png">
+    <title>IoT도시데이터시스템
+    </title>
+    
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap.js"></script> -->
+
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/moment-with-locales.min.js"></script> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap-datetimepicker.min.js"></script> -->
+
+<!-- AdminLTE Setup -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/font-awesome.min.css"> -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/ionicons.min.css">
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/AdminLTE.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/skin-blue-light.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/common.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/bootstrap/morris.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom-layout.css"> -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen">
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+
+
+<!-- new css link -->
+<link rel="stylesheet" href="/common/css/font.css">
+<link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" href="/common/css/reset.css">
+<link rel="stylesheet" href="/common/css/layout.css">
+<link rel="stylesheet" href="/common/css/renewal.css">
+
+<!-- new js link -->
+<script src="/common/js/jquery.scrollbar.min.js"></script>
+<script src="/common/js/layout.js"></script>
+
+
+
+<!-- <script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script> -->
+
+
+    <!-- <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+
+        });
+
+        //기본 정보 엑셀 다운로드
+        function fnExceldownload() {
+            $("#aform").attr({action: "/iot/dataservice/exceldownloadPage1.do", method: 'post'}).submit();
+        }
+
+        // 목록으로 이동
+        function fnList() {
+            if ($("#currentPage").val() == null) {
+                var hiddenHtml = "";
+                hiddenHtml += '<input type="hidden" id="currentPage" name="currentPage" />';
+                $('#aform').append(hiddenHtml);
+            }
+
+            $("#currentPage").val($("#pageList_currentPage").val());
+            $("#sch_row_per_page").val($("#pageList_sch_row_per_page").val());
+            $("#aform").attr({action: "/iot/dataservice/selectPageListDataSrvc.do", method: 'post'}).submit();
+        }
+
+        //]]>
+    </script> -->
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+    
+
+
+
+
+
+
+
+
+
+
+
+ 
+<!-- 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#topMenuWrap li").on("click", function () {
+            $("#topMenuWrap li").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        
+
+        var emailList = ["직접입력", "naver.com", "hanmail.net", "gmail.com", , "nate.com", "hotmail.com"];
+        var str = "";
+        for (var i in emailList) {
+            str += '<option value="' + emailList[i] + '">' + emailList[i] + '</option>';
+        }
+        $(".emailSelect").html(str);
+
+        //비밀번호 수정 checkBox 이벤트
+        $("#modal_change_password_YN").change(function () {
+            if ($("#modal_change_password_YN").is(":checked")) {
+                $("[name = modal_password]").show();
+                $("[name = modal_password_check]").show();
+            } else {
+                $("[name = modal_password]").hide();
+                $("[name = modal_password_check]").hide();
+                $("[name = modal_password]").val("");
+                $("[name = modal_password_check]").val("");
+            }
+        });
+
+        $("#myPwCheckModal").on("show.bs.modal", function (e) {
+            $("[name = modal_password_original]").val("");
+        });
+
+    });
+
+    // 기존 비밀번호 확인
+    function fnCkeckPasswordModal() {
+        if ($("[name = modal_password_original]").val() == "") {
+            alert("기존 비밀번호를 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: '/admin/user/selectUserMgtAjax.do',
+            data: {
+                'user_no': '9',
+                'pwd': $("[name = modal_password_original]").val()
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+                if (response.resultStats.resultCode == "error") {
+                    alert(response.resultStats.resultMsg);
+                    return;
+                } else {
+                    // 기존 비밀번호 확인 모달창 닫기
+                    $('#myPwCheckModal').modal('hide');
+
+                    // 나의 정보 모달창 열기
+                    $('#myInfoModal').modal('show');
+
+                    // 연락처 구분
+                    var cttpcSeComboStr = getComboStr(response.cttpcSeComboStr, 'CODE', 'CODE_NM', response.resultMap.CTTPC_SE_CODE, '');
+                    $('[name=modal_cttpc_se_code]').html(cttpcSeComboStr);
+
+                    // 데이터 셋팅
+                    $('#myInfoModal .user_id').val(response.resultMap.USER_ID);
+                    $('#myInfoModal [name=modal_user_nm]').val(response.resultMap.USER_NM);
+                    $('#myInfoModal [name=modal_organ_code]').val(response.resultMap.ORGAN_NM);
+                    var email = response.resultMap.EMAIL;
+                    if (email != null) {
+                        email = email.split('@');
+                        $('#myInfoModal [name=modal_email1]').val(email[0]);
+                        $('#myInfoModal [name=modal_email2]').val(email[1]);
+                    }
+                    var cttpc = response.resultMap.CTTPC;
+                    if (cttpc != null) {
+                        cttpc = cttpc.split('-');
+                        $('#myInfoModal [name=modal_cttpc1]').val(cttpc[0]);
+                        $('#myInfoModal [name=modal_cttpc2]').val(cttpc[1]);
+                        $('#myInfoModal [name=modal_cttpc3]').val(cttpc[2]);
+                    }
+                }
+            },
+        });
+    }
+
+
+    // 수정
+    function fnGoUpdateModal() {
+
+        if ($("#modal_change_password_YN").is(":checked")) {
+            if ($("[name=modal_password]").val() == "") {
+                alert("비밀번호를 입력해 주세요.");
+                $("[name=modal_password]").focus();
+                return;
+            }
+
+            if ($("[name=modal_password]").val() != $("[name=modal_password_check]").val()) {
+                alert("비밀번호가 일치하지 않습니다.");
+                $("[name=modal_password_check]").focus();
+                return;
+            }
+        }
+
+        if ($("[name=modal_cttpc1]").val() != "" && $("[name=modal_cttpc2]").val() != "" && $("[name=modal_cttpc3]").val() != "") {
+            var cttpc = $("[name=modal_cttpc1]").val() + "-" + $("[name=modal_cttpc2]").val() + "-" + $("[name=modal_cttpc3]").val();
+            $("[name=modal_cttpc]").val(cttpc);
+        }
+        if ($("[name=modal_email1]").val() != "" && $("[name=modal_email2]").val() != "") {
+            $("[name=modal_email]").val($("[name=modal_email1]").val() + "@" + $("[name=modal_email2]").val());
+        }
+
+        // 비밀번호 유효성 검사
+        var pw_passed = true;
+
+        var pw = $("[name=modal_password]").val(); //비밀번호
+        var pw2 = $("[name=modal_password_check]").val(); // 확인 비밀번호
+        var id = $('#myInfoModal .user_id').val(); // 아이디
+
+        pw_passed = true;
+
+        var pattern1 = /[0-9]/;
+        var pattern2 = /[a-zA-Z]/;
+        var pattern3 = /[~!@#$%<>^&*]/;     // 원하는 특수문자 추가 제거
+
+        if (!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) || pw.length < 9 || pw.length > 50) {
+            alert("영문+숫자+특수기호 9자리 이상으로 구성하여야 합니다.");
+            return;
+        }
+
+        if (pw.indexOf(id) > -1) {
+            alert("비밀번호는 ID를 포함할 수 없습니다.");
+            return;
+        }
+
+        var samePass_0 = 0; //동일문자 카운트
+        var samePass_1 = 0; //연속성(+) 카운드
+        var samePass_2 = 0; //연속성(-) 카운드
+
+        for (var i = 0; i < pw.length; i++) {
+            var chr_pass_0;
+            var chr_pass_1;
+            var chr_pass_2;
+
+            if (i >= 2) {
+                chr_pass_0 = pw.charCodeAt(i - 2);
+                chr_pass_1 = pw.charCodeAt(i - 1);
+                chr_pass_2 = pw.charCodeAt(i);
+                //동일문자 카운트
+                if ((chr_pass_0 == chr_pass_1) && (chr_pass_1 == chr_pass_2)) {
+                    samePass_0++;
+                } else {
+                    samePass_0 = 0;
+                }
+                //연속성(+) 카운드
+                if (chr_pass_0 - chr_pass_1 == 1 && chr_pass_1 - chr_pass_2 == 1) {
+                    samePass_1++;
+                } else {
+                    samePass_1 = 0;
+                }
+                //연속성(-) 카운드
+                if (chr_pass_0 - chr_pass_1 == -1 && chr_pass_1 - chr_pass_2 == -1) {
+                    samePass_2++;
+                } else {
+                    samePass_2 = 0;
+                }
+            }
+
+            if (samePass_0 > 0) {
+                alert("동일문자를 3자 이상 연속 입력할 수 없습니다.");
+                return;
+            }
+
+            if (samePass_1 > 0 || samePass_2 > 0) {
+                alert("영문, 숫자는 3자 이상 연속 입력할 수 없습니다.");
+                return;
+            }
+        }
+
+        if (confirm("수정하시겠습니까?")) {
+            // 회원정보 가지고 온다.
+            $.ajax({
+                url: '/admin/user/updateUserMgtAjax.do',
+                data: $('#modalInfo').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.resultStats.resultCode == "error") {
+                        alert(response.resultStats.resultMsg);
+                        return;
+                    }
+
+                    alert('수정 하였습니다.');
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    function fnClickMenuBtn(that) {
+        // 	$("[data-toggle='offcanvas']").click();
+
+        var screenSizes = $.AdminLTE.options.screenSizes;
+        if (!$(that).parent().hasClass("open")) {
+            //Enable sidebar push menu
+            if ($(window).width() > (screenSizes.sm - 1)) {
+                if ($("body").hasClass('sidebar-collapse')) {
+// 				$("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
+                } else {
+                    $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
+                }
+            }
+            //Handle sidebar push menu for small screens
+            else {
+                if ($("body").hasClass('sidebar-open')) {
+// 				$("body").removeClass('sidebar-open').removeClass('sidebar-collapse').trigger('collapsed.pushMenu');
+                } else {
+                    $("body").addClass('sidebar-open').trigger('expanded.pushMenu');
+                }
+            }
+
+        }
+
+    }
+
+    function fnEmailSelect(v) {
+        if (v == '직접입력') $('[name=modal_email2]').val("");
+        else $('[name=modal_email2]').val(v);
+    }
+
+</script> -->
+
+<!-- start : header -->
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="#">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="#" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix">
+                <li class="depth-wrap category-data">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="data-icon" aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">센서 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">서비스 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">데이터 수집 현황</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-tool">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="visual-icon" aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">데이터 시각화</a>
+                            </li>
+                            <li>
+                                <a href="#">분석 프로세스</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-community">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="community-icon" aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">시각화 그래프 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">분석리포트 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">외부 데이터 공유</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-my">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="mypage-icon" aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">검색 히스토리</a>
+                            </li>
+                            <li>
+                                <a href="#">스크랩</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 시각화 그래프</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 분석 리포트</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 외부 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">회원정보 관리</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-info">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="info-icon" aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">IoT 도시데이터 소개</a>
+                            </li>
+                            <li>
+                                <a href="#">주요서비스</a>
+                            </li>
+                            <li>
+                                <a href="#">자주 하는 질문</a>
+                            </li>
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-admin">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="admin-icon" aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                    <div class="depth2-wrap clfix">
+                        <!-- 서비스 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">서비스 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 정보 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 수신 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 담당자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">SMS 수신 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 시스템 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">시스템 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">공공데이터 이용 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 개방 현황</a>
+                                </li>
+                                <li>
+                                    <a href="#">시스템 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">메뉴관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">페이지뷰</a>
+                                </li>
+                                <li>
+                                    <a href="#">접속이력</a>
+                                </li>
+                                <li>
+                                    <a href="#">계정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한별 메뉴관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 개발자 도구 -->
+                        <div class="depth2-list">
+                            <p class="title">개발자 도구</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">API 인증키 운영 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">코드 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수동 파싱</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 공개 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                <em class="icon-label">3</em>
+            </a>
+            <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                <em class="icon-label">5</em>
+            </a>
+        </div>
+        <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+        <div class="user-popup">
+            <p class="user-name"><span>김서울</span>&nbsp;님</p>
+            <ul>
+                <li><a href="#">나의 정보 보기</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="#">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end : header -->
+
+<!-- 
+<div class="modal fade" id="myPwCheckModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:30%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">비밀번호 확인</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalPwInfo" action="" method="post">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>기존 비밀번호</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" class="form-control" name="modal_password_original" maxlength="100" placeholder="기존 비밀번호" onkeydown="if(event.keyCode==13){fnCkeckPasswordModal(); return false;}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnCkeckPasswordModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- 나의정보 수정창 -->
+<!-- <div class="modal fade" id="myInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">나의 정보</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalInfo" action="/admin/user/updateUserMgtAjax.do" method="post">
+                    <input type="hidden" id="modal_cttpc" name="modal_cttpc">
+                    <input type="hidden" id="modal_email" name="modal_email">
+
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>사용자ID</th>
+                            <td>
+                                <input type="text" class="form-control user_id" disabled="disabled">
+                            </td>
+                            <th>비밀번호</th>
+                            <td>
+                                <label><input type="checkbox" id="modal_change_password_YN" name="modal_change_password_YN" value="Y">수정</label>
+                                <input type="password" class="form-control" name="modal_password" maxlength="100" placeholder="변경 비밀번호" style="display:none;">
+                                <input type="password" class="form-control" name="modal_password_check" maxlength="100" placeholder="변경 비밀번호 확인" style="display:none;margin-top:10px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_user_nm" placeholder="이름" disabled="disabled">
+                            </td>
+                            <th>기관</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_organ_code" placeholder="조직" disabled="disabled">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td colspan="3" class="cttpc">
+                                <div class="form-inline">
+                                    <select class="form-control" name="modal_cttpc_se_code" style="width:80px; background:#f9f9f9; margin-right:15px;">
+                                    </select>
+                                    <div class="form-group" style="text-align:left">
+                                        <input type="text" name="modal_cttpc1" class="form-control numeric" maxlength="3" title="전화번호 첫번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc2" class="form-control numeric" maxlength="4" title="전화번호 두번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc3" class="form-control numeric" maxlength="4" title="전화번호 세번째 입력칸입니다" style="width:80px;">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td colspan="3">
+                                <div class="form-group" style="text-align:left">
+                                    <input type="text" class="form-control" name="modal_email1" placeholder="이메일" maxlength="20" style="display:inline-block; width:150px">
+                                    <span style="margin:5px">@</span>
+                                    <input type="text" class="form-control" name="modal_email2" placeholder="도메인" maxlength="20" style="display:inline-block; width:150px">
+                                    <select class="emailSelect form-control" onchange="fnEmailSelect(this.value)" style="display:inline-block; width:150px; margin-left:5px; background:#f9f9f9;"><option value="직접입력">직접입력</option><option value="naver.com">naver.com</option><option value="hanmail.net">hanmail.net</option><option value="gmail.com">gmail.com</option><option value="nate.com">nate.com</option><option value="hotmail.com">hotmail.com</option></select>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-center" style="color:red;font-weight: bold"> ※ 비밀번호 : ID를 제외한 특수문자 / 문자 / 숫자 포함 형태의
+                        9자리 이상의 암호로 생성 </p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnGoUpdateModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+    <!-- <script type="text/javascript">
+        $(function () {
+            3
+            $(".content-header h1").append("(양방향보안등관제시스템 - 강북구)");
+            
+            
+            
+
+        });
+    </script> -->
+
+    <!-- content -->
+    <div class="content-wrapper" style="min-height: 785px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>서비스 열람(양방향보안등관제시스템 - 강북구)</h1>
+            <div id="content-header-sub" style="display:none;"></div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form role="form" id="aform" method="post">
+                        <input type="hidden" id="trnsmit_server_no" name="trnsmit_server_no" value="36">
+                        <input type="hidden" id="data_no" name="data_no" value="1">
+                        <input type="hidden" id="srvc_nm" name="srvc_nm" value="양방향보안등관제시스템 - 강북구">
+                        
+                        <input type="hidden" id="pageList_currentPage" name="pageList_currentPage" value="1">
+                        <input type="hidden" id="pageList_sch_row_per_page" name="pageList_sch_row_per_page" value="10">
+                        <input type="hidden" id="sch_organ_code" name="sch_organ_code" value="">
+                        <input type="hidden" id="sch_srvc_hrank_code" name="sch_srvc_hrank_code" value="">
+                        <input type="hidden" id="sch_srvc_lrank_code" name="sch_srvc_lrank_code" value="">
+                        <input type="hidden" id="sch_srvc_nm" name="sch_srvc_nm" value="">
+                        <input type="hidden" id="sch_senser_code" name="sch_senser_code" value="">
+                        <input type="hidden" id="sch_srvc_status" name="sch_srvc_status" value="">
+                        <input type="hidden" id="sch_srvc_nm2" name="sch_srvc_nm2" value="">
+                        <input type="hidden" id="sch_row_per_page" name="sch_row_per_page">
+
+                        
+
+						
+
+	 
+	
+		
+	
+
+<table class="table tab-wrap" style="border:0px;"><!-- 20201107 클래스 추가 tab-wrap -->
+    <colgroup>
+        <!-- s:20201107 style 오타수정 -->
+		<col style="width: 25%;">
+		<col style="width: 25%;">
+		<col style="width: 25%;">
+        <col style="width: 25%;">
+        <!-- e:20201107 style 오타수정 -->
+	</colgroup>
+	<tbody>
+		<tr>
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-primary btn-flat btn-lg" btn-primary="" onclick="fnGoTap('/iot/dataservice/selectPage1.do'); return false;">기본 정보</button>
+			</td>
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage2.do'); return false;">설치 정보</button>
+			</td>
+			<td style="padding:0px;" >
+				<button type="button" class="btn btn-block btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage4.do'); return false;">데이터 검색</button>
+			</td>					
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block  btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage3.do'); return false;">데이터 다운로드</button>
+			</td>	
+	
+			
+		</tr>
+	</tbody>
+</table>
+<script>
+
+//페이지 이동
+function fnGoTap(url){
+	$("#aform").attr({
+		action : url,
+		method : 'post'
+	}).submit();
+}
+
+</script>
+
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-fw fa-info-circle"></i>서비스 정보</h3>
+                            </div>
+                            
+                            <div class="box-body no-padding text-left"><!-- 20201107 클래스 추가 : text-left -->
+                                <table class="table table-bordered type02"><!-- 20201107 클래스 추가 : type02 -->
+                                    <colgroup>
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>서비스</th>
+                                        <td colspan="7">양방향보안등관제시스템 - 강북구
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>서비스 상태</th>
+                                        <td>활성
+                                        </td>
+                                        <th>연계 일자</th>
+                                        <td>2020-01-06
+                                        </td>
+                                        <th>누적 데이터 수</th>
+                                        <td class="text-right">
+                                            128,101
+                                        </td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr><th>서비스 분류</th>
+                                    <td colspan="3">산업/경제
+                                        -경제
+                                    </td>
+                                    <th>센서개수</th>
+                                    <td class="text-right">
+                                        984
+                                    </td>
+                                    <th>수신간격(분)</th>
+                                    <td class="text-right">0
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <th>관리기관</th>
+                                        <td colspan="3">강북구
+                                            -도로관리과
+                                        </td>
+                                        <th>담당자</th>
+                                        <td>송관섭
+                                        </td>
+                                        <th>연락처</th>
+                                        <td>02-901-5863
+                                        </td>
+                                    </tr>
+                                    <tr height="100">
+                                        <th>서비스내용</th>
+                                        <td colspan="7">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div><!-- /.box-body -->
+                            <!--<br>--><!-- 20201107 br 삭제 -->
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-fw fa-info-circle"></i>정보 속성</h3>
+                            </div>
+                            
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                        <col style="width: 10%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">전체 길이</th>
+                                        <th class="text-center">필수 길이</th>
+                                        <th class="text-center">데이터 길이</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-center">87
+                                        </td>
+                                        <td class="text-center">23
+                                        </td>
+                                        <td class="text-center">64
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col width="40">
+                                        <col width="*">
+                                        <col width="*">
+                                        <col width="*">
+                                        <col width="*">
+                                        <col width="*">
+                                        <col width="*">
+                                        <col width="*">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">번호</th>
+                                        <th class="text-center">구분</th>
+                                        <th class="text-center">명칭</th>
+                                        <th class="text-center">길이</th>
+                                        <th class="text-center">단위</th>
+                                        <th class="text-center">범주</th>
+                                        <th class="text-center">설명</th>
+                                        <th class="text-center">공개구분</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    <tr>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">헤더
+                                        </td>
+                                        <td class="text-center">모델명
+                                        </td>
+                                        <td class="text-center">8
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>모델명
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">헤더
+                                        </td>
+                                        <td class="text-center">시리얼
+                                        </td>
+                                        <td class="text-center">15
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>시리얼
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">접속간격
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>060~240
+                                        </td>
+                                        <td>접속간격
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">4
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">수동유지
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>00~30
+                                        </td>
+                                        <td>수동유지시간
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">5
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">지역ID
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0~G
+                                        </td>
+                                        <td>전국 지역구분값
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">6
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center"> 점등편차
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>-79~+79
+                                        </td>
+                                        <td>점등편차
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">7
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center"> 소등편차
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>-79~+79
+                                        </td>
+                                        <td>소등편차
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">8
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">심야소등시작시간
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>XX,00~23
+                                        </td>
+                                        <td>심야소등시작시간
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">9
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">심야소등시작분
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>00~59
+                                        </td>
+                                        <td>심야소등시작분
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">10
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">심야소등해제시간
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>00~23
+                                        </td>
+                                        <td>심야소등해제시간
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">11
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">심야소등해제분
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">분
+                                        </td>
+                                        <td>00~59
+                                        </td>
+                                        <td>심야소등해제분
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">12
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">심야소등적용기간
+                                        </td>
+                                        <td class="text-center">8
+                                        </td>
+                                        <td class="text-center">월일월일
+                                        </td>
+                                        <td>01010101~12311231
+                                        </td>
+                                        <td>심야소등적용기간
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">13
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍시 1
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>XX,00~23
+                                        </td>
+                                        <td>디밍시 1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">14
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍분 1
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>00~59
+                                        </td>
+                                        <td>디밍분 1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">15
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍값 1
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">%
+                                        </td>
+                                        <td>0~100
+                                        </td>
+                                        <td>디밍값 1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">16
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍시 2
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>XX,00~23
+                                        </td>
+                                        <td>디밍시 2
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">17
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍분 2
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>00~59
+                                        </td>
+                                        <td>디밍분 2
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">18
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍값 2
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">%
+                                        </td>
+                                        <td>0~100
+                                        </td>
+                                        <td>디밍값 2
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">19
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍시 3
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>XX,00~23
+                                        </td>
+                                        <td>디밍시 3
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">20
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍분 3
+                                        </td>
+                                        <td class="text-center">2
+                                        </td>
+                                        <td class="text-center">시
+                                        </td>
+                                        <td>00~59
+                                        </td>
+                                        <td>디밍분 3
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">21
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">디밍값 3
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">%
+                                        </td>
+                                        <td>0~100
+                                        </td>
+                                        <td>디밍값 3
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">22
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">현재디밍값
+                                        </td>
+                                        <td class="text-center">3
+                                        </td>
+                                        <td class="text-center">%
+                                        </td>
+                                        <td>0~100
+                                        </td>
+                                        <td>현재디밍값
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">23
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">현재전력값
+                                        </td>
+                                        <td class="text-center">5
+                                        </td>
+                                        <td class="text-center">W
+                                        </td>
+                                        <td>0~65536
+                                        </td>
+                                        <td>현재전력값
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">24
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">램프고장
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(정상)/1(고장)
+                                        </td>
+                                        <td>램프고장
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">25
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">이상점등
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(정상)/1(고장)
+                                        </td>
+                                        <td>이상점등
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">26
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">누전발생
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(정상)/1(고장)
+                                        </td>
+                                        <td>누전발생
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">27
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">안정기고장
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(정상)/1(고장)
+                                        </td>
+                                        <td>안정기고장
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">28
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">깜빡거림
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(정상)/1(고장)
+                                        </td>
+                                        <td>깜빡거림
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">29
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">점소등상태
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(소등)/1(점등)
+                                        </td>
+                                        <td>점소등상태
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">30
+                                        </td>
+                                        <td class="text-center">테일
+                                        </td>
+                                        <td class="text-center">수동/강제상태
+                                        </td>
+                                        <td class="text-center">1
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                        <td>0(수동)/1(강제)/2(일반)
+                                        </td>
+                                        <td>수동/강제상태
+                                        </td>
+                                        <td class="text-center">
+                                        </td>
+                                    </tr>
+                                    
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix no-pad-top">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default" onclick="fnList(); return false;"><i class="fa fa-reply"></i> 목록
+                                    </button>
+                                    <button type="button" class="btn btn-info" onclick="fnExceldownload(); return false;"><i class="fa fa-file-excel-o"></i> 기본 정보 엑셀 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.box -->
+                    </form>
+                </div>
+                <!--  /.col-xs-12 -->
+            </div>
+            <!-- ./row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- footer -->
+    
+<!-- start : footer -->
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<!-- end : footer -->
+
+<!-- start: wrap -->
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://192.168.10.167:8080//common/images/common/code_loading.gif"></div>
+</div>
+<!-- end : wrap -->
+    <!-- //fooer -->
+</div>
+
+
+
+
+</body></html>

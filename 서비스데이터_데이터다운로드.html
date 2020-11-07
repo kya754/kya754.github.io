@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="http://54.180.82.63:8080/common/images/favicon.png">
+    <title>IoT도시데이터시스템
+    </title>
+
+<!-- css, js 주석처리 된 부분은 삭제 -->
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap.js"></script> -->
+
+<!-- <link href="http://54.180.82.63:8080/common/css/bootstrap/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen"> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/moment-with-locales.min.js"></script> -->
+<!-- <script type="text/javascript" src="http://54.180.82.63:8080/common/js/bootstrap/bootstrap-datetimepicker.min.js"></script> -->
+
+<!-- AdminLTE Setup -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/font-awesome.min.css"> -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/ionicons.min.css">
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/AdminLTE.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/AdminLTE/skin-blue-light.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/common.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/bootstrap/morris.css"> -->
+<!-- <link rel="stylesheet" href="http://54.180.82.63:8080/common/css/custom-layout.css"> -->
+<link rel="stylesheet" href="http://54.180.82.63:8080/common/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen">
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+
+<!-- new css link -->
+<link rel="stylesheet" href="/common/css/font.css">
+<link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" href="/common/css/reset.css">
+<link rel="stylesheet" href="/common/css/layout.css">
+<link rel="stylesheet" href="/common/css/renewal.css">
+
+<!-- new js link -->
+<script src="/common/js/jquery.scrollbar.min.js"></script>
+<script src="/common/js/layout.js"></script>
+
+<!-- <script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script> -->
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+            $("#currentPage").val("1");
+            // datepick 한글 셋팅 common.js
+            settingdatepickerko();
+
+            $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+            $("button:button[name=btn_dwnload]").prop("disabled", true);
+
+            // 공개 볌위 변경시 조회
+            $("#sch_public_yn").change(function () {
+                fnSearch();
+            });
+            // 목록 수 셀렉트 박스 변경시 조회
+            $("#sch_row_per_page").change(function () {
+                fnSearch();
+            });
+
+            $('[name=sch_start_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                changeYear: true,
+                changeMonth: true
+            });
+            $('[name=sch_end_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                changeYear: true,
+                changeMonth: true
+            });
+
+            $("input:checkbox[name=agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                } else {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                }
+            });
+            $("input:checkbox[name=dis_agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=dis_agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                } else {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                }
+            });
+        });
+
+
+        // 페이지 이동
+        function fnGoPage(currentPage) {
+            $("#currentPage").val(currentPage);
+            $("#aform").attr({action: "/iot/dataservice/selectPage3.do", method: 'post'}).submit();
+        }
+
+        // 검색
+        function fnSearch() {
+            $("#currentPage").val("1");
+            $("#aform").attr({action: "/iot/dataservice/selectPage3.do", method: 'post'}).submit();
+        }
+
+        // 목록으로 이동
+        function fnList() {
+            if ($("#currentPage").val() == null) {
+                var hiddenHtml = "";
+                hiddenHtml += '<input type="hidden" id="currentPage" name="currentPage" />';
+                $('#aform').append(hiddenHtml);
+            }
+
+            $("#currentPage").val($("#pageList_currentPage").val());
+            $("#sch_row_per_page").val($("#pageList_sch_row_per_page").val());
+            $("#aform").attr({action: "/iot/dataservice/selectPageListDataSrvc.do", method: 'post'}).submit();
+        }
+
+        // 파일 다운로드
+        function fnDownload() {
+            if (confirm("파일을 다운로드하시겠습니까?")) {
+                $('#aform').attr({'action': 'http://54.180.82.63:8080/common/file/DumpFileDown.do'}).submit();
+            }
+        }
+
+        //]]>
+    </script>
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+    
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#topMenuWrap li").on("click", function () {
+            $("#topMenuWrap li").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        
+        $(".content-header h1").html("서비스별 열람");
+        
+
+        var emailList = ["직접입력", "naver.com", "hanmail.net", "gmail.com", , "nate.com", "hotmail.com"];
+        var str = "";
+        for (var i in emailList) {
+            str += '<option value="' + emailList[i] + '">' + emailList[i] + '</option>';
+        }
+        $(".emailSelect").html(str);
+
+        //비밀번호 수정 checkBox 이벤트
+        $("#modal_change_password_YN").change(function () {
+            if ($("#modal_change_password_YN").is(":checked")) {
+                $("[name = modal_password]").show();
+                $("[name = modal_password_check]").show();
+            } else {
+                $("[name = modal_password]").hide();
+                $("[name = modal_password_check]").hide();
+                $("[name = modal_password]").val("");
+                $("[name = modal_password_check]").val("");
+            }
+        });
+
+        $("#myPwCheckModal").on("show.bs.modal", function (e) {
+            $("[name = modal_password_original]").val("");
+        });
+
+    });
+
+    // 기존 비밀번호 확인
+    function fnCkeckPasswordModal() {
+        if ($("[name = modal_password_original]").val() == "") {
+            alert("기존 비밀번호를 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: '/admin/user/selectUserMgtAjax.do',
+            data: {
+                'user_no': '9',
+                'pwd': $("[name = modal_password_original]").val()
+            },
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+                if (response.resultStats.resultCode == "error") {
+                    alert(response.resultStats.resultMsg);
+                    return;
+                } else {
+                    // 기존 비밀번호 확인 모달창 닫기
+                    $('#myPwCheckModal').modal('hide');
+
+                    // 나의 정보 모달창 열기
+                    $('#myInfoModal').modal('show');
+
+                    // 연락처 구분
+                    var cttpcSeComboStr = getComboStr(response.cttpcSeComboStr, 'CODE', 'CODE_NM', response.resultMap.CTTPC_SE_CODE, '');
+                    $('[name=modal_cttpc_se_code]').html(cttpcSeComboStr);
+
+                    // 데이터 셋팅
+                    $('#myInfoModal .user_id').val(response.resultMap.USER_ID);
+                    $('#myInfoModal [name=modal_user_nm]').val(response.resultMap.USER_NM);
+                    $('#myInfoModal [name=modal_organ_code]').val(response.resultMap.ORGAN_NM);
+                    var email = response.resultMap.EMAIL;
+                    if (email != null) {
+                        email = email.split('@');
+                        $('#myInfoModal [name=modal_email1]').val(email[0]);
+                        $('#myInfoModal [name=modal_email2]').val(email[1]);
+                    }
+                    var cttpc = response.resultMap.CTTPC;
+                    if (cttpc != null) {
+                        cttpc = cttpc.split('-');
+                        $('#myInfoModal [name=modal_cttpc1]').val(cttpc[0]);
+                        $('#myInfoModal [name=modal_cttpc2]').val(cttpc[1]);
+                        $('#myInfoModal [name=modal_cttpc3]').val(cttpc[2]);
+                    }
+                }
+            },
+        });
+    }
+
+
+    // 수정
+    function fnGoUpdateModal() {
+
+        if ($("#modal_change_password_YN").is(":checked")) {
+            if ($("[name=modal_password]").val() == "") {
+                alert("비밀번호를 입력해 주세요.");
+                $("[name=modal_password]").focus();
+                return;
+            }
+
+            if ($("[name=modal_password]").val() != $("[name=modal_password_check]").val()) {
+                alert("비밀번호가 일치하지 않습니다.");
+                $("[name=modal_password_check]").focus();
+                return;
+            }
+        }
+
+        if ($("[name=modal_cttpc1]").val() != "" && $("[name=modal_cttpc2]").val() != "" && $("[name=modal_cttpc3]").val() != "") {
+            var cttpc = $("[name=modal_cttpc1]").val() + "-" + $("[name=modal_cttpc2]").val() + "-" + $("[name=modal_cttpc3]").val();
+            $("[name=modal_cttpc]").val(cttpc);
+        }
+        if ($("[name=modal_email1]").val() != "" && $("[name=modal_email2]").val() != "") {
+            $("[name=modal_email]").val($("[name=modal_email1]").val() + "@" + $("[name=modal_email2]").val());
+        }
+
+        // 비밀번호 유효성 검사
+        var pw_passed = true;
+
+        var pw = $("[name=modal_password]").val(); //비밀번호
+        var pw2 = $("[name=modal_password_check]").val(); // 확인 비밀번호
+        var id = $('#myInfoModal .user_id').val(); // 아이디
+
+        pw_passed = true;
+
+        var pattern1 = /[0-9]/;
+        var pattern2 = /[a-zA-Z]/;
+        var pattern3 = /[~!@#$%<>^&*]/;     // 원하는 특수문자 추가 제거
+
+        if (!pattern1.test(pw) || !pattern2.test(pw) || !pattern3.test(pw) || pw.length < 9 || pw.length > 50) {
+            alert("영문+숫자+특수기호 9자리 이상으로 구성하여야 합니다.");
+            return;
+        }
+
+        if (pw.indexOf(id) > -1) {
+            alert("비밀번호는 ID를 포함할 수 없습니다.");
+            return;
+        }
+
+        var samePass_0 = 0; //동일문자 카운트
+        var samePass_1 = 0; //연속성(+) 카운드
+        var samePass_2 = 0; //연속성(-) 카운드
+
+        for (var i = 0; i < pw.length; i++) {
+            var chr_pass_0;
+            var chr_pass_1;
+            var chr_pass_2;
+
+            if (i >= 2) {
+                chr_pass_0 = pw.charCodeAt(i - 2);
+                chr_pass_1 = pw.charCodeAt(i - 1);
+                chr_pass_2 = pw.charCodeAt(i);
+                //동일문자 카운트
+                if ((chr_pass_0 == chr_pass_1) && (chr_pass_1 == chr_pass_2)) {
+                    samePass_0++;
+                } else {
+                    samePass_0 = 0;
+                }
+                //연속성(+) 카운드
+                if (chr_pass_0 - chr_pass_1 == 1 && chr_pass_1 - chr_pass_2 == 1) {
+                    samePass_1++;
+                } else {
+                    samePass_1 = 0;
+                }
+                //연속성(-) 카운드
+                if (chr_pass_0 - chr_pass_1 == -1 && chr_pass_1 - chr_pass_2 == -1) {
+                    samePass_2++;
+                } else {
+                    samePass_2 = 0;
+                }
+            }
+
+            if (samePass_0 > 0) {
+                alert("동일문자를 3자 이상 연속 입력할 수 없습니다.");
+                return;
+            }
+
+            if (samePass_1 > 0 || samePass_2 > 0) {
+                alert("영문, 숫자는 3자 이상 연속 입력할 수 없습니다.");
+                return;
+            }
+        }
+
+        if (confirm("수정하시겠습니까?")) {
+            // 회원정보 가지고 온다.
+            $.ajax({
+                url: '/admin/user/updateUserMgtAjax.do',
+                data: $('#modalInfo').serialize(),
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.resultStats.resultCode == "error") {
+                        alert(response.resultStats.resultMsg);
+                        return;
+                    }
+
+                    alert('수정 하였습니다.');
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    function fnClickMenuBtn(that) {
+        // 	$("[data-toggle='offcanvas']").click();
+
+        var screenSizes = $.AdminLTE.options.screenSizes;
+        if (!$(that).parent().hasClass("open")) {
+            //Enable sidebar push menu
+            if ($(window).width() > (screenSizes.sm - 1)) {
+                if ($("body").hasClass('sidebar-collapse')) {
+// 				$("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
+                } else {
+                    $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
+                }
+            }
+            //Handle sidebar push menu for small screens
+            else {
+                if ($("body").hasClass('sidebar-open')) {
+// 				$("body").removeClass('sidebar-open').removeClass('sidebar-collapse').trigger('collapsed.pushMenu');
+                } else {
+                    $("body").addClass('sidebar-open').trigger('expanded.pushMenu');
+                }
+            }
+
+        }
+
+    }
+
+    function fnEmailSelect(v) {
+        if (v == '직접입력') $('[name=modal_email2]').val("");
+        else $('[name=modal_email2]').val(v);
+    }
+
+</script>
+
+<!-- start : header -->
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="#">
+                <img src="http://54.180.82.63:8080/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="#" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix">
+                <li class="depth-wrap category-data">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="data-icon" aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">센서 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">서비스 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">데이터 수집 현황</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-tool">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="visual-icon" aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">데이터 시각화</a>
+                            </li>
+                            <li>
+                                <a href="#">분석 프로세스</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-community">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="community-icon" aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">시각화 그래프 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">분석리포트 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">외부 데이터 공유</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-my">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="mypage-icon" aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">검색 히스토리</a>
+                            </li>
+                            <li>
+                                <a href="#">스크랩</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 시각화 그래프</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 분석 리포트</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 외부 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">회원정보 관리</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-info">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="info-icon" aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">IoT 도시데이터 소개</a>
+                            </li>
+                            <li>
+                                <a href="#">주요서비스</a>
+                            </li>
+                            <li>
+                                <a href="#">자주 하는 질문</a>
+                            </li>
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-admin">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em class="admin-icon" aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                    <div class="depth2-wrap clfix">
+                        <!-- 서비스 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">서비스 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 정보 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 수신 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 담당자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">SMS 수신 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 시스템 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">시스템 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">공공데이터 이용 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 개방 현황</a>
+                                </li>
+                                <li>
+                                    <a href="#">시스템 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">메뉴관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">페이지뷰</a>
+                                </li>
+                                <li>
+                                    <a href="#">접속이력</a>
+                                </li>
+                                <li>
+                                    <a href="#">계정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한별 메뉴관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 개발자 도구 -->
+                        <div class="depth2-list">
+                            <p class="title">개발자 도구</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">API 인증키 운영 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">코드 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수동 파싱</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 공개 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                <em class="icon-label">3</em>
+            </a>
+            <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                <em class="icon-label">5</em>
+            </a>
+        </div>
+        <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+        <div class="user-popup">
+            <p class="user-name"><span>김서울</span>&nbsp;님</p>
+            <ul>
+                <li><a href="#">나의 정보 보기</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="#">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end : header -->
+
+<!-- 
+<div class="modal fade" id="myPwCheckModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:30%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">비밀번호 확인</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalPwInfo" action="" method="post">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>기존 비밀번호</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" class="form-control" name="modal_password_original" maxlength="100" placeholder="기존 비밀번호" onkeydown="if(event.keyCode==13){fnCkeckPasswordModal(); return false;}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnCkeckPasswordModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- 나의정보 수정창 -->
+<!-- <div class="modal fade" id="myInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">나의 정보</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalInfo" action="/admin/user/updateUserMgtAjax.do" method="post">
+                    <input type="hidden" id="modal_cttpc" name="modal_cttpc">
+                    <input type="hidden" id="modal_email" name="modal_email">
+
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                            <col style="width:15%;">
+                            <col style="width:35%;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>사용자ID</th>
+                            <td>
+                                <input type="text" class="form-control user_id" disabled="disabled">
+                            </td>
+                            <th>비밀번호</th>
+                            <td>
+                                <label><input type="checkbox" id="modal_change_password_YN" name="modal_change_password_YN" value="Y">수정</label>
+                                <input type="password" class="form-control" name="modal_password" maxlength="100" placeholder="변경 비밀번호" style="display:none;">
+                                <input type="password" class="form-control" name="modal_password_check" maxlength="100" placeholder="변경 비밀번호 확인" style="display:none;margin-top:10px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_user_nm" placeholder="이름" disabled="disabled">
+                            </td>
+                            <th>기관</th>
+                            <td>
+                                <input type="text" class="form-control" name="modal_organ_code" placeholder="조직" disabled="disabled">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td colspan="3" class="cttpc">
+                                <div class="form-inline">
+                                    <select class="form-control" name="modal_cttpc_se_code" style="width:80px; background:#f9f9f9; margin-right:15px;">
+                                    </select>
+                                    <div class="form-group" style="text-align:left">
+                                        <input type="text" name="modal_cttpc1" class="form-control numeric" maxlength="3" title="전화번호 첫번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc2" class="form-control numeric" maxlength="4" title="전화번호 두번째 입력칸입니다" style="width:80px;">
+                                        <span style="margin:5px">-</span>
+                                        <input type="text" name="modal_cttpc3" class="form-control numeric" maxlength="4" title="전화번호 세번째 입력칸입니다" style="width:80px;">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td colspan="3">
+                                <div class="form-group" style="text-align:left">
+                                    <input type="text" class="form-control" name="modal_email1" placeholder="이메일" maxlength="20" style="display:inline-block; width:150px">
+                                    <span style="margin:5px">@</span>
+                                    <input type="text" class="form-control" name="modal_email2" placeholder="도메인" maxlength="20" style="display:inline-block; width:150px">
+                                    <select class="emailSelect form-control" onchange="fnEmailSelect(this.value)" style="display:inline-block; width:150px; margin-left:5px; background:#f9f9f9;"><option value="직접입력">직접입력</option><option value="naver.com">naver.com</option><option value="hanmail.net">hanmail.net</option><option value="gmail.com">gmail.com</option><option value="nate.com">nate.com</option><option value="hotmail.com">hotmail.com</option></select>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-center" style="color:red;font-weight: bold"> ※ 비밀번호 : ID를 제외한 특수문자 / 문자 / 숫자 포함 형태의
+                        9자리 이상의 암호로 생성 </p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-reply"></i> 취소
+                </button>
+                <button type="button" class="btn btn-info" onclick="fnGoUpdateModal(); return false;"><i class="fa fa-pencil"></i> 확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+    <script type="text/javascript">
+        $(function () {
+            $(".content-header h1").append("(양방향보안등관제시스템 - 강북구)");
+        });
+    </script>
+
+    <!-- content -->
+    <div class="content-wrapper" style="min-height: 785px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>서비스별 열람(양방향보안등관제시스템 - 강북구)</h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form role="form" id="aform" method="post" action="iot/dataservice/selectPage3.do">
+                        <input type="hidden" id="trnsmit_server_no" name="trnsmit_server_no" value="36">
+                        <input type="hidden" id="data_no" name="data_no" value="1">
+                        <input type="hidden" id="srvc_nm" name="srvc_nm" value="양방향보안등관제시스템 - 강북구">
+                        
+                        <input type="hidden" id="pageList_currentPage" name="pageList_currentPage" value="1">
+                        <input type="hidden" id="pageList_sch_row_per_page" name="pageList_sch_row_per_page" value="10">
+                        <input type="hidden" id="sch_organ_code" name="sch_organ_code" value="">
+                        <input type="hidden" id="sch_srvc_hrank_code" name="sch_srvc_hrank_code" value="">
+                        <input type="hidden" id="sch_srvc_lrank_code" name="sch_srvc_lrank_code" value="">
+                        <input type="hidden" id="sch_srvc_nm" name="sch_srvc_nm" value="">
+                        <input type="hidden" id="sch_senser_code" name="sch_senser_code" value="">
+                        <input type="hidden" id="sch_srvc_status" name="sch_srvc_status" value="">
+                        <input type="hidden" id="sch_srvc_nm2" name="sch_srvc_nm2" value="">
+
+                        
+
+						
+
+	 
+	
+		
+	
+
+<table class="table tab-wrap" style="border:0px;"><!-- 20201107 클래스 추가 tab-wrap -->
+	<colgroup>
+		<!-- s:20201107 style 오타수정 -->
+		<col style="width: 25%;">
+		<col style="width: 25%;">
+		<col style="width: 25%;">
+        <col style="width: 25%;">
+        <!-- e:20201107 style 오타수정 -->
+	</colgroup>
+	<tbody>
+		<tr>
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage1.do'); return false;">기본 정보</button>
+			</td>
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage2.do'); return false;">설치 정보</button>
+			</td>
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-default btn-flat btn-lg" btn-default="" onclick="fnGoTap('/iot/dataservice/selectPage4.do'); return false;">데이터 검색</button>
+			</td>					
+
+	
+			<td style="padding:0px;">
+				<button type="button" class="btn btn-block btn-primary btn-flat btn-lg" btn-primary="" onclick="fnGoTap('/iot/dataservice/selectPage3.do'); return false;">데이터 다운로드</button>
+			</td>	
+	
+			
+		</tr>
+	</tbody>
+</table>
+<script>
+
+//페이지 이동
+function fnGoTap(url){
+	$("#aform").attr({
+		action : url,
+		method : 'post'
+	}).submit();
+}
+
+</script>
+
+                        <div class="box box-primary download-search"><!-- 20201107 클래스 추가 : download-search -->
+                            <div class="box-header">
+                                <div class="text-right form-inline">
+                                    <!--날자 검색-->
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-sm" id="sch_start_ymd"
+                                               name="sch_start_ymd" placeholder="검색 시작일"
+                                               value="2020.11.06"/> -
+                                        <input type="text" class="form-control input-sm" id="sch_end_ymd"
+                                               name="sch_end_ymd" placeholder="검색 종료일"
+                                               value="2020.11.06"/>
+                                    </div>
+                                    
+                                    <!--공개 범위-->
+                                    <div class="form-group">
+                                        <select id="sch_public_yn" name="sch_public_yn" class="form-control input-sm">
+                                            <option value="">공개 범위</option><option value="I">전체 데이터</option><option value="N">공개 데이터</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!--파일 명 검색-->
+                                    <div class="form-group">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control input-sm" id="sch_file_nm" name="sch_file_nm" placeholder="파일 명 직접 입력" onkeydown="if(event.keyCode==13){fnSearch(); return false;}" value="">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col style="width:5%;">
+                                        <col style="width:*;">
+                                        <col style="width:10%;">
+                                        <col style="width:10%;">
+                                        <col style="width:10%;">
+                                        <col style="width:15%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">번호</th>
+                                        <th class="text-center">파일 명</th>
+                                        <th class="text-center">파일 크기</th>
+                                        <th class="text-center">데이터 기준일</th>
+                                        <th class="text-center">파일 공개 범위</th>
+                                        <th class="text-center">생성 일시</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    
+                                        
+                                            <tr><td class="text-center" colspan="6">조회된 결과가 없습니다.</td>
+                                        
+                                        
+                                    
+                                    </tr></tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix text-center">
+                                <div class="pull-left form-inline">
+                                    <!-- Row Per Page --> <!-- 20201107 텍스트 삭제 -->
+                                    <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
+                                        <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="box-footer box-agree clearfix text-right"><!-- 20201107 클래스 추가 : box-agree -->
+                                <div class="pull-right">
+                                    ※ 제공되는 데이터는 내부업무의 연구, 분석 용도로만 활용 가능하며, 목적 달성 후 즉시 파기해 주시고
+                                    <br>또한, 본인의 부주의로 인해 외부 등에 공개되어 발생하는 민·형사상 책임은 본인에게 있습니다.
+                                    <br>
+                                    <input type="checkbox" id="agre_chkbx" name="agre_chkbx">
+                                    <label for="agre_chkbx">동의합니다</label><!-- 20201107 텍스트 수정 : 동의합니다 -->
+                                    <!-- s: 20201107 삭제 -->
+                                    <!-- /
+                                    <input type="checkbox" id="dis_agre_chkbx" name="dis_agre_chkbx">
+                                    <label for="dis_agre_chkbx">비동의</label>
+                                    (선택 시 데이터 이용불가) -->
+                                    <!-- e: 20201107 삭제 -->
+                                </div>
+                            </div>
+                            <div class="box-footer clearfix no-pad-top">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default" onclick="fnList(); return false;"><i class="fa fa-reply"></i> 목록
+                                    </button>
+                                    <button type="button" name="btn_dwnload" class="btn btn-info" onclick="fnDownload(); return false;" disabled=""><i class="fa fa-file-excel-o"></i> 파일
+                                        다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.box -->
+                    </form>
+                </div>
+                <!--  /.col-xs-12 -->
+            </div>
+            <!-- ./row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- footer -->
+    
+<!-- start : footer -->
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<!-- end : footer -->
+
+<!-- start: wrap -->
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://54.180.82.63:8080/common/code_loading.gif"></div>
+</div>
+<!-- end : wrap -->
+    <!-- //fooer -->
+</div>
+
+
+
+
+</html>
