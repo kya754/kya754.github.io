@@ -1,14 +1,10 @@
-
-
 $(document).ready(function(){
-    
+
     // 커스텀 스크롤바
     $('.table-responsive').addClass('scrollbar-outer');
 
-    jQuery(document).ready(function(){
-        jQuery('.scrollbar-outer').scrollbar();
-    });
-
+    jQuery('.scrollbar-outer').scrollbar();
+    jQuery('.scrollbar-inner').scrollbar();
     
 
     // //header 가로스크롤

@@ -55,6 +55,36 @@ input[type="checkbox"]:checked + label {
     color: #3f3f3f;
 }
 
+/* map popup */
+.leaflet-popup-content-wrapper {
+    border-radius: 0 !important;
+}
+
+.leaflet-popup-content {
+    font-size: 14px;
+}
+
+.tooltip_col {display: inline-block; color: #426aff}
+.tooltip_col b {color: #426aff}
+
+.leaflet-popup-content {
+    margin: 22px 37px 22px 25px !important;
+}
+
+.leaflet-popup-content p {
+    margin: 0 !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    top: 12px !important;
+    right: 25px !important;
+    width: 12px !important;
+    height: 12px !important;
+    font-size: 0 !important;
+    padding: 0 !important;
+    background: url('/common/images/btn_close_t.png') no-repeat !important;
+    background-size: contain !important;
+}
 
 /* layout */
 .content-wrapper {
@@ -618,3 +648,129 @@ span[name=toggle-control] {
     left: -24px;
     top: -19px;
 }
+
+/* 시각화 그래프 */
+.visual-tab {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 31px;
+    margin-bottom: 65px;
+}
+.visual-tab .tab {
+    position: relative;
+}
+
+.visual-tab .tab a {
+    display: block;
+    width: 235px;
+    height: 80px;
+    border-radius: 40px;
+    background: #eef2fb;
+}
+
+.visual-tab .tab .txt {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 14px;
+    color: #426aff;
+    padding-left: 86px;
+    padding-top: 29px;
+    display: inline-block;
+}
+
+.visual-tab .tab.on a {
+    background: #426aff;
+}
+.visual-tab .tab.on .txt {
+    color: #fff;
+}
+
+.visual-tab .tab .circle-ico {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    background: #fff;
+    width: 64px;
+    height: 64px;
+    border-radius: 64px;
+}
+
+.visual-tab .tab .circle-ico.step01 {
+    background: #fff url('/common/images/img-step-1.png') center no-repeat;
+}
+.visual-tab .tab .circle-ico.step02 {
+    background: #fff url('/common/images/img-step-2.png') center no-repeat;
+}
+.visual-tab .tab .circle-ico.step03 {
+    background: #fff url('/common/images/img-step-3.png') center no-repeat;
+}
+.visual-tab .tab .circle-ico.step04 {
+    background: #fff url('/common/images/img-step-4.png') center no-repeat;
+}
+
+.visual-tab .tab:after {
+    content:'';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: -28px;
+    width: 13px;
+    height: 13px;
+    transform: translateY(-50%) rotate(45deg);
+    border: 5px solid #aab6c1;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+.visual-tab .tab:last-child:after {
+    display: none;
+}
+
+.sub-txt {
+    font-size: 18px;
+    font-family: 'NotoSansKR-Bold';
+    color: #44474a;
+
+}
+
+.visual .table.tab-wrap {
+    width: auto;
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+
+.step-btn {
+    display: block;
+    margin: 32px auto 0;
+    width: 300px;
+    height: 50px;
+    background: #426aff;
+    text-align: center;
+}
+
+.step-btn span {
+    color: #fff;
+    font-size: 20px;
+    font-family: 'NotoSansKR-Medium';
+    line-height: 49px;
+}
+
+.h286 {
+    height: 286px;
+}
+
+.yscroll-table {
+    border-bottom: 1px solid #c4c6c8;
+}
+
+.yscroll-table table tr:first-child td {
+    border-top: 0;
+}
+.box-body .yscroll-table table {
+    border-bottom: 0;
+}
+
+.yscroll-table table td {
+    box-sizing: content-box;
+}
+

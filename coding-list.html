@@ -6,7 +6,7 @@
     <title>코딩리스트</title>
 </head>
 <style>
-    .wrap {padding: 20px}
+    .wrap {padding: 20px; padding-bottom: 200px;}
     table {width: 100%;}
     th {text-align: left}
     td {border-bottom: 1px solid #ddd; padding-bottom: 20px;}
@@ -24,7 +24,7 @@
                 <col width="40%">
             </colgroup>
             <thead>
-                <th>번호</th>
+                <th>구분</th>
                 <th>페이지명</th>
                 <th>경로</th>
                 <th>진행상황</th>
@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
+                    <td>신규</td>
                     <td>로그인</td>
                     <td><a href="login.html" target="_blank">login.html</a></td>
                     <td style="color:blue">100%</td>
@@ -45,7 +45,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>2</td>
+                    <td>신규</td>
                     <td>메인</td>
                     <td><a href="main.html" target="_blank">main.html</a></td>
                     <td>80%</td>
@@ -64,14 +64,21 @@
                             <li>+ 양쪽 영역 체크박스 버튼, 펼침 버튼 추가 (script 상단에 추가)</li>
                             <li style="color:red">+ body에 클래스 main 추가</li>
                             <br>
+                            <li style="font-weight: bold">20201107 주석처리</li>
+                            <li>+ 커스텀 스크롤 추가</li>
+                            <br>
                             <li style="font-weight: bold">작업예정</li>
-                            <li>- 커스텀 스크롤 추가</li>
                             <li>- 이미지 수급 대기 (맵 커스텀 메뉴 아이콘)</li>
                         </ul>
                     </td>
                 </tr>
                 <tr>
-                    <td>3</td>
+                    <td colspan="5" style="background: gray; font-size: 18px; color: #fff; font-weight: bold;">
+                        서비스 데이터
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
                     <td>서비스 데이터(리스트)</td>
                     <td><a href="서비스데이터_리스트.html" target="_blank">서비스데이터_리스트.html</a></td>
                     <td style="color:blue">100%</td>
@@ -86,7 +93,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>4</td>
+                    <td>기존</td>
                     <td>서비스 데이터(기본정보)</td>
                     <td><a href="서비스데이터_기본정보.html" target="_blank">서비스데이터_기본정보.html</a></td>
                     <td style="color:blue">100%</td>
@@ -98,22 +105,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>5</td>
+                    <td>기존</td>
                     <td>서비스 데이터(설치정보)</td>
                     <td><a href="서비스데이터_설치정보.html" target="_blank">서비스데이터_설치정보.html</a></td>
-                    <td>90%</td>
+                    <td style="color:blue">100%</td>
                     <td>
                         <ul>
                             <li style="font-weight: bold">20201107 주석처리</li>
                             <li>+ 클래스 추가</li>
-                            <br>
-                            <li style="font-weight: bold">작업예정</li>
-                            <li>- 지도 툴팁 팝업 추가</li>
                         </ul>
                     </td>
                 </tr>
                 <tr>
-                    <td>5</td>
+                    <td>기존</td>
                     <td>서비스 데이터(데이터검색)</td>
                     <td><a href="서비스데이터_데이터검색.html" target="_blank">서비스데이터_데이터검색.html</a></td>
                     <td style="color:blue">100%</td>
@@ -125,7 +129,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>6</td>
+                    <td>기존</td>
                     <td>서비스 데이터(데이터검색)</td>
                     <td><a href="서비스데이터_데이터다운로드.html" target="_blank">서비스데이터_데이터다운로드.html</a></td>
                     <td style="color:blue">100%</td>
@@ -134,6 +138,43 @@
                             <li style="font-weight: bold">20201107 주석처리</li>
                             <li>+ 클래스 추가</li>
                         </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background: gray; font-size: 18px; color: #fff; font-weight: bold;">
+                        시각화 그래프
+                    </td>
+                </tr>
+                <tr>
+                    <td>신규</td>
+                    <td>시각화 그래프(데이터 선택)</td>
+                    <td><a href="시각화그래프_데이터선택.html" target="_blank">시각화그래프_데이터선택.html</a></td>
+                    <td>0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>신규</td>
+                    <td>시각화 그래프(데이터 확인)</td>
+                    <td><a href="시각화그래프_데이터확인.html" target="_blank">시각화그래프_데이터확인.html</a></td>
+                    <td style="color:blue">100%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>신규</td>
+                    <td>시각화 그래프(시각화 선택)</td>
+                    <td><a href="시각화그래프_시각화선택.html" target="_blank">시각화그래프_시각화선택.html</a></td>
+                    <td>20%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>신규</td>
+                    <td>시각화 그래프(시각화 편집/완성)</td>
+                    <td><a href="시각화그래프_시각화편집완성.html" target="_blank">시각화그래프_시각화편집완성.html</a></td>
+                    <td>0%</td>
+                    <td>
                     </td>
                 </tr>
             </tbody>

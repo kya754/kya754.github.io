@@ -106,7 +106,7 @@
 
 .scrollbar-inner > .scroll-element.scroll-y {
     height: 100%;
-    right: 2px;
+    right: 0;
     top: 0;
     width: 8px;
 }
@@ -118,9 +118,9 @@
 .scrollbar-inner > .scroll-element .scroll-element_outer,
 .scrollbar-inner > .scroll-element .scroll-element_track,
 .scrollbar-inner > .scroll-element .scroll-bar {
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .scrollbar-inner > .scroll-element .scroll-element_track,
@@ -131,7 +131,7 @@
 }
 
 .scrollbar-inner > .scroll-element .scroll-element_track { background-color: #e0e0e0; }
-.scrollbar-inner > .scroll-element .scroll-bar { background-color: #c2c2c2; }
+.scrollbar-inner > .scroll-element .scroll-bar { background-color:#c4c6c8; }
 .scrollbar-inner > .scroll-element:hover .scroll-bar { background-color: #919191; }
 .scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar { background-color: #919191; }
 

@@ -71,8 +71,7 @@ body {
 	/* left: 0; */
 	/* top: 0; */
 	z-index: 5;
-	/* width: 408px; */
-	width : 425px;
+	width: 408px;
 	background:#fff;
 	box-shadow: -2px 0px 6.2px 0.8px rgba(0, 0, 0, 0.22);
 	min-height: calc(100vh - 64px);
@@ -89,8 +88,7 @@ body {
 	background-position: 90% 52%
 }
 #contents .select-form.class01 {
-	/* width: 149px; */
-	width: 160px;
+	width: 149px;
 	float: left;
 }
 #contents .select-form.class02 {
@@ -110,7 +108,7 @@ select.select-form::-ms-expand { display: none; } /* IE 10, 11의 네이티브 �
 
 
 #contents .filter-box .list-wrap .check_list {
-	margin-bottom: 12px;
+	margin-bottom: 10px;
 }
 #contents .filter-box .list-wrap .check_list:last-child {
 	margin-bottom: 0;
@@ -126,14 +124,18 @@ input[class="custom_chk"] + label:before {
 	border: solid 2px #c5caea;
 	background-color: transparent;
 	cursor: pointer;
-	margin-right: 9px;
+	/* margin-right: 9px; */
 	vertical-align: middle;
-	margin-bottom: 3px;
+	/* margin-bottom: 3px; */
+	box-sizing: border-box;
+	position: absolute;
+	left: 0;
+	top: 4.5px;
 }
 input[class="custom_chk"]:checked + label:before {
 	border: solid 2px #426aff;
 	background: #426aff url('/common/images/check-solid.png') center no-repeat;
-	background-size: 70%;
+	background-size: 85%;
 } 
 input[class="custom_chk"] {
 	display: none;
@@ -142,6 +144,9 @@ input[class="custom_chk"] {
 input[class="custom_chk"] + label {
 	color: #808080;
 	font-family: 'NotoSansKR-Medium';
+	position: relative;
+	padding-left: 25px;
+	display: block;
 }
 input[class="custom_chk"]:checked + label {
 	color: #426aff;
@@ -149,7 +154,9 @@ input[class="custom_chk"]:checked + label {
 
 
 
-
+#contents .filter-box .circle-wrap {
+	width: 360px;
+}
 #contents .filter-box .circle-wrap .check_list {
 	width: 60px;
 	text-align: center;
@@ -180,10 +187,12 @@ input[class="custom_chk"]:checked + label {
 	
 }
 
-#contents .filter-box .cont-wrap.y-scroll {
+#contents .filter-box .scroll-wrap {
 	height: 176px;
-	overflow-y: scroll;
+}
 
+.wrapper {
+	height: 886px;
 }
 
 #contents .filter-box .title-wrap .title {
@@ -327,7 +336,7 @@ input[class="circle-type"]:checked + label {
 
 #contents .map-section {
 	float: right;
-	width: calc(100% - 425px);
+	width: calc(100% - 408px);
 	overflow: hidden;
 	/* padding-left: 408px; */
 	background: darkgray;
