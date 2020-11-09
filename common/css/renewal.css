@@ -1,6 +1,11 @@
 @charset "utf-8";
 /********* 기존 페이지 리뉴얼  **********/
 
+button {
+	/* 버튼 초기화 */
+	background: inherit; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+}
+
 /* 공통 */
 .hidden-txt {
 	position:absolute !important;  
@@ -661,7 +666,7 @@ span[name=toggle-control] {
     position: relative;
 }
 
-.visual-tab .tab a {
+.visual-tab .tab .btn {
     display: block;
     width: 235px;
     height: 80px;
@@ -678,7 +683,7 @@ span[name=toggle-control] {
     display: inline-block;
 }
 
-.visual-tab .tab.on a {
+.visual-tab .tab.on .btn {
     background: #426aff;
 }
 .visual-tab .tab.on .txt {
@@ -940,6 +945,46 @@ span[name=toggle-control] {
     transform: translate(-50%, -50%);
     max-width: 215px;
     max-height: 160px;
+}
+
+.step-cont .choice-data {
+    margin-bottom: 40px;
+}
+
+.step-cont .choice-data .box-header {
+    width: calc(196px - 40px);
+    float: left;
+    height: 60px;
+}
+
+.step-cont .choice-data .box-header .box-title {
+    line-height: 60px;
+}
+
+.step-cont .choice-data .box-cont {
+    background: #f0f1f3;
+    width: calc(876px - 48px);
+    float: right;
+    padding: 10px 24px;
+}
+
+.step-cont .choice-data .box-cont .form-control {
+    height: 40px;
+    width: 100%;
+}
+
+.step-cont .choice-data .box-cont {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step-cont .choice-data .box-cont .form-wrap:nth-child(1) {
+    width: 226px;
+    flex-basis: auto;
+}
+.step-cont .choice-data .box-cont .form-wrap:nth-child(2) {
+    width: 586px;
+    flex-basis: auto;
 }
 
 

@@ -9,24 +9,24 @@ $(document).ready(function(){
 
     // //header 가로스크롤
 
-    // main.html 에서만 적용
-    function bodyWidthSet(){
-        $('body.main').css({
-            'width' : window.innerWidth
-        });
+    //main.html 에서만 적용
+    // function bodyWidthSet(){
+    //     $('body.main').css({
+    //         'width' : window.innerWidth
+    //     });
 
-        if($('body.main').width() < 1920) {
-            $('body.main').css({
-                'width' : 1920
-            });
-        }
-    }
+    //     if($('body.main').width() < 1920) {
+    //         $('body.main').css({
+    //             'width' : 1920
+    //         });
+    //     }
+    // }
 
-    bodyWidthSet();
+    // bodyWidthSet();
 
-    $(window).resize(function () {
-        bodyWidthSet();
-    });
+    // $(window).resize(function () {
+    //     bodyWidthSet();
+    // });
 
 
     // header fixed일때 가로스크롤 시 보이게
