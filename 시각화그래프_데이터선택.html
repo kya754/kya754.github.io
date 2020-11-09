@@ -5,6 +5,13 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
     <title>IoT도시데이터시스템</title>
 
+    <script type="text/javascript" src="http://54.180.82.63:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/common/js/common.js"></script><!-- 20201109 : datepicker 관련 셋팅 수정 -->
+
+    <!-- datapicker 관련 소스 -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <!-- new css link -->
     <link rel="stylesheet" href="/common/css/font.css">
     <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
@@ -13,10 +20,66 @@
     <link rel="stylesheet" href="/common/css/renewal.css">
 
     <!-- new js link -->
-    <script src="/common/js/jquery.js"></script>
     <script src="/common/js/jquery.scrollbar.min.js"></script>
     <script src="/common/js/layout.js"></script>
+
+    
 </head>
+<script>
+    // s: 20201109 as-is 버전 datepicker 로 교체
+    $(function () {
+        $("#currentPage").val("1");
+        // datepick 한글 셋팅 common.js
+        settingdatepickerko();
+
+        $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+        $("button:button[name=btn_dwnload]").prop("disabled", true);
+
+        // 공개 볌위 변경시 조회
+        $("#sch_public_yn").change(function () {
+            fnSearch();
+        });
+        // 목록 수 셀렉트 박스 변경시 조회
+        $("#sch_row_per_page").change(function () {
+            fnSearch();
+        });
+
+        $('[name=sch_start_ymd]').datepicker({
+            dateFormat: 'yy.mm.dd',
+            // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+            // changeYear: true,
+            // changeMonth: true
+        });
+        $('[name=sch_end_ymd]').datepicker({
+            dateFormat: 'yy.mm.dd',
+            // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+            // changeYear: true,
+            // changeMonth: true
+        });
+
+        $("input:checkbox[name=agre_chkbx]").change(function () {
+            if ($("input:checkbox[name=agre_chkbx]").is(":checked")) {
+                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                $("button:button[name=btn_dwnload]").prop("disabled", false);
+            } else {
+                $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+                $("button:button[name=btn_dwnload]").prop("disabled", true);
+            }
+        });
+        $("input:checkbox[name=dis_agre_chkbx]").change(function () {
+            if ($("input:checkbox[name=dis_agre_chkbx]").is(":checked")) {
+                $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                $("button:button[name=btn_dwnload]").prop("disabled", true);
+            } else {
+                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                $("input:checkbox[name=agre_chkbx]").prop("checked", true);
+                $("button:button[name=btn_dwnload]").prop("disabled", false);
+            }
+        });
+    });
+    // e: 20201109 as-is 버전 datepicker 로 교체
+</script>
 <body>
     <div class="wrapper">
     
@@ -35,7 +98,7 @@
                 <ul class="gnb-menu clfix">
                     <li class="depth-wrap category-data">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="data-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>데이터</span>
                         </a>
                         <div class="depth2-wrap">
@@ -54,7 +117,7 @@
                     </li>
                     <li class="depth-wrap category-tool">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="visual-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>분석시각화 도구</span>
                         </a>
                         <div class="depth2-wrap">
@@ -70,7 +133,7 @@
                     </li>
                     <li class="depth-wrap category-community">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="community-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>커뮤니티</span>
                         </a>
                         <div class="depth2-wrap">
@@ -89,7 +152,7 @@
                     </li>
                     <li class="depth-wrap category-my">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="mypage-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>마이페이지</span>
                         </a>
                         <div class="depth2-wrap">
@@ -117,7 +180,7 @@
                     </li>
                     <li class="depth-wrap category-info">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="info-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>이용안내</span>
                         </a>
                         <div class="depth2-wrap">
@@ -139,7 +202,7 @@
                     </li>
                     <li class="depth-wrap category-admin">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="admin-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>관리자도구</span>
                         </a>
                         <div class="depth2-wrap clfix">
@@ -246,7 +309,7 @@
     </div>
     <!-- end : header -->
     
-    <div class="content-wrapper">
+    <div class="content-wrapper visual">
         <section class="content-header">
             <h1>시각화 그래프</h1>
             <small>IoT 도시데이터와 외부데이터를 원하는 그래프로 시각화할 수 있습니다.</small>
@@ -254,6 +317,114 @@
 
         <!-- start : Main content -->
         <section class="content">
+            <ul class="visual-tab">
+                <li class="tab on">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step01" aria-hidden="true"></span>
+                        <span class="txt">1. 데이터 선택</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step02" aria-hidden="true"></span>
+                        <span class="txt">2. 데이터 확인</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step03" aria-hidden="true"></span>
+                        <span class="txt">3. 시각화 선택</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step04" aria-hidden="true"></span>
+                        <span class="txt">4.  시각화 편집 / 완성</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="cont-wrap">
+                <h2 class="sub-txt">데이터 선택</h2>
+                <div class="step-cont clfix">
+                    <section class="choice-data">
+                        <ul>
+                            <li class="clfix">
+                                <div class="box-header">
+                                    <h3 class="box-title">필드목록</h3>
+                                </div>
+                                <div class="box-cont">
+                                    <div class="form-group">
+                                        <select id="" name="" class="form-control">
+                                            <option value="">유형</option>
+                                            <option value="">옵션1</option>
+                                            <option value="">옵션2</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="" name="" class="form-control">
+                                            <option value="">선택하세요</option>
+                                            <option value="">옵션1</option>
+                                            <option value="">옵션2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clfix">
+                                <div class="box-header">
+                                    <h3 class="box-title">선택2</h3>
+                                </div>
+                                <div class="box-cont">
+                                    <div class="form-group">
+                                        <select id="" name="" class="form-control">
+                                            <option value="">유형</option>
+                                            <option value="">옵션1</option>
+                                            <option value="">옵션2</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="" name="" class="form-control">
+                                            <option value="">선택하세요</option>
+                                            <option value="">옵션1</option>
+                                            <option value="">옵션2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+                <h2 class="sub-txt">기간 선택</h2>
+                <div class="step-cont clfix">
+                    <section class="choice-period">
+                        <div class="box-cont">
+                            <ul class="clfix">
+                                <li>
+                                    <h2 class="sub-txt">조회 기간 (필수)</h2>
+                                    <!--날짜 검색-->
+                                    <div class="form-group date">
+                                        <input type="text" class="form-control input-sm" id="sch_start_ymd"
+                                            name="sch_start_ymd" placeholder="검색 시작일"
+                                            value="2020.11.06"/> -
+                                        <input type="text" class="form-control input-sm" id="sch_end_ymd"
+                                            name="sch_end_ymd" placeholder="검색 종료일"
+                                            value="2020.11.06"/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="sub-txt">조회 단위 (필수)</h2>
+                                    <div class="form-group">
+                                        <select id="" name="" class="form-control">
+                                            <option value="">유형</option>
+                                            <option value="">옵션1</option>
+                                            <option value="">옵션2</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </section>
         <!-- end : Main content -->
     
@@ -267,5 +438,12 @@
         </div>
     </div>
     <!-- end : footer -->
+
+    <script>
+        $('.graph-choice').children().on('click', function(){
+            $('.graph-choice').children().removeClass('checked');
+            $(this).addClass('checked');
+        });
+    </script>
 </body>
 </html>

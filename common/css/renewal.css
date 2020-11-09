@@ -192,12 +192,12 @@ select.form-control {
     background-position: right 7px top 50%;
 }
 
-/* #sch_start_ymd {
+#sch_start_ymd {
     margin-right: 2px;
 }
 #sch_end_ymd {
     margin-left: 2px;
-} */
+}
 
 
 
@@ -675,11 +675,13 @@ span[name=toggle-control] {
 }
 
 .visual-tab .tab .txt {
+    position: absolute;
+    left: 86px;
+    top: 50%;
+    transform: translateY(-50%);
     font-family: 'NotoSansKR-Medium';
     font-size: 14px;
     color: #426aff;
-    padding-left: 86px;
-    padding-top: 29px;
     display: inline-block;
 }
 
@@ -978,13 +980,57 @@ span[name=toggle-control] {
     justify-content: space-between;
 }
 
-.step-cont .choice-data .box-cont .form-wrap:nth-child(1) {
+.step-cont .choice-data .box-cont .form-group:nth-child(1) {
     width: 226px;
     flex-basis: auto;
 }
-.step-cont .choice-data .box-cont .form-wrap:nth-child(2) {
+.step-cont .choice-data .box-cont .form-group:nth-child(2) {
     width: 586px;
     flex-basis: auto;
 }
+
+.choice-period .box-cont {
+    background: #f0f1f3;
+    padding: 0 24px;
+    height: 60px;
+}
+
+.choice-period .box-cont ul {
+    padding-top : 10px;
+}
+
+.choice-period .box-cont li {
+    float: left;
+}
+
+.choice-period .box-cont li:nth-child(2) {
+    float: right;
+}
+
+.choice-period .box-cont li:nth-child(2) .form-group .form-control {
+    width: 317px;
+}
+
+.choice-period .box-cont .sub-txt {
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+    color: #44474a;
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.choice-period .box-cont .form-group {
+    display: inline-block;
+    vertical-align: middle;
+}
+.choice-period .box-cont .form-control {
+    height: 40px;
+}
+
+.choice-period .form-group.date .form-control {
+    width: 180px;
+}
+
+
 
 

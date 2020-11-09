@@ -19,6 +19,7 @@
     <script src="/common/js/jquery.js"></script>
     <script src="/common/js/jquery.scrollbar.min.js"></script><!-- 20201107 : 커스텀 스크롤바 js 추가 -->
         <!-- datapicker 관련 소스 -->
+    <script src="/common/js/common.js"></script><!-- 20201109 : 추가 / datepicker 관련 셋팅 수정 -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <!-- map 관련 소스 -->
     <script src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=6413fff343724983b9a0c343239f8654"></script>
@@ -67,30 +68,86 @@
             // map.addControl(userBtns);
         }
 
+        // s: 20201109 as-is 버전 datepicker 로 교체
+        $(function () {
+            $("#currentPage").val("1");
+            // datepick 한글 셋팅 common.js
+            settingdatepickerko();
+
+            $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+            $("button:button[name=btn_dwnload]").prop("disabled", true);
+
+            // 공개 볌위 변경시 조회
+            $("#sch_public_yn").change(function () {
+                fnSearch();
+            });
+            // 목록 수 셀렉트 박스 변경시 조회
+            $("#sch_row_per_page").change(function () {
+                fnSearch();
+            });
+
+            $('[name=sch_start_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+                // changeYear: true,
+                // changeMonth: true
+            });
+            $('[name=sch_end_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+                // changeYear: true,
+                // changeMonth: true
+            });
+
+            $("input:checkbox[name=agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                } else {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                }
+            });
+            $("input:checkbox[name=dis_agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=dis_agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                } else {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                }
+            });
+        });
+        // e: 20201109 as-is 버전 datepicker 로 교체
+
         
         $(document).ready(function(){
 
+            //s: 20201109 삭제
             // datepicker
             // datepicker 공통 옵션 설정
-            $.datepicker.setDefaults({
-                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-                monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
-                monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-                yearSuffix: '년',
-                dateFormat: 'yy-mm-dd',
-                showMonthAfterYear:true,
-                constrainInput: true    
-            });
+            // $.datepicker.setDefaults({
+            //     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            //     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+            //     monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            //     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            //     yearSuffix: '년',
+            //     dateFormat: 'yy-mm-dd',
+            //     showMonthAfterYear:true,
+            //     constrainInput: true    
+            // });
 
-            // datepicker 영역 선언
-            $("#sch_start_ymd").datepicker();
-            $("#sch_end_ymd").datepicker();
+            // // datepicker 영역 선언
+            // $("#sch_start_ymd").datepicker();
+            // $("#sch_end_ymd").datepicker();
 
-            // 초기값 설정
-            // (today / -nD: n일전 / +nD: n일후 / -nM: n달전 / +nM: n달후 / -nY: n년전 / +nY: n년후)
-            $("#sch_start_ymd").datepicker('setDate', 'today');
-            $("#sch_end_ymd").datepicker('setDate', '+1D');
+            // // 초기값 설정
+            // // (today / -nD: n일전 / +nD: n일후 / -nM: n달전 / +nM: n달후 / -nY: n년전 / +nY: n년후)
+            // $("#sch_start_ymd").datepicker('setDate', 'today');
+            // $("#sch_end_ymd").datepicker('setDate', '+1D');
+            //e: 20201109 삭제
 
 
 
@@ -192,7 +249,7 @@
                 <ul class="gnb-menu clfix">
                     <li class="depth-wrap category-data">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="data-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>데이터</span>
                         </a>
                         <div class="depth2-wrap">
@@ -211,7 +268,7 @@
                     </li>
                     <li class="depth-wrap category-tool">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="visual-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>분석시각화 도구</span>
                         </a>
                         <div class="depth2-wrap">
@@ -227,7 +284,7 @@
                     </li>
                     <li class="depth-wrap category-community">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="community-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>커뮤니티</span>
                         </a>
                         <div class="depth2-wrap">
@@ -246,7 +303,7 @@
                     </li>
                     <li class="depth-wrap category-my">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="mypage-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>마이페이지</span>
                         </a>
                         <div class="depth2-wrap">
@@ -274,7 +331,7 @@
                     </li>
                     <li class="depth-wrap category-info">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="info-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>이용안내</span>
                         </a>
                         <div class="depth2-wrap">
@@ -296,7 +353,7 @@
                     </li>
                     <li class="depth-wrap category-admin">
                         <a href="javascript:void(0);" class="depth1-menu">
-                            <em class="admin-icon" aria-hidden="true"></em>
+                            <em aria-hidden="true"></em>
                             <span>관리자도구</span>
                         </a>
                         <div class="depth2-wrap clfix">
