@@ -27,7 +27,8 @@ input[type="checkbox"] + label:before {
 	cursor: pointer;
 	margin-right: 9px;
 	vertical-align: middle;
-	margin-bottom: 3px;
+    margin-bottom: 3px;
+    box-sizing: border-box;
 }
 input[type="checkbox"]:checked + label:before {
 	border: solid 2px #426aff;
@@ -773,4 +774,172 @@ span[name=toggle-control] {
 .yscroll-table table td {
     box-sizing: content-box;
 }
+
+.step-cont {
+    margin-top: 24px;
+    padding-top: 11px;
+    border-top: 1px solid #426aff;
+}
+
+.step-cont .box-header {
+    margin-top: 0;
+}
+
+
+.step-cont section.field-box {
+    width: 260px;
+    float: left;
+}
+.step-cont section.recm-box {
+    width: 787px;
+    float: right;
+}
+.step-cont section .box-header {
+    height: 64px;
+}
+.step-cont section .box-header .box-title {
+    display: inline-block;
+    font-family: 'NotoSansKR-Medium';
+    vertical-align: middle;
+    line-height: 64px;
+}
+
+.box-header .box-sub {
+    font-size: 10px;
+    vertical-align: middle;
+    margin-left: 6px;
+    color: #44474a;
+}
+
+.box-header .btn-wrap {
+    float:right;
+    margin-top: 16px;
+}
+
+.box-header .btn-wrap .btn {
+    display: inline-block;
+    width: 120px;
+    height: 32px;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.box-header .btn-wrap .btn span {
+    font-size: 14px;
+    vertical-align: middle;
+}
+.box-header .btn-wrap .btn.save-btn {
+    background: #fff;
+    border: 1px solid #426aff;
+    margin-right: 4px;
+}
+.box-header .btn-wrap .btn.save-btn span {
+    color: #426aff;
+}
+.box-header .btn-wrap .btn.next-btn {
+    background: #426aff;
+}
+.box-header .btn-wrap .btn.next-btn span {
+    color: #fff;
+}
+
+.visual .box-cont .field-table {
+    width: 100%;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+}
+
+.visual .box-cont .field-table td {
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    height: 50px;
+    font-size: 12px;
+    line-height: 49px;
+}
+
+.visual .box-cont .field-table td:nth-child(1) {
+    padding-left: 9px;
+}
+.visual .box-cont .field-table td:nth-child(2),
+.visual .box-cont .field-table td:nth-child(3) {
+    padding-left: 8px;
+}
+.visual .box-cont .field-table td:nth-child(3) select {
+    width: 88px;
+}
+
+.visual .box-cont .field-table input[type="checkbox"] + label:before {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    
+}
+.recm-box .box-cont {
+    position: relative;
+}
+.recm-box .box-cont:before {
+    position: absolute;
+    left: -17px;
+    top: 0;
+    bottom: 0;
+    content: '';
+    display: block;
+    width: 1px;
+    background:#b3b3b3;
+}
+
+.graph-choice li {
+    float: left;
+    width: 255px;
+    height: 200px;
+    margin-right: 11px;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    margin-top: 9px;
+    cursor: pointer;
+    position: relative;
+}
+.graph-choice li:nth-child(-n+3){
+    margin-top: 0;
+} 
+.graph-choice li:nth-child(3n) {
+    margin-right: 0;
+}
+
+.graph-choice li.checked:before {
+    content:'';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.graph-choice li.checked:after {
+    content:'';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    background: #426aff url('/common/images/check-solid.png') center no-repeat;
+    background-size: 28px 23px;
+    border-radius: 76px;
+    z-index: 2;
+}
+
+.graph-choice li img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 215px;
+    max-height: 160px;
+}
+
 

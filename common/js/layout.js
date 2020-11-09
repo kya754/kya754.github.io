@@ -54,7 +54,8 @@ $(document).ready(function(){
             $('.user-popup').show();
             $('.mypage-icon').addClass('on');
         }
-    })
+    });
+
 
 });
 
