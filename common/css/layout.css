@@ -337,4 +337,113 @@ body.main #header {
 #footer .footer-info {float:right; font-size: 12px; line-height: 1;}
 
 
-/* datepicker */
+/* datepicker custom */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 0;
+    background: none;
+    font-weight: normal;
+}
+
+.ui-datepicker th {
+    padding: 5px 0;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+    display: block;
+    padding: 6px 0px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	border: 0;
+	border-radius: 5px;
+    background: #337ab7;
+    color: #fff;
+}
+
+.ui-widget-header {
+    border: 0;
+    background: transparent;
+    color: #222222;
+    font-weight: bold;
+}
+
+.ui-datepicker .ui-datepicker-title, .ui-datepicker-year, .ui-datepicker-month,
+.ui-datepicker-calendar thead th span {
+	font-family: 'NotoSansKR-Bold' !important;
+	font-size: 16px;
+	color: #444;
+}
+
+.ui-datepicker .ui-datepicker-prev span {
+	background: url('/common/images/datepicker_prev.png') no-repeat;
+	background-size: contain;
+}
+.ui-datepicker .ui-datepicker-next span {
+	background: url('/common/images/datepicker_next.png') no-repeat;
+	background-size: contain;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+	left: 0;
+}
+.ui-datepicker .ui-datepicker-next {
+    right: 0;
+}
+
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover,
+.ui-datepicker td:hover {
+	background: #eee;
+	border-radius: 5px;
+	border: 0;
+}
+
+.ui-icon {
+    width: 10px;
+    height: 14px;
+}
+
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+    position: absolute;
+    left: 50%;
+    margin-left: 0;
+    top: 50%;
+	margin-top: 0;
+	transform: translate(-50%, -50%);
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+    position: absolute;
+	top: 5px;
+	border-radius: 5px;
+	top: 3px;
+	width: 42px;
+    height: 31px;
+}
+
+.ui-datepicker-today {
+	position: relative;
+}
+
+
+.ui-datepicker-today a:after {
+	content:'';
+	display: block;
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	width: 0px;
+	height: 0px;
+	border-top: 8px solid transparent;
+	border-right: 8px solid #337ab7;
+}
+
+.ui-datepicker-today a.ui-state-active:after {
+	border-right: 8px solid #fff;
+}
+
+
+
