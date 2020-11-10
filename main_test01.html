@@ -714,7 +714,7 @@
             </div>
             <!-- wrapper 높이 스크립트 처리 필요 -->
             <div class="wrapper scrollbar-inner">
-                <div class="scroll-wrap"><!-- 20201110 클래스 추가 scroll-wrap -->
+                <div class="scroll-wrap"><!-- 20201111 클래스 추가 scroll-wrap -->
                     <div class="title-wrap clfix">
                         <p class="title">미세먼지</p>
                     </div>
@@ -740,7 +740,7 @@
                 <div class="head">
                     <p class="head-ttl">기간별 변동 추이</p>
                 </div>
-                <div class="option-wrap">
+                <div class="option-wrap" style="border-bottom: 1px solid #cfd3d8;">
                     <div class="date-wrap">
                         <dl>
                             <dt>조회기간</dt>
@@ -750,24 +750,26 @@
                             </dd>
                         </dl>
                     </div>
-                    <div class="list-wrap">
-                        <dl>
-                            <dt>지역</dt>
-                            <dd>양천구</dd>
-                        </dl>
-                        <dl>
-                            <dt>서비스</dt>
-                            <dd>도시데이터센서(S-DoT) 측정 데이터,<br>
-                                스마트 가로보안등-양천구,<br>
-                                장애인주차구역 지킴이 서비스
-                            </dd>
-                        </dl>
-                    </div>
                 </div>
             </div>
             <!-- wrapper 높이 스크립트 처리 필요 -->
             <div class="wrapper scrollbar-inner"><!-- 20201107 클래스 추가 : scrollbar-inner -->
-                <div class="scroll-wrap"><!-- 20201110 클래스 추가 scroll-wrap -->
+                <div class="scroll-wrap"><!-- 20201111 클래스 추가 scroll-wrap -->
+                    <div class="option-wrap" style="margin-top: 0;">
+                        <div class="list-wrap" style="border-top: 0;">
+                            <dl>
+                                <dt>지역</dt>
+                                <dd>양천구</dd>
+                            </dl>
+                            <dl>
+                                <dt>서비스</dt>
+                                <dd>도시데이터센서(S-DoT) 측정 데이터,<br>
+                                    스마트 가로보안등-양천구,<br>
+                                    장애인주차구역 지킴이 서비스
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
                     <div class="title-wrap clfix">
                         <p class="title">미세먼지</p>
                     </div>
@@ -787,25 +789,11 @@
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis laborum quisquam autem ab esse vitae id saepe asperiores vero quia nobis tenetur cumque ullam sunt atque cum officiis nesciunt accusantium, et perferendis nihil at quos animi accusamus. Deserunt ratione consequatur soluta natus autem maxime inventore minus quis, quibusdam numquam dignissimos corporis quaerat optio ab quia vitae odio sapiente. Aliquam possimus non iusto quas fugit ea pariatur harum, dicta modi ipsa repellat doloremque soluta aliquid reprehenderit tenetur ut sed dignissimos molestiae dolorem ex amet voluptas cumque magnam! A soluta ab cumque voluptatum numquam neque! Debitis qui incidunt atque, beatae perferendis tempore quos quia perspiciatis suscipit velit nulla excepturi blanditiis officia ratione dolor, at repellendus laborum consectetur ipsa consequuntur neque quam deserunt! Debitis aperiam minus distinctio, tempora nemo eveniet possimus omnis aspernatur laudantium enim beatae sunt impedit fugit. Repellat eveniet laudantium officia excepturi quaerat, nihil reprehenderit odit sed, ipsum recusandae id nesciunt. Quam hic minima expedita officiis, quis repellendus magni quos, nobis ipsum dolorum fugit quod. Voluptates eum at aperiam nisi? Tempore eius facilis enim vel velit deserunt, soluta blanditiis hic neque voluptatem suscipit? Incidunt consequatur nemo quibusdam eos delectus possimus molestias dolorum doloremque excepturi distinctio reiciendis expedita, ex laborum omnis vitae? 끝 </p>
                     </div>
                 </div>
-            </div>
+            </div>            
+            
         </div>
         <!-- end : 기간별 변동 추이 영역 -->
          
-        <!-- 20201110 테스트 -->
-        <script>
-            var _html = '';
-            for (i=0;i<3;i++) {
-                _html += '<div class="title-wrap clfix">';
-                _html += '<p class="title">' + '제목' + '</p>';
-                _html += '</div>';
-                _html += '<div class="cont-wrap">';
-                _html += '<img src="/common/images/img-login-banner.png" style="width:100%">';
-                _html += '</div>';
-            }
-            
-            $('#periodSection > div.wrapper > div.scroll-wrap').html(_html);
-        </script>
-
         
     </div>
     <!-- end : contents -->
