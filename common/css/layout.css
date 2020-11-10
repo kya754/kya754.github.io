@@ -151,22 +151,22 @@ body.main #header {
 #header .depth2-wrap .depth2 a:hover {color:#426aff}
 
 #header .depth-wrap.category-data .depth2-wrap {
-	/* min-width: 136px; */
+	min-width: 136px;
 }
 #header .depth-wrap.category-tool .depth2-wrap {
-	/* min-width: 175px; */
+	min-width: 175px;
 }
 #header .depth-wrap.category-community .depth2-wrap {
-	/* min-width: 140px; */
+	min-width: 140px;
 }
 #header .depth-wrap.category-my .depth2-wrap {
-	/* min-width: 142px; */
+	min-width: 142px;
 }
 #header .depth-wrap.category-info .depth2-wrap {
-	/* min-width: 150px; */
+	min-width: 150px;
 }
 #header .depth-wrap.category-admin .depth2-wrap {
-	/* min-width: 436px; */
+	min-width: 436px;
 	left: -132px;
 }
 

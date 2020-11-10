@@ -756,6 +756,10 @@ span[name=toggle-control] {
     text-align: center;
 }
 
+.step-btn.step01 {
+    margin-top: 40px;
+}
+
 .step-btn span {
     color: #fff;
     font-size: 20px;
@@ -1031,6 +1035,42 @@ span[name=toggle-control] {
     width: 180px;
 }
 
+.data-btn {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: #eef2fb;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.data-btn:last-child {
+    margin-right: 0;
+}
+
+.data-btn.download {
+    background: #eef2fb url('/common/images/ic-list-download.png') center no-repeat;
+}
+.data-btn.bookmark {
+    background: #eef2fb url('/common/images/ic-list-bookmark.png') center no-repeat;
+}
+.data-btn.graph {
+    background: #eef2fb url('/common/images/ic-list-graph.png') center no-repeat;
+}
+
+.data-btn:hover {
+    background: #426aff;
+}
+
+.data-btn:hover.download {
+    background: #426aff url('/common/images/ic-list-download-on.png') center no-repeat;
+}
+.data-btn:hover.bookmark {
+    background: #426aff url('/common/images/ic-list-bookmark-on.png') center no-repeat;
+}
+.data-btn:hover.graph {
+    background: #426aff url('/common/images/ic-list-graph-on.png') center no-repeat;
+}
 
 
 

@@ -862,33 +862,59 @@ function fnGoTap(url){
                             </div><!-- /.box-header -->
                             <div class="box-body table-responsive no-padding">
                                 <table class="table table-bordered">
+                                    <!-- s: 20201110 수정 -->
                                     <colgroup>
-                                        <col style="width:5%;">
                                         <col style="width:*;">
-                                        <col style="width:10%;">
-                                        <col style="width:10%;">
-                                        <col style="width:10%;">
-                                        <col style="width:15%;">
+                                        <col style="width:*;">
+                                        <col style="width:*;">
+                                        <col style="width:*;">
+                                        <col style="width:300px;">
+                                        <col style="width:*;">
+                                        <col style="width:*;">
+                                        <col style="width:*;">
+                                        <col style="width:*;">
+                                        <col style="width:140px;">
                                     </colgroup>
                                     <thead>
                                     <tr>
                                         <th class="text-center">번호</th>
-                                        <th class="text-center">파일 명</th>
-                                        <th class="text-center">파일 크기</th>
-                                        <th class="text-center">데이터 기준일</th>
-                                        <th class="text-center">파일 공개 범위</th>
-                                        <th class="text-center">생성 일시</th>
+                                        <th class="text-center" colspan="2">서비스 분류</th>
+                                        <th class="text-center">기관명</th>
+                                        <th class="text-center">서비스명</th>
+                                        <th class="text-center">센서구분</th>
+                                        <th class="text-center">설치 수</th>
+                                        <th class="text-center">누적 테이터 수</th>
+                                        <th class="text-center">서비스 상태</th>
+                                        <th class="text-center">활용하기</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     
-                                    
-                                        
-                                            <tr><td class="text-center" colspan="6">조회된 결과가 없습니다.</td>
-                                        
-                                        
-                                    
-                                    </tr></tbody>
+                                            <tr><td class="text-center" colspan="10">조회된 결과가 없습니다.</td></tr>
+                                            <tr>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td cbuttonlass="text-center">
+                                                    <button type="button" class="data-btn download">
+                                                        <span class="hidden-txt">다운로드</span>
+                                                    </button>
+                                                    <button type="button" class="data-btn bookmark">
+                                                        <span class="hidden-txt">북마크</span>
+                                                    </button>
+                                                    <button type="button" class="data-btn graph">
+                                                        <span class="hidden-txt">그래프</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                    <!-- e: 20201110 수정 -->
                                 </table>
                             </div><!-- /.box-body -->
                             <div class="box-footer clearfix text-center">
