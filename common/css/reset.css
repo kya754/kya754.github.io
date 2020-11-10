@@ -58,6 +58,15 @@ table {
 	content:''; clear:both; display:block;
 }
 
+button {
+	/* 버튼 초기화 */
+	background: inherit; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+}
+
+button:focus {
+    outline: 0;
+}
+
 /* 아이폰 input 둥근모서리 초기화 */
 input {
    -webkit-appearance: none;
