@@ -420,11 +420,12 @@ input[class="circle-type"]:checked + label {
 
 
 #contents .graph-section .option-wrap {
+	border-top: 1px solid #cfd3d8;
+	border-bottom: 1px solid #cfd3d8;
 	margin-top: 15px;
 }
 
 #contents .graph-section .option-wrap > div {
-	border-top: 1px solid #cfd3d8;
 	padding: 0 24px;
 }
 
@@ -446,6 +447,7 @@ input[class="circle-type"]:checked + label {
 	width: 60px;
 	padding: 0;
 }
+
 
 
 
@@ -480,6 +482,12 @@ input[class="circle-type"]:checked + label {
 #contents .graph-section .option-wrap > div.list-wrap {
 	padding: 16px 24px;
 }
+
+#contents .graph-section .option-wrap.sub {
+	margin-top: 0;
+	border: 0;
+}
+
 
 #contents .graph-section .calendar-input {
 	font-size: 12px;
