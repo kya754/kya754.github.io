@@ -853,6 +853,7 @@ span[name=toggle-control] {
 }
 .box-header .btn-wrap .btn.next-btn span {
     color: #fff;
+    line-height: 1;
 }
 
 .visual .box-cont .field-table {
@@ -1071,6 +1072,213 @@ span[name=toggle-control] {
 .data-btn:hover.graph {
     background: #426aff url('/common/images/ic-list-graph-on.png') center no-repeat;
 }
+
+.setting-box .left-wrap {
+    width: 808px;
+    float: left;
+    border: solid 1px #c4c6c8;
+    box-sizing: border-box;
+    padding: 25px 91px;
+    text-align: right;
+    position: relative;
+    
+}
+
+.setting-box .left-wrap:after {
+    content:'';
+    display: block;
+    width: 1px;
+    background: #b3b3b3;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -16px;
+}
+
+.setting-box .left-wrap .setting-board {
+    /* width: 626px; */
+    height: 612px;
+    border: 2px solid #9ca0a5;
+    box-sizing: border-box;
+    text-align: left;
+    margin-bottom: 16px;
+}
+.setting-box .right-wrap {
+    width: 240px;
+    float: right;
+    border: solid 1px #c4c6c8;
+    box-sizing: border-box;
+}
+
+.setting-box .layout-btn {
+    display: inline-block;
+    width: 104px;
+    height: 32px;
+    border: solid 1px #9ca0a5;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.setting-box .layout-btn span {
+    font-size: 14px;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.setting-box .layout-btn span:before {
+    content:'';
+    display: inline-block;
+    width: 14px;
+    height: 13px;
+    /* background: url('/common/images/ico-layout.png') no-repeat; */
+    /* background-size: contain; */
+    background: #000;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+}
+
+.setting-box .add-btn {
+    display: block;
+    width: 100%;
+    height: 32px;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.setting-box .add-btn span {
+    font-size: 13px;
+    color: #426aff;
+}
+
+.setting-box .right-wrap .setting-tab li {
+    float:left;
+    width: 50%;
+    border-right: 1px solid #c4c6c8;
+    border-bottom: 1px solid #c4c6c8;
+    box-sizing: border-box;
+}
+.setting-box .right-wrap .setting-tab li:last-child {
+    border-right:  0;
+}
+.setting-box .right-wrap .setting-tab li.on {
+    border-bottom:1px solid #426aff;
+}
+
+.setting-box .right-wrap .setting-tab li .btn {
+    display: block;
+    background: #eef2fb;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+}
+.setting-box .right-wrap .setting-tab li.on .btn {
+    background: #fff;
+}
+
+.setting-box .right-wrap .setting-tab li .btn span {
+    color: #636363;
+    font-size: 14px;
+}
+.setting-box .right-wrap .setting-tab li.on .btn span {
+    color: #426aff;
+}
+
+.setting-box .option .title {
+    font-size: 14px;
+    color: #636363;
+    margin-bottom: 17px;
+}
+
+.setting-box .option-wrap {
+    padding: 24px;
+}
+
+.setting-box .option-wrap .btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #c4c6c8;
+    height: 32px;
+    margin-bottom: 24px;
+}
+.setting-box .option-wrap .btn:last-child {
+    margin-bottom: 0;
+}
+
+.setting-box .option-wrap .btn span {
+    color: #426aff;
+    line-height: 1;
+}
+
+
+.setting-box .option-list {
+    padding: 8px 10px 8px 14px;
+}
+
+.setting-box .option-list li {
+    margin-bottom: 8px;
+}
+.setting-box .option-list li:last-child {
+    margin-bottom: 0;
+}
+
+.setting-box .option-list .select-ttl {
+    font-size: 12px;
+    float: left;
+    display: block;
+    padding-top: 15px;
+    line-height: 1;
+}
+
+.setting-box .option-list .form-control {
+    width: 99px;
+    float: right;
+}
+
+
+.setting-box .month-list {
+    padding: 8px 10px;
+    border-top: 1px solid #c4c6c8;
+}
+.setting-box .month-list li {
+    width: calc(100% / 3);
+    float: left;
+}
+
+.setting-box .month-list label {
+    font-size: 13px;
+    color: #44474a
+}
+
+.setting-box .month-list input[type="checkbox"] + label:before {
+    margin-right: 6px;
+}
+
+.setting-box .set-box {
+    box-sizing: border-box;
+    border: 1px solid #c4c6c8;
+    margin-bottom: 16px;
+}
+
+.setting-box .set-box .head-ttl {
+    background: #f2f5f8 url('/common/images/main-arrow-up.png') no-repeat;
+    background-position: right 10px top 50%;
+    padding-left: 10px;
+    height: 32px;
+    border-bottom: 1px solid #c4c6c8;
+    box-sizing: border-box;
+}
+
+.setting-box .set-box .head-ttl p {
+    font-size: 14px;
+    color: #636363;
+    line-height: 31px;
+}
+
 
 
 

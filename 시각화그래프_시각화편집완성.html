@@ -283,10 +283,10 @@
             <div class="cont-wrap">
                 <h2 class="sub-txt">시각화 편집</h2>
                 <div class="step-cont">
-                    <section class="">
+                    <section class="setting-box">
                         <div class="box-header">
                             <h3 class="box-title">시각화 설정 </h3>
-                            <span class="box-sub">|   레이아웃, 변수 및 그래프 스타일을 선택하세요.</span>
+                            <span class="box-sub">| 레이아웃, 변수 및 그래프 스타일을 선택하세요.</span>
                             <div class="btn-wrap">
                                 <a href="#" class="btn save-btn">
                                     <span>임시저장</span>
@@ -296,8 +296,184 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="box-cont">
-                            
+                        <div class="box-cont clfix">
+                            <div class="left-wrap">
+                                <button type="button" class="layout-btn">
+                                    <span>레이아웃</span>
+                                </button>
+                                <div class="setting-board"></div>
+                                <button type="button" class="add-btn">
+                                    <span>시각 그래프 추가하기 +</span>
+                                </button>
+                            </div>
+                            <div class="right-wrap">
+                                <ul class="setting-tab clfix">
+                                    <li class="on">
+                                        <button type="button" class="btn">
+                                            <span>변수 설정</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button"  class="btn">
+                                            <span>그래프 설정</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="option-wrap">
+                                    <div class="option">
+                                        <p class="title">범주형 변수 (x축)</p>
+                                        <div class="set-box">
+                                            <div class="head-ttl">
+                                                <p>이용월</p>
+                                            </div>
+                                            <ul class="option-list">
+                                                <li class="clfix">
+                                                    <span class="select-ttl">정렬방식</span>
+                                                    <select id="" name="" class="form-control">
+                                                        <option value="">기본</option>
+                                                        <option value="">옵션1</option>
+                                                        <option value="">옵션2</option>
+                                                    </select>
+                                                </li>
+                                                <li class="clfix">
+                                                    <span class="select-ttl">항목 선택</span>
+                                                    <select id="" name="" class="form-control">
+                                                        <option value="">선택 / 취소</option>
+                                                        <option value="">옵션1</option>
+                                                        <option value="">옵션2</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                            <ul class="month-list clfix">
+                                                <li>
+                                                    <input type="checkbox" id="test01" name="">
+                                                    <label for="test01">1월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test02" name="">
+                                                    <label for="test02">2월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test03" name="">
+                                                    <label for="test03">3월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test04" name="">
+                                                    <label for="test04">4월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test05" name="">
+                                                    <label for="test05">5월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test06" name="">
+                                                    <label for="test06">6월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test07" name="">
+                                                    <label for="test07">7월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test08" name="">
+                                                    <label for="test08">8월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test09" name="">
+                                                    <label for="test09">9월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test10" name="">
+                                                    <label for="test10">10월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test11" name="">
+                                                    <label for="test11">11월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test12" name="">
+                                                    <label for="test12">12월</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button type="button" class="btn">
+                                            <span>변수추가 +</span>
+                                        </button>
+
+                                        <p class="title">범주형 변수 (y축)</p>
+                                        <div class="set-box">
+                                            <div class="head-ttl">
+                                                <p>방문객수</p>
+                                            </div>
+                                            <ul class="option-list">
+                                                <li class="clfix">
+                                                    <span class="select-ttl">집계방식</span>
+                                                    <select id="" name="" class="form-control">
+                                                        <option value="">기본</option>
+                                                        <option value="">옵션1</option>
+                                                        <option value="">옵션2</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                            <ul class="month-list clfix">
+                                                <li>
+                                                    <input type="checkbox" id="test01" name="">
+                                                    <label for="test01">1월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test02" name="">
+                                                    <label for="test02">2월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test03" name="">
+                                                    <label for="test03">3월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test04" name="">
+                                                    <label for="test04">4월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test05" name="">
+                                                    <label for="test05">5월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test06" name="">
+                                                    <label for="test06">6월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test07" name="">
+                                                    <label for="test07">7월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test08" name="">
+                                                    <label for="test08">8월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test09" name="">
+                                                    <label for="test09">9월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test10" name="">
+                                                    <label for="test10">10월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test11" name="">
+                                                    <label for="test11">11월</label>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="test12" name="">
+                                                    <label for="test12">12월</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <button type="button" class="btn">
+                                            <span>변수추가 +</span>
+                                        </button>
+                                    </div>
+                                    <div class="option">
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>
