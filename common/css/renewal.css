@@ -226,6 +226,11 @@ select.form-control {
     margin-right: 8px;
 }
 
+.box-success .form-inline .form-group:nth-child(2),
+.box-success .form-inline .form-group:nth-child(3) {
+    flex-basis: 10px;
+}
+
 .box-success .form-inline .form-group:last-child {
     margin-right: 0;
 }
