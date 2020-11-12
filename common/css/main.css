@@ -456,6 +456,7 @@ input[class="circle-type"]:checked + label {
 #contents .graph-section .option-wrap .list-wrap dt {
 	position: relative;
 	padding-left: 10px;
+	width: 57px;
 }
 #contents .graph-section .option-wrap .list-wrap dt:before {
 	position: absolute;
@@ -478,6 +479,10 @@ input[class="circle-type"]:checked + label {
 
 #contents .graph-section .option-wrap .date-wrap {
 	padding: 16px 24px;
+}
+
+#contents .graph-section .option-wrap .date-wrap dt {
+	width: 67px;
 }
 
 
