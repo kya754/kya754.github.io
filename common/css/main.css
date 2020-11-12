@@ -380,6 +380,7 @@ input[class="circle-type"]:checked + label {
 	font-size: 24px;
 	font-family: 'NotoSansKR-Bold';
 	color: #272727;
+	line-height: 1;
 }
 #contents .graph-section .head-ttl + .period {
 	font-size: 16px;
@@ -432,6 +433,7 @@ input[class="circle-type"]:checked + label {
 
 #contents .graph-section .option-wrap dl {
 	display: table;
+	width: 100%;
 }
 
 #contents .graph-section .option-wrap dt,
@@ -494,7 +496,7 @@ input[class="circle-type"]:checked + label {
 	color: #3e3e3e;
 	border: 1px solid #d4d4d4;
 	border-radius: 5px;
-	width: 119px;
+	width: 120px;
 	height: 28px;
 	padding: 0;
 	padding-left: 10px;
@@ -504,7 +506,18 @@ input[class="circle-type"]:checked + label {
 }
 
 #contents .graph-section .calendar-input:first-child {
-	margin-right: 23px;
+	/* margin-right: 23px; */
+}
+
+#contents .graph-section .dash:after {
+	content:'';
+	display: inline-block;
+	width: 8px;
+	height: 1px;
+	background: #3b3b3b;
+	margin: 0 1px;
+	position: relative;
+	top: -3px;
 }
 
 
@@ -796,6 +809,68 @@ input[class="circle-type"]:checked + label {
 	top: 13px;
 	background: url('/common/images/btn_close_t.png') center no-repeat;
 	background-size: contain;
+}
+
+#contents .graph-section .head-ttl {
+	display: inline-block;
+}
+
+.start-btn {
+	display: inline-block;
+	float: right;
+	width: 90px;
+	height: 28px;
+	border-radius: 3px;
+	border: solid 1px #d4d4d4;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.start-btn em {
+	display: inline-block;
+	width: 14px;
+	height: 12px;
+	background: url('/common/images/ic-term-graph.png') no-repeat;
+	background-size: contain;
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+}
+
+.start-btn span {
+	font-size: 12px;
+	/* line-height: 27px; */
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+}
+
+.start-btn:hover {
+	border: solid 1px #426aff;
+}
+.start-btn:hover em {
+	background: url('/common/images/ic-term-graph-on.png') no-repeat;
+	background-size: contain;
+}
+
+.start-btn:hover span {
+	color: #426aff;
+}
+
+.date-btn {
+	width: 54px;
+	height: 28px;
+	background: #426aff;
+	border-radius: 3px;
+	float: right;
+}
+.date-btn span {
+	color: #fff;
+	font-size: 12px;
+}
+
+.date-btn:hover {
+	background: #223786;
 }
 
 

@@ -1102,7 +1102,16 @@ span[name=toggle-control] {
     box-sizing: border-box;
     text-align: left;
     margin-bottom: 16px;
+    position: relative;
 }
+
+.setting-box .left-wrap .setting-board .graph-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .setting-box .right-wrap {
     width: 240px;
     float: right;
@@ -1237,6 +1246,7 @@ span[name=toggle-control] {
 .setting-box .option-list .form-control {
     width: 99px;
     float: right;
+    font-size: 13px;
 }
 
 
@@ -1244,6 +1254,7 @@ span[name=toggle-control] {
     padding: 8px 10px;
     border-top: 1px solid #c4c6c8;
 }
+
 .setting-box .month-list li {
     width: calc(100% / 3);
     float: left;
@@ -1279,6 +1290,33 @@ span[name=toggle-control] {
     line-height: 31px;
 }
 
+.setting-box .range-form {
+    float: left;
+}
+
+.setting-box .option-list .range-wrap .select-ttl {
+    padding-top: 0;
+}
+
+.setting-box .range-form {
+    display: flex;
+    justify-content: space-between;
+}
+.setting-box .range-form li {
+    flex-basis: 83px;
+}
+
+.setting-box .box-header {
+    margin-bottom: 17px;
+}
+
+.setting-box.version2 .left-wrap {
+    width: 100%;
+    padding: 73px 91px;
+}
+.setting-box.version2 .left-wrap:after {
+    display: none;
+}
 
 
 

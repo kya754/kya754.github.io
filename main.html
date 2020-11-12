@@ -739,16 +739,28 @@
             <div class="top-cont">
                 <div class="head">
                     <p class="head-ttl">기간별 변동 추이</p>
+                    <!-- s: 20201112 추가 -->
+                    <a href="#" class="start-btn">
+                        <em aria-hidden="true"></em>
+                        <span>시각화 시작</span>
+                    </a>
+                    <!-- e: 20201112 추가 -->
                 </div>
                 <!-- s: 20201111 수정 -->
                 <div class="option-wrap">
                     <div class="date-wrap">
                         <dl>
                             <dt>조회기간</dt>
+                            <!-- s: 20201112 dash 추가, 조회버튼 추가-->
                             <dd>
                                 <input type="text" class="calendar-input" id="sch_start_ymd" name="sch_start_ymd" placeholder="검색 시작일" value="2020.10.28"/>
+                                <span class="dash"></span>
                                 <input type="text" class="calendar-input" id="sch_end_ymd" name="sch_end_ymd" placeholder="검색 종료일" value="2020.10.28"/>
+                                <button type="button" class="date-btn">
+                                    <span>조회</span>
+                                </button>
                             </dd>
+                            <!-- e: 20201112 dash 추가, 조회버튼 추가-->
                         </dl>
                     </div>
                 </div>
