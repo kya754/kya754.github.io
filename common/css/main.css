@@ -301,31 +301,44 @@ input[class="circle-type"]:checked + label {
 	display:block;
 	width: 100%;
 	padding: 0 22px;
-	background: #223786;
+	background: #b7b7b7;
 	height: 54px;
 	border-radius: 3px;
 	text-align: left;
 	/* margin-bottom: 150px; */
 	
 }
-
 #contents .filter-box .search-btn span {
-	color: #fff;
+	color: #e7e7e7;
 	font-size: 18px;
 	font-family: 'NotoSansKR-Medium';
 	display:block;
 	float: left;
 }
 
-#contents .filter-box .calendar-icon {
+#contents .filter-box .search-btn .calendar-icon {
 	float: right;
 	display: block;
 	width: 22px;
 	height: 19px;
-	background: url('/common/images/img-main-cal.png') center no-repeat;
+	background: url('/common/images/img-main-cal-disable.png') center no-repeat;
 	background-size: contain;
 	margin-top: 4px;
 }
+
+#contents .filter-box .search-btn.on {
+	background: #223786;
+}
+
+#contents .filter-box .search-btn.on span {
+	color: #fff;
+}
+
+#contents .filter-box .search-btn.on .calendar-icon {
+	background: url('/common/images/img-main-cal.png') center no-repeat;
+	background-size: contain;
+}
+
 
 #contents .map-section {
 	float: right;
