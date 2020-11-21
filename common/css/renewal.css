@@ -441,6 +441,11 @@ border-top: 1px solid #c4c6c8; */
 .box-footer {
     position: relative;
     margin-top: 20px;
+    min-height: 32px;
+}
+
+.box-footer.mgt40 {
+    margin-top: 40px;
 }
 
 #sch_row_per_page_2,
@@ -654,7 +659,7 @@ span[name=toggle-control] {
     background: #c4c6c8;
     position: absolute;
     left: -24px;
-    top: -19px;
+    top: -21px;
 }
 
 /* 시각화 그래프 */
@@ -1321,4 +1326,395 @@ span[name=toggle-control] {
 }
 
 
+/* 커뮤니티 */
+.square-filter {
+    display: flex;
+    margin-bottom: 32px;
+}
 
+.square-filter .select-all {
+    width: 175px;
+    height: 132px;
+    margin-right: 8px;
+}
+
+.square-filter .filter-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.square-filter .filter-box .filter-list {
+    width: 173px;
+}
+
+.square-filter .fillter-item {
+    display: block;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    width: 173px;
+    height: 62px;
+    font-size: 14px;
+    color: #3f3f3f;
+}
+
+.square-filter .select-all .fillter-item {
+    height: 132px;
+}
+
+.square-filter .fillter-item span {
+    display: block;
+}
+
+.square-filter .fillter-item.active {
+    background: #426aff;
+    border: 1px solid #426aff;
+    
+}
+
+.square-filter .fillter-item.active span {
+    color: #fff;
+}
+
+.square-filter .fillter-item:disabled {
+    background: #f2f3f7;
+}
+
+.square-filter .fillter-item:disabled span {
+    color:#707070;
+}
+
+.board-head {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #426aff;
+    align-items: flex-end;
+}
+.board-head .ttl {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+.board-head .ttl em {
+    color: #dd2a2f;
+    font-family: 'NotoSansKR-Medium';
+}
+
+.board-head .setting {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.setting .set-text {
+    color: #3f3f3f;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.setting .form-control {
+    width: 120px;
+}
+
+.setting .order {
+    margin-right: 20px;
+}
+
+.setting .bttn {
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    border: 1px solid #c4c6c8;
+    vertical-align: middle;
+}
+
+.setting .bttn.btn-up {
+    background: url('/common/images/ic-arrow-up.png') center no-repeat;
+}
+.setting .bttn.btn-down {
+    background: url('/common/images/ic-arrow-down.png') center no-repeat;
+}
+.setting .bttn.btn-up.active {
+    background: url('/common/images/ic-arrow-up-on.png') center no-repeat;
+    border: 1px solid #426aff;
+}
+.setting .bttn.btn-down.active {
+    background: url('/common/images/ic-arrow-down-on.png') center no-repeat;
+    border: 1px solid #426aff;
+}
+
+.graph-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.graph-list .graph-box {
+    margin-top: 24px;
+    width: 344px;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+}
+
+.graph-list .graph-box .title-wrap {
+    padding: 20px 25px;
+}
+
+.graph-list .graph-box .title-wrap .title {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 22px;
+    color: #3f3f3f;
+    margin-bottom: 6px;
+}
+
+.graph-list .graph-box span {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 18px;
+    color: #777;
+    line-height: 1;
+}
+.graph-list .graph-box .name:after {
+    display: inline-block;
+    content:'';
+    width: 1px;
+    height: 14px;
+    background: #777;
+    margin: 0 6px 0 10px;
+}
+.graph-list .graph-box .date {
+    display: block;
+    margin-top: 4px;
+}
+
+.graph-list .graph-wrap {
+    border-top: 1px solid #c4c6c8;
+    border-bottom: 1px solid #c4c6c8;
+    height: 219px;
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+}
+.graph-list .graph-wrap img {
+    height: 100%;
+}
+
+.graph-list .etc-wrap {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.graph-list .etc-wrap .info-wrap dl,
+.graph-list .etc-wrap .info-wrap dt,
+.graph-list .etc-wrap .info-wrap dd {
+    display: inline-block;
+    vertical-align: text-bottom;
+    color: #777;
+    font-size: 14px;
+    font-family: 'NotoSansKR-Medium';
+}
+.graph-list .etc-wrap .info-wrap dl:after {
+    display: inline-block;
+    content:'';
+    width: 1px;
+    height: 12px;
+    background: #777;
+    margin: 0 9px;
+}
+.graph-list .etc-wrap .info-wrap dl:last-child:after {
+    display: none;
+}
+.graph-list .etc-wrap .btn-wrap {
+    height: 19px;
+}
+.graph-list .etc-wrap .btn-wrap .delete-btn {
+    background: url('/common/images/ic-delete.png') center no-repeat;
+    width: 17px;
+    height: 19px;
+    margin-right: 12px;
+}
+.graph-list .etc-wrap .btn-wrap .bookmark-btn {
+    background: url('/common/images/ic-comm-bookmark.png') center no-repeat;
+    width: 15px;
+    height: 19px;
+}
+
+
+.common-search .form-wrap {
+    display: flex;
+    padding-top: 8px;
+}
+.common-search .form-wrap.align-right {
+    justify-content: flex-end;
+}
+
+.common-search .form-wrap.align-right .form-group {
+    margin-left: 8px;
+}
+
+.form-group .option-title {
+    font-size: 12px;
+    color: #3e3e3e;
+    margin-right: 4px;
+}
+
+.community02 .box-header {
+    margin-bottom: 32px;
+}
+
+.community02 .box-body {
+    margin-top: 0;
+    border-top: 0;
+}
+
+.external-data .list {
+    margin-top: 24px;
+    width: 100%;
+    border: solid 1px #c4c6c8;
+    box-sizing: border-box;
+}
+
+.external-data .list a {
+    display: block;
+    padding: 18px 24px;
+}
+
+.external-data .list .title {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 22px;
+    color: #3f3f3f;
+}
+.external-data .list a:hover .title {
+    color: #426aff;
+}
+
+.external-data .list .name,
+.external-data .list .area {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 18px;
+    color: #777;
+}
+.external-data .list .name:after {
+    display: inline-block;
+    content:'';
+    width: 1px;
+    height: 14px;
+    background: #777;
+    margin: 0 10px 0 14px;
+}
+
+.external-data .list .title-wrap {
+    position: relative;
+}
+.external-data .list .view-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.external-data .list .view-btn {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 16px;
+    color: #5d5d5d;
+}
+.external-data .list a:hover .view-btn {
+    color: #426aff;
+}
+
+.external-data .list .date {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 18px;
+    color: #777;
+}
+
+.external-data .etc-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 36px;
+}
+
+.external-data .list .etc-list dl,
+.external-data .list .etc-list dt,
+.external-data .list .etc-list dd {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 14px;
+    color: #777;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.external-data .list .etc-list dl:after {
+    display: inline-block;
+    content:'';
+    width: 1px;
+    height: 12px;
+    background: #777;
+    margin: 0 11px;
+    vertical-align: middle;
+    position: relative;
+    top: 1px;
+}
+.external-data .list .etc-list dl:last-child:after {
+    display: none;
+}
+
+.btn-ex-data {
+    border: 0;
+    background: #426aff;
+    color: #fff;
+    vertical-align: top;
+    width: 240px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+    float: right;
+}
+
+.community04 .btn-ex-data {
+    margin-top: 32px;
+}
+
+.community03 .box-body table.type02 .text-area th,
+.community03 .box-body table.type02 .text-area td {
+    height: 341px;
+}
+.community03 .box-body table.type02 .text-area td {
+    padding: 15px;
+}
+
+.community03 .box-body {
+    border-top: 1px solid #426aff;
+}
+
+.btn.btn-delete {
+    border: 0;
+    background: #e33d3e;
+    color: #fff;
+    vertical-align: top;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+}
+
+.btn-wrap-right {
+    float: right;
+}
+
+.btn.btn-bookmark {
+    width: 50px;
+    height: 50px;
+    border: solid 1px #5e6369;
+    box-sizing: border-box;
+    background: #eef2fb url('/common/images/ic-view-bookmark.png') center no-repeat;
+}
+
+.btn.btn-bookmark:hover {
+    border: solid 1px #426aff;
+    background: #eef2fb url('/common/images/ic-view-bookmark-on.png') center no-repeat;
+}
+
+.community03 .btn.btn-bookmark {
+    margin-left: 4px;
+}
