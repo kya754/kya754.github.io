@@ -57,6 +57,55 @@ $(document).ready(function(){
     });
 
 
+    // 아코디언 게시판
+    $('.accor-wrap .accor-li').find('.accor-ttl').on('click', function(){
+
+        if($(this).hasClass('on')){
+            $(this).removeClass('on');
+            $(this).next('.accor-txt').slideUp();
+
+        }else{
+            $(this).addClass('on');
+            $(this).next('.accor-txt').slideDown();
+        }
+    });
+
+
+    //마이페이지 별 버튼
+    $('.star-btn').on('click', function(){
+        if($(this).hasClass('on')){
+            $(this).removeClass('on');
+        }else{
+            $(this).addClass('on');
+        }
+    });
+
+
+    // 마이페이지 전채 선택
+    var mypageCheckBox = $('.check-wrap .select-input input[type=checkbox]');
+
+    // 전체선택 버튼
+    $(".all-check input").on('click', function(){ 
+        if($(".all-check").hasClass('checked')) {
+            $('.all-check').removeClass('checked');
+            mypageCheckBox.prop("checked",false); 
+        } 
+        else {
+            $('.all-check').addClass('checked');
+            mypageCheckBox.prop("checked",true);
+        }
+    });        
+
+    //선택삭제 버튼
+    $('.all-delete').on('click', function(){
+        mypageCheckBox.prop("checked",false);
+
+        if($(".all-check").hasClass('checked')){
+            $('.all-check').removeClass('checked');
+            $('.all-check input').prop("checked",false);
+        }
+    });
+
 });
 
 
