@@ -1354,7 +1354,7 @@ span[name=toggle-control] {
     width: 173px;
 }
 
-.square-filter .fillter-item {
+.square-filter .filter-item {
     display: block;
     border: 1px solid #c4c6c8;
     box-sizing: border-box;
@@ -1364,29 +1364,29 @@ span[name=toggle-control] {
     color: #3f3f3f;
 }
 
-.square-filter .select-all .fillter-item {
+.square-filter .select-all .filter-item {
     height: 132px;
 }
 
-.square-filter .fillter-item span {
+.square-filter .filter-item span {
     display: block;
 }
 
-.square-filter .fillter-item.active {
+.square-filter .filter-item.active {
     background: #426aff;
     border: 1px solid #426aff;
     
 }
 
-.square-filter .fillter-item.active span {
+.square-filter .filter-item.active span {
     color: #fff;
 }
 
-.square-filter .fillter-item:disabled {
+.square-filter .filter-item.disabled {
     background: #f2f3f7;
 }
 
-.square-filter .fillter-item:disabled span {
+.square-filter .filter-item.disabled span {
     color:#707070;
 }
 
@@ -1544,6 +1544,12 @@ span[name=toggle-control] {
     background: url('/common/images/ic-comm-bookmark.png') center no-repeat;
     width: 15px;
     height: 19px;
+}
+.graph-list .etc-wrap .btn-wrap .delete-btn.on {
+    background: url('/common/images/ic-delete-on.png') center no-repeat;
+}
+.graph-list .etc-wrap .btn-wrap .bookmark-btn.on {
+    background: url('/common/images/ic-comm-bookmark-on.png') center no-repeat;
 }
 
 
@@ -1954,6 +1960,10 @@ span[name=toggle-control] {
     height: 22px;
 }
 
+.check-wrap .etc-wrap .date span {
+    color: #777;
+}
+
 .check-wrap .top-wrap {
     display: flex;
     justify-content: space-between;
@@ -1994,6 +2004,7 @@ span[name=toggle-control] {
 
 .check-wrap .check-box-wide .button-wrap {
     width: 176px;
+    position: relative;
 }
 
 
@@ -2084,3 +2095,29 @@ span[name=toggle-control] {
 .mypage02 .cont-wrap {
     margin-top: 32px;
 }
+
+.check-wrap .check-box-wide .title-wrap .category {
+    display: block;
+    color: #426aff;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+}
+.check-wrap .button-wrap.type02 {
+    height: 100px;
+    text-align: right;
+}
+.check-wrap .button-wrap.type02 .view-more span { 
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+    color: #5d5d5d;
+}
+
+.check-wrap .check-box-wide .title-wrap .title {
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    word-wrap:normal;
+    overflow:hidden;
+    max-width: 700px;
+}
+
+    
