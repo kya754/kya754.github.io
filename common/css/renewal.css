@@ -329,7 +329,14 @@ select.form-control {
 .box-body table th {
     height: 50px;
     line-height: 50px;
+    vertical-align: middle;
 }
+
+.box-body table .double th {
+    height: 30px;
+    line-height: 30px;
+}
+
 
 .box-body table td {
     text-align: center;
@@ -507,7 +514,8 @@ border-top: 1px solid #c4c6c8; */
 .btn {
     cursor: pointer;
 }
-.btn[onclick^=fnList] {
+.btn[onclick^=fnList],
+.btn[onclick^=fnGoList]{
     border: 0;
     background: #8795ff;
     color: #fff;
@@ -1552,13 +1560,19 @@ span[name=toggle-control] {
     background: url('/common/images/ic-comm-bookmark-on.png') center no-repeat;
 }
 
-
+.common-search .box-header {
+    margin-bottom: 21px;
+}
 .common-search .form-wrap {
     display: flex;
     padding-top: 8px;
+    
 }
 .common-search .form-wrap.align-right {
     justify-content: flex-end;
+}
+.common-search .form-wrap.align-between {
+    justify-content: space-between;
 }
 
 .common-search .form-wrap.align-center {
@@ -1567,6 +1581,9 @@ span[name=toggle-control] {
 
 .common-search .form-wrap.align-right .form-group {
     margin-left: 8px;
+}
+.common-search .form-wrap.align-right .form-group:first-child {
+    margin-left: 0;
 }
 
 .form-group .option-title {
@@ -1685,23 +1702,20 @@ span[name=toggle-control] {
     float: right;
 }
 
-.community04 .btn-ex-data {
-    margin-top: 32px;
-}
 
-.community03 .box-body table.type02 .text-area th,
-.community03 .box-body table.type02 .text-area td {
+
+.box-body table.type02 .text-area th,
+.box-body table.type02 .text-area td {
     height: 341px;
 }
-.community03 .box-body table.type02 .text-area td {
+.box-body table.type02 .text-area td {
     padding: 15px;
 }
 
-.community03 .box-body {
+.view .box-body {
     border-top: 1px solid #426aff;
 }
-
-.btn.btn-delete {
+.btn.btn-warning {
     border: 0;
     background: #e33d3e;
     color: #fff;
@@ -1890,9 +1904,7 @@ span[name=toggle-control] {
     float: right;
 }
 
-.info02 .post-btn {
-    margin-top: 32px;
-}
+
 
 .check-wrap .check-list {
     display: flex;
@@ -2091,10 +2103,7 @@ span[name=toggle-control] {
     margin-bottom: 0;
 }
 
-.mypage01 .cont-wrap,
-.mypage02 .cont-wrap {
-    margin-top: 32px;
-}
+
 
 .check-wrap .check-box-wide .title-wrap .category {
     display: block;
@@ -2120,4 +2129,6 @@ span[name=toggle-control] {
     max-width: 700px;
 }
 
-    
+.mgt32 {
+    margin-top: 32px;
+}

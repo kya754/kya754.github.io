@@ -1,0 +1,2399 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Expires" content="0"/> 
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="robots" content="NONE" />
+<link rel="shortcut icon" href="http://15.165.202.174:8080/common/images/favicon.png">
+    <title>IoT도시데이터시스템
+    </title>
+    
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery-ui-themes-1.8.18/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/font.css"/>
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" type="text/css" href="/common/css/reset.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/layout.css">
+<link rel="stylesheet" type="text/css" href="/common/css/renewal.css">
+
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
+<script src="/common/js/layout.js"></script>
+<!-- <script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script> -->
+
+    <!-- <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {	//스크롤 높이 창 크기에 따라 조정
+            var windowHeight = $(window).height();
+            $('.sub_fix_wrap').css('max-height', windowHeight * 0.55);
+            sum();
+        });
+
+        $(function () {
+            // datepick 한글 셋팅 common.js
+            settingdatepickerko();
+            //콤보 생성
+            // 상, 하위 분류 콤보 생성
+            fnSetHRankCombo();
+
+            // 기관 셀렉트 박스 변경시 조회
+            $("#sch_organ_code").change(function () {
+                fnSearch();
+            });
+            // 서비스 명 셀렉트 박스 변경시 조회
+            $("#sch_srvc_nm").change(function () {
+                fnSearch();
+            });
+
+            $('[name=sch_start_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                changeYear: true,
+                changeMonth: true
+            });
+            $('[name=sch_end_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                changeYear: true,
+                changeMonth: true
+            });
+        });
+
+        function sum() {
+            var hiddenHtml = "";
+            // 총 합계 column = 4
+            for (var i = 1; i < 5; i++) {
+                var sum = 0;
+                var col = "col_" + i;
+                col = $('[name=col_' + i + ']');
+
+                for (var j = 0; j < col.length; j++) {
+                    sum += Number(unComma(col[j].innerText));
+                }
+                $('[name=result_' + i + ']').text(comma(sum));
+                hiddenHtml += '<input type="hidden" id="result_' + i + '" name="result_' + i + '" value=' + sum + ' />';
+            }
+            $('#aform').append(hiddenHtml);
+        }
+
+        function comma(num) {
+            num = String(num);
+            return num.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function unComma(num) {
+            num = String(num);
+            return num.replace(/,/gi, "");
+        }
+
+        // 검색
+        function fnSearch() {
+            $("#aform").attr({action: "/iot/statsservice/selectRecptnDataStats.do", method: 'post'}).submit();
+        }
+
+        // 시스템 통계 엑셀 다운로드
+        function fnExceldownload() {
+            for (var i = 1; i < 5; i++) {
+
+            }
+            $("#aform").attr({action: "/iot/statsservice/exceldownloadRecptnDataStats.do", method: 'post'}).submit();
+        }
+
+        // 상위분류 콤보
+        function fnSetHRankCombo() {
+            var req = {
+                "group_id": "R010250"
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/common/selectCodeListAjax.do',
+                data: req,
+                success: function (param) {
+
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+
+                    var html = '<option value="">서비스 상위분류</option>';
+                    var sel = "";
+                    if (param.resultStats.resultList.length > 0) {
+
+                        for (i = 0; i < param.resultStats.resultList.length; i++) {
+                            sel = "";
+                            if (param.resultStats.resultList[i].CODE == "") {
+                                sel = 'selected="selected"';
+                            }
+                            html += '<option value="' + param.resultStats.resultList[i].CODE + '" ' + sel + '>' + param.resultStats.resultList[i].CODE_NM + '</option>';
+
+                        }
+                    }
+
+                    $("#sch_srvc_hrank_code").html(html);
+
+                    fnSetLRankCombo();
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+        }
+
+        // 하위분류 콤보
+        function fnSetLRankCombo() {
+            var req = {
+                "group_id": "R010260"
+                , "attrb_1": $("#sch_srvc_hrank_code").val()
+            };
+
+            var html = "";
+
+            if ($("#sch_srvc_hrank_code").val() == "") {
+                html += '<option value="">서비스 하위분류</option>';
+                $("#sch_srvc_lrank_code").html(html);
+                $("#sch_srvc_lrank_code").attr("disabled", true);
+
+                fnSetServiceNmCombo();
+            } else {
+
+                jQuery.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/common/selectCodeListAjax.do',
+                    data: req,
+                    success: function (param) {
+
+                        if (param.resultStats.resultCode == "error") {
+                            alert(param.resultStats.resultMsg);
+                            return;
+                        }
+
+                        var sel = "";
+                        html += '<option value="">서비스 하위분류</option>';
+                        if (param.resultStats.resultList.length > 0) {
+
+                            for (i = 0; i < param.resultStats.resultList.length; i++) {
+
+                                sel = "";
+                                if (param.resultStats.resultList[i].CODE == "") {
+                                    sel = 'selected="selected"';
+                                }
+                                html += '<option value="' + param.resultStats.resultList[i].CODE + '" ' + sel + '>' + param.resultStats.resultList[i].CODE_NM + '</option>';
+
+                            }
+                        }
+                        $("#sch_srvc_lrank_code").html(html);
+                        $("#sch_srvc_lrank_code").attr("disabled", false);
+
+                        fnSetServiceNmCombo();
+                    },
+                    error: function (jqXHR, textStatus, thrownError) {
+                        ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                    }
+                });
+            }
+        }
+
+        //서비스명 콤보
+        function fnSetServiceNmCombo() {
+            var req = {
+                "sch_srvc_hrank_code": $("#sch_srvc_hrank_code").val()
+                , "sch_srvc_lrank_code": $("#sch_srvc_lrank_code").val()
+                , "organ_code": $("#sch_organ_code").val()
+            };
+
+            var html = "";
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/common/selectListServiceNmAjax.do',
+                data: req,
+                success: function (param) {
+
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+
+                    var sel = "";
+                    html += '<option value="">서비스 명</option>';
+                    if (param.resultStats.resultList.length > 0) {
+
+                        for (i = 0; i < param.resultStats.resultList.length; i++) {
+
+                            sel = "";
+                            if (param.resultStats.resultList[i].CODE == "") {
+                                sel = 'selected="selected"';
+                            }
+                            html += '<option value="' + param.resultStats.resultList[i].CODE + '" ' + sel + '>' + param.resultStats.resultList[i].CODE_NM + '</option>';
+                        }
+                    }
+                    $("#sch_srvc_nm").html(html);
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+        }
+
+        //]]>
+    </script> -->
+</head>
+<body class="hold-transition skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+    
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="/main.do">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="/main.do" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix">
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">센서 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/service/selectPageListDataSrvc.do">서비스 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/collection/selectPageListDataCollectionStatus.do">데이터 수집 현황</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/tool/visualization/selectPageStep1.do">데이터 시각화</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">분석 프로세스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">시각화 그래프 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/analysis/selectPageListAnals.do">분석리포트 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/external/selectPageListExternal.do">외부 데이터 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">검색 히스토리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">스크랩</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 시각화 그래프</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 분석 리포트</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 외부 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">회원정보 관리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/platform/selectPage.do">IoT 도시데이터 소개</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/service/selectPage.do">주요서비스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/faq/selectPageListFaq.do">자주 하는 질문</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/iot/bltn/selectPageListBltn.do">공지사항</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        
+                        
+                            <div class="depth2-wrap clfix">
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">서비스 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/dashboard/selectDashBoard.do">데이터 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcInfo/selectPageListSrvcInfo.do">서비스 정보 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">표준 측정 항목 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcRecptn/selectPageListServiceRecptn.do">서비스 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/charger/selectPageListBsnsCharger.do">서비스 담당자 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectSMSReciever.do">통합 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectPageListSrvcSMSReciever.do">서비스별 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">공공데이터 신청관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectDistbStats.do">데이터 개방 현황</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/provd/selectPageProvdMgt.do">데이터 공개 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">시스템 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">시스템 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/menu/selectListMenuMgt.do">메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectSystemStats.do">페이지뷰</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/stats/selectPageListAdminEventLog.do">접속 이력</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/user/selectPageListUserMgt.do">계정 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/author/selectPageListAuthorMgt.do">권한 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/authmenu/selectPageListAuthMenuMgt.do">권한별 메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">개발자 도구</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/certkey/selectPageListCertKey.do">API 인증키 운영관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/code/selectPageListGroupCodeMgt.do">코드 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/data/selectPageListDataMgt.do">데이터 수동 파싱</a>
+                                                        </li>
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                            </div>
+                        
+                    </li>
+                
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                
+            </a>
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                
+            </a>
+        </div>
+        <div class="user-popup">
+            <p class="user-name"><span>김서울</span>&nbsp;님</p>
+            <ul>
+                <li><a href="#">나의 정보 보기</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="/admin/logout.do">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>데이터 수집 현황</h1>
+            <small>서비스별 데이터 정상 수집 여부를 기간별로 확인할 수 있습니다.</small>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- content 영역 -->
+                    <form id="aform" method="post">
+                        <div class="box box-primary common-search">
+                            <div class="box-header">
+                                <div class="form-wrap align-right"><!-- 20201122 클래스 text-right form-inline 삭제 / form-wrap align-between 추가 -->
+                                    <!--  기관 구분 -->
+                                    <div class="form-group"><!-- 20201122 select style 길이 추가 -->
+                                        <select id="sch_organ_code" name="sch_organ_code" class="form-control input-sm" width="" style="width: 125px;">
+                                            <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group"><!-- 20201122 select style 길이 추가 -->
+                                        <select id="sch_srvc_hrank_code" name="sch_srvc_hrank_code" class="form-control input-sm" style="width: 130px;" onchange="fnSetLRankCombo();"><option value="">서비스 상위분류</option><option value="50005">보건</option><option value="50006">일반행정</option><option value="50007">문화/관광</option><option value="50008">산업/경제</option><option value="50009">복지</option><option value="50010">환경</option><option value="50011">교통</option><option value="50012">도시관리</option><option value="50013">교육</option><option value="50014">안전</option><option value="50015">인구/가구</option><option value="50016">주택/건설</option></select>
+                                    </div>
+                                    
+                                    <div class="form-group"><!-- 20201122 select style 길이 추가 -->
+                                        <select id="sch_srvc_lrank_code" name="sch_srvc_lrank_code" class="form-control input-sm" style="width: 130px;" onchange="fnSetServiceNmCombo();" disabled="disabled"><option value="">서비스 하위분류</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--서비스 명콤보 -->
+                                        <select id="sch_srvc_nm" name="sch_srvc_nm" class="form-control input-sm"><option value="">서비스 명</option><option value="1인가구 고독사 관리">1인가구 고독사 관리</option><option value="IoT 스마트 가로보안등-노원구">IoT 스마트 가로보안등-노원구</option><option value="IoT 스마트 가로보안등-양천구">IoT 스마트 가로보안등-양천구</option><option value="IoT기반 공기질 개선사업(인공지능형실내공기질개선)">IoT기반 공기질 개선사업(인공지능형실내공기질개선)</option><option value="IOT기반 유동 인구 분석 및 안전 상황 전파">IOT기반 유동 인구 분석 및 안전 상황 전파</option><option value="IoT악취저감서비스(복합악취측정)">IoT악취저감서비스(복합악취측정)</option><option value="S-DoT(서울시 도시데이터 센서)_관제자료">S-DoT(서울시 도시데이터 센서)_관제자료</option><option value="S-DoT(서울시 도시데이터 센서)_측정자료">S-DoT(서울시 도시데이터 센서)_측정자료</option><option value="공공시설실내환경개선모니터링(복합공기질측정센서)">공공시설실내환경개선모니터링(복합공기질측정센서)</option><option value="도서관공기질현황">도서관공기질현황</option><option value="도서관이용객패턴분석">도서관이용객패턴분석</option><option value="도서관주차현황알림">도서관주차현황알림</option><option value="마스보드 - 스마트 태양광 전자잉크 관광안내판">마스보드 - 스마트 태양광 전자잉크 관광안내판</option><option value="보행신호 음성보조장치(서버 교체중)">보행신호 음성보조장치(서버 교체중)</option><option value="서울시-어린이집 실내공기질 측정">서울시-어린이집 실내공기질 측정</option><option value="성동구-스트리트랩_실내측정">성동구-스트리트랩_실내측정</option><option value="성동구-스트리트랩_실외측정">성동구-스트리트랩_실외측정</option><option value="스마트 교차로 알림">스마트 교차로 알림</option><option value="스마트보안등(양방향보안등관제시스템)">스마트보안등(양방향보안등관제시스템)</option><option value="실내GPS시스템">실내GPS시스템</option><option value="양방향보안등관제시스템 - 강북구">양방향보안등관제시스템 - 강북구</option><option value="양방향보안등관제시스템 - 광진구">양방향보안등관제시스템 - 광진구</option><option value="양천구청 홀몸어르신 고독사 관리 서비스">양천구청 홀몸어르신 고독사 관리 서비스</option><option value="유동 인구 측정자료">유동 인구 측정자료</option><option value="자동심장충격기(AED)관리">자동심장충격기(AED)관리</option><option value="장애인주차구역 지킴이 서비스">장애인주차구역 지킴이 서비스</option><option value="장애인콜택시관리">장애인콜택시관리</option><option value="전기자전거">전기자전거</option><option value="정화조악취저감감시 서비스">정화조악취저감감시 서비스</option><option value="청정공기 휴게공간">청정공기 휴게공간</option><option value="캠핑장안전사고방지시스템">캠핑장안전사고방지시스템</option><option value="테스트">테스트</option><option value="화재감지시스템(사용안함, 서버이전)">화재감지시스템(사용안함, 서버이전)</option><option value="화재감지시스템(운영)">화재감지시스템(운영)</option></select>
+                                    </div>
+                                    <!--날자 검색-->
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-sm hasDatepicker" id="sch_start_ymd" name="sch_start_ymd" placeholder="검색 시작일" value="2020.11.21"> -
+                                        <input type="text" class="form-control input-sm hasDatepicker" id="sch_end_ymd" name="sch_end_ymd" placeholder="검색 종료일" value="2020.11.21">
+                                        <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-header -->
+                            <div class="box-body no-pad-top table-responsive" style="border: 0px;">
+                                <div class="sub_tbl_scroll_box_2h">
+                                    <div class="sub_fix_th_bg_2h"></div>
+                                    <div class="sub_fix_wrap">
+                                        <table class="table table-bordered table-striped dataTable">
+                                            <colgroup>
+                                                <col style="width: 5%;">
+                                                <col style="width: 6%;">
+                                                <col style="width: 8%;">
+                                                <col style="width: 22%;">
+                                                <col style="width: 7.5%;">
+                                                <col style="width: 7.5%;">
+                                                <col style="width: 8%;">
+                                                <col style="width: 8.5%;">
+                                                <col style="width: 8.5%;">
+                                                <col style="width: 8.5%;">
+                                                <col style="width: 8.5%;">
+                                            </colgroup>
+                                            <thead class="double"><!-- 20201122 클래스 추가 : double -->
+                                            <tr>
+                                                <th rowspan="2" scope="col" style="width: 5%;">
+                                                    <div class="sub_fix_th_2h">번호
+                                                </th>
+                                                <th rowspan="2" scope="col" style="width: 6%;">
+                                                    <div class="sub_fix_th_2h">구축년도
+                                                </th>
+                                                <th rowspan="2" scope="col" style="width: 8%;">
+                                                    <div class="sub_fix_th_2h">기관 명
+                                                </th>
+                                                <th rowspan="2" scope="col" style="width: 22%;">
+                                                    <div class="sub_fix_th_2h">서비스 명
+                                                </th>
+                                                <th rowspan="2" colspan="2" scope="col" style="width: 15%;">
+                                                    <div class="sub_fix_th_2h">서비스 분류 체계
+                                                </th>
+                                                <th rowspan="2" scope="col" style="width: 8%;">
+                                                    <div class="sub_fix_th_2h">연계 일자
+                                                </th>
+                                                <th colspan="2" scope="col" style="width: 17%;">
+                                                    <div class="sub_fix_th">정상 수집 건수
+                                                </th>
+                                                <th colspan="2" scope="col" style="width: 17%;">
+                                                    <div class="sub_fix_th">오류 수집 건수
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 8.5%;">
+                                                    <div class="sub_fix_th_2h">기간</div>
+                                                </th>
+                                                <th scope="col" style="width: 8.5%;">
+                                                    <div class="sub_fix_th_2h">전체</div>
+                                                </th>
+                                                <th scope="col" style="width: 8.5%;">
+                                                    <div class="sub_fix_th_2h">기간</div>
+                                                </th>
+                                                <th scope="col" style="width: 8.5%;">
+                                                    <div class="sub_fix_th_2h">전체</div>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            
+                                                
+                                                
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                34
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">테스트</td>
+                                                            <td class="text-center">일반행정</td>
+                                                            <td class="text-center">정책</td>
+                                                            <td class="text-center">2019-06-21</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                8
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                2
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                33
+                                                            </td>
+                                                            <td class="text-center">2018</td>
+                                                            <td class="text-center">동작구</td>
+                                                            <td class="text-left">보행신호 음성보조장치(서버 교체중)</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">시설물 안전</td>
+                                                            <td class="text-center">2018-12-20</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                160,299
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                1,906
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                32
+                                                            </td>
+                                                            <td class="text-center">2018</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">정화조악취저감감시 서비스</td>
+                                                            <td class="text-center">도시관리</td>
+                                                            <td class="text-center">하수도</td>
+                                                            <td class="text-center">2018-12-21</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                1,629,385
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                32
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                31
+                                                            </td>
+                                                            <td class="text-center">2018</td>
+                                                            <td class="text-center">구로구</td>
+                                                            <td class="text-left">스마트 교차로 알림</td>
+                                                            <td class="text-center">교통</td>
+                                                            <td class="text-center">교통운영</td>
+                                                            <td class="text-center">2018-12-28</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                222,496
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                74
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                30
+                                                            </td>
+                                                            <td class="text-center">2018</td>
+                                                            <td class="text-center">구로구</td>
+                                                            <td class="text-left">IoT기반 공기질 개선사업(인공지능형실내공기질개선)</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">생활환경</td>
+                                                            <td class="text-center">2018-12-28</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                5,078,553
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                712
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                29
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">금천구</td>
+                                                            <td class="text-left">IoT악취저감서비스(복합악취측정)</td>
+                                                            <td class="text-center">일반행정</td>
+                                                            <td class="text-center">정책</td>
+                                                            <td class="text-center">2019-01-04</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                114,961
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                62
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                28
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">자동심장충격기(AED)관리</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">소방</td>
+                                                            <td class="text-center">2019-01-04</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                40,493
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                12
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                27
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">영등포구</td>
+                                                            <td class="text-left">공공시설실내환경개선모니터링(복합공기질측정센서)</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">생활환경</td>
+                                                            <td class="text-center">2019-01-04</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                3,675,487
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                26
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">동작구</td>
+                                                            <td class="text-left">스마트보안등(양방향보안등관제시스템)</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-01-04</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                546,554
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                5
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                25
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">성동구</td>
+                                                            <td class="text-left">성동구-스트리트랩_실내측정</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">생활환경</td>
+                                                            <td class="text-center">2019-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                65,941
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                14
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                24
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">성동구</td>
+                                                            <td class="text-left">성동구-스트리트랩_실외측정</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">생활환경</td>
+                                                            <td class="text-center">2019-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                531,411
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                1,436
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                23
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">서울시-어린이집 실내공기질 측정</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">시설물 안전</td>
+                                                            <td class="text-center">2019-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                36,989,909
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                6,449
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                22
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시설공단</td>
+                                                            <td class="text-left">장애인콜택시관리</td>
+                                                            <td class="text-center">복지</td>
+                                                            <td class="text-center">장애인복지</td>
+                                                            <td class="text-center">2019-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                124,244
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                58
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                21
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">마포구</td>
+                                                            <td class="text-left">도서관이용객패턴분석</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-01-18</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                63,026
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                20
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">마포구</td>
+                                                            <td class="text-left">도서관공기질현황</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-01-18</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                186,367
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                19
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">마포구</td>
+                                                            <td class="text-left">도서관주차현황알림</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-01-18</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                14,844
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                18
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">화재감지시스템(사용안함, 서버이전)</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">재난</td>
+                                                            <td class="text-center">2019-01-28</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                409
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                1
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                17
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">캠핑장안전사고방지시스템</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">재난</td>
+                                                            <td class="text-center">2019-01-28</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                56,975
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                16
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">실내GPS시스템</td>
+                                                            <td class="text-center">일반행정</td>
+                                                            <td class="text-center">정보통신</td>
+                                                            <td class="text-center">2019-01-28</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                433,906
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                51
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                15
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시설공단</td>
+                                                            <td class="text-left">IOT기반 유동 인구 분석 및 안전 상황 전파</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-02-22</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                7,569
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                6
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                14
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">화재감지시스템(운영)</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">재난</td>
+                                                            <td class="text-center">2019-05-08</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                48,326
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                13
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">양천구</td>
+                                                            <td class="text-left">양천구청 홀몸어르신 고독사 관리 서비스</td>
+                                                            <td class="text-center">복지</td>
+                                                            <td class="text-center">장애인복지</td>
+                                                            <td class="text-center">2019-11-14</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                788,525
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                12
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">S-DoT(서울시 도시데이터 센서)_측정자료</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">공원녹지</td>
+                                                            <td class="text-center">2019-12-10</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                31,265,459
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                11
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">S-DoT(서울시 도시데이터 센서)_관제자료</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">공원녹지</td>
+                                                            <td class="text-center">2019-12-12</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                28,795,281
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                10
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">서울시</td>
+                                                            <td class="text-left">유동 인구 측정자료</td>
+                                                            <td class="text-center">교통</td>
+                                                            <td class="text-center">교통운영</td>
+                                                            <td class="text-center">2019-12-14</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                9
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">광진구</td>
+                                                            <td class="text-left">양방향보안등관제시스템 - 광진구</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2019-12-17</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                866,191
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                4
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                8
+                                                            </td>
+                                                            <td class="text-center">2019</td>
+                                                            <td class="text-center">강남구</td>
+                                                            <td class="text-left">청정공기 휴게공간</td>
+                                                            <td class="text-center">복지</td>
+                                                            <td class="text-center">일반복지</td>
+                                                            <td class="text-center">2019-12-23</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                544,383
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                7
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">강북구</td>
+                                                            <td class="text-left">양방향보안등관제시스템 - 강북구</td>
+                                                            <td class="text-center">산업/경제</td>
+                                                            <td class="text-center">경제</td>
+                                                            <td class="text-center">2020-01-06</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                128,101
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                6
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">노원구</td>
+                                                            <td class="text-left">IoT 스마트 가로보안등-노원구</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">안전사고</td>
+                                                            <td class="text-center">2020-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                260,168
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                5
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">양천구</td>
+                                                            <td class="text-left">IoT 스마트 가로보안등-양천구</td>
+                                                            <td class="text-center">안전</td>
+                                                            <td class="text-center">안전사고</td>
+                                                            <td class="text-center">2020-01-15</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                896,743
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                29
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                4
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">양천구</td>
+                                                            <td class="text-left">장애인주차구역 지킴이 서비스</td>
+                                                            <td class="text-center">복지</td>
+                                                            <td class="text-center">장애인</td>
+                                                            <td class="text-center">2020-01-31</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                3,919
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                3
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">금천구</td>
+                                                            <td class="text-left">1인가구 고독사 관리</td>
+                                                            <td class="text-center">복지</td>
+                                                            <td class="text-center">노인복지</td>
+                                                            <td class="text-center">2020-02-03</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                7
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                2
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">은평구</td>
+                                                            <td class="text-left">전기자전거</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">생활환경</td>
+                                                            <td class="text-center">2020-02-12</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                660
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                0
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                1
+                                                            </td>
+                                                            <td class="text-center">2020</td>
+                                                            <td class="text-center">마포구</td>
+                                                            <td class="text-left">마스보드 - 스마트 태양광 전자잉크 관광안내판</td>
+                                                            <td class="text-center">환경</td>
+                                                            <td class="text-center">기상</td>
+                                                            <td class="text-center">2020-02-12</td>
+                                                            <td class="text-right" name="col_1">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_2">
+                                                                564,912
+                                                            </td>
+                                                            <td class="text-right" name="col_3">
+                                                                0
+                                                            </td>
+                                                            <td class="text-right" name="col_4">
+                                                                5
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                
+                                            
+                                            </tbody>
+                                            <tfoot>
+                                            <th class="text-right disabled_th" colspan="7">합계</th>
+                                            <th class="text-right disabled_th" name="result_1"></th>
+                                            <th class="text-right disabled_th" name="result_2"></th>
+                                            <th class="text-right disabled_th" name="result_3"></th>
+                                            <th class="text-right disabled_th" name="result_4"></th>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer clearfix no-pad-top">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-info"
+                                            onclick="fnExceldownload(); return false;"><i
+                                            class="fa fa-file-excel-o"></i> 통계 결과 엑셀 다운로드
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.box -->
+                    </form>
+                    <!-- content 영역 -->
+                </div><!-- /.col-xs-12 -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+    </div>
+    <!-- footer -->
+    
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+    <div class="loading_img" style="text-align:center;padding-top:370px;"><img
+            src="/common/images/common/code_loading.gif"></div>
+</div>
+    <!--//footer -->
+</div>
+</body>
+</html>
+
+
