@@ -16,6 +16,16 @@ button {
 	clip:rect(1px, 1px, 1px, 1px);
 }
 
+/* 스크롤바 */
+.table-responsive.scrollbar-outer > .scroll-content.scroll-scrolly_visible {
+    left: 0;
+    margin: 0;
+}
+
+.table-responsive.scrollbar-outer > .scroll-element.scroll-y {
+    background: transparent;
+}
+
 input::placeholder {
     color: #9fa1a5;
 }
