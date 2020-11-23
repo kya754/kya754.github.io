@@ -310,6 +310,8 @@ select.form-control {
     border: 0;
     min-height: 30px;
     width: calc(100% - 15px);
+    border: 1px solid #c4c6c8;
+    border-radius: 3px;
 }
 
 .table .text-area textarea {
@@ -317,6 +319,8 @@ select.form-control {
     width: 100%;
     min-height: 302px;
     resize: none;
+    border: 1px solid #c4c6c8;
+    border-radius: 3px;
 }
 
 
