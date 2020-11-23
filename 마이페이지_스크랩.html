@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>IoT도시데이터시스템</title>
+
+    <!-- new css link -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/layout.css">
+    <link rel="stylesheet" href="/common/css/renewal.css">
+
+    <!-- new js link -->
+    <script src="/common/js/jquery.js"></script>
+    <script src="/common/js/jquery.scrollbar.min.js"></script>
+    <script src="/common/js/layout.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+    
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="#" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <div class="gnb-wrap">
+                <ul class="gnb-menu clfix">
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">센서 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수집 현황</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 시각화</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석 프로세스</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">시각화 그래프 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석리포트 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">외부 데이터 공유</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">검색 히스토리</a>
+                                </li>
+                                <li>
+                                    <a href="#">스크랩</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 시각화 그래프</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 분석 리포트</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 외부 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">회원정보 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">IoT 도시데이터 소개</a>
+                                </li>
+                                <li>
+                                    <a href="#">주요서비스</a>
+                                </li>
+                                <li>
+                                    <a href="#">자주 하는 질문</a>
+                                </li>
+                                <li>
+                                    <a href="#">공지사항</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        <div class="depth2-wrap clfix">
+                            <!-- 서비스 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">서비스 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">데이터 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 정보 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 수신 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 담당자 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">SMS 수신 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 시스템 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">시스템 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">공공데이터 이용 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 개방 현황</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">시스템 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">메뉴관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">페이지뷰</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">접속이력</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">계정 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한별 메뉴관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 개발자 도구 -->
+                            <div class="depth2-list">
+                                <p class="title">개발자 도구</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">API 인증키 운영 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">코드 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 수동 파싱</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 공개 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    <em class="icon-label">3</em>
+                </a>
+                <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+                <a href="javascript:void(0);" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    <em class="icon-label">5</em>
+                </a>
+            </div>
+            <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+            <div class="user-popup">
+                <p class="user-name"><span>김서울</span>&nbsp;님</p>
+                <ul>
+                    <li><a href="#">나의 정보 보기</a></li>
+                    <li><a href="#">비밀번호 변경</a></li>
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end : header -->
+    
+    <div class="content-wrapper mypage02">
+        <section class="content-header">
+            <h1>검색 히스토리</h1>
+            <small>지도 검색 결과를 저장한 내역을 조회할 수 있습니다.</small>
+        </section>
+
+        <!-- start : Main content -->
+        <section class="content">
+            <div class="common-search">
+                <div class="box-header">
+                    <div class="form-wrap align-right">
+                        <!--날자 검색-->
+                        <div class="form-group">
+                            <span class="option-title">저장일</span>
+                            <input style="width:119px" type="text" class="form-control input-sm" id="sch_start_ymd"
+                                   name="sch_start_ymd" placeholder="검색 시작일"
+                                   value="2020.11.06"/> -
+                            <input style="width:119px" type="text" class="form-control input-sm" id="sch_end_ymd"
+                                   name="sch_end_ymd" placeholder="검색 종료일"
+                                   value="2020.11.06"/>
+                        </div>
+                        
+                        <!--기관명-->
+                        <div class="form-group">
+                            <select id="sch_public_yn" name="sch_public_yn" class="form-control input-sm"  style="width:100px">
+                                <option value="">기관명</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                            </select>
+                        </div>
+                        <!--전체-->
+                        <div class="form-group">
+                            <select id="sch_public_yn" name="sch_public_yn" class="form-control input-sm"  style="width:100px">
+                                <option value="">전체</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                            </select>
+                        </div>
+                        
+                        <!--검색어 직접 입력-->
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control input-sm" id="" name="" placeholder="검색어 직접 입력" onkeydown="" value=""  style="width:232px">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cont-wrap mgt32">
+                <div class="board-head">
+                    <span class="ttl">전체 <em>20</em>건의 스크랩이 있습니다.</span>
+                    <ul class="setting">
+                        <li class="order">
+                            <span class="set-text">최신순</span>
+                            <button type="button" class="bttn btn-up"></button>
+                            <button type="button" class="bttn btn-down active"></button>
+                        </li>
+                        <li class="order">
+                            <span class="set-text">제목순</span>
+                            <button type="button" class="bttn btn-up active"></button>
+                            <button type="button" class="bttn btn-down"></button>
+                        </li>
+                        <li>
+                            <select id="" name="" class="form-control">
+                                <option value="">10</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="check-wrap">
+                    <div class="top-wrap">
+                        <div class="all-check">
+                            <input type="checkbox" id="testall" name="">
+                            <label for="testall">전체선택</label>
+                        </div>
+                        <button type="button" class="all-delete">
+                            <span>선택삭제</span>
+                        </button>
+                    </div>
+                    <ul class="check-list">
+                        <li class="check-box-wide">
+                            <div class="select-input">
+                                <input type="checkbox" id="test01" name="">
+                                <label for="test01"></label>
+                            </div>
+                            <div class="title-wrap">
+                                <span class="category">데이터셋</span>
+                                <p class="title">강남구 및 송파구 미세먼지 추이_2020년 6월</p>
+                                <button type="button" class="star-btn">
+                                    <span class="hidden-txt">스크랩</span>
+                                </button>
+                                <p class="date">2020-09-20</p>
+                            </div>
+                            <div class="button-wrap type02">
+                                <a href="#" class="view-more">
+                                    <span>상세보기</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="check-box-wide">
+                            <div class="select-input">
+                                <input type="checkbox" id="test02" name="">
+                                <label for="test02"></label>
+                            </div>
+                            <div class="title-wrap">
+                                <span class="category">데이터셋</span>
+                                <p class="title">강남구 및 송파구 미세먼지 추이_2020년 6월강남구 및 송파구 미세먼지 추이_2020년 6월</p>
+                                <button type="button" class="star-btn">
+                                    <span class="hidden-txt">스크랩</span>
+                                </button>
+                                <p class="date">2020-09-20</p>
+                            </div>
+                            <div class="button-wrap type02">
+                                <a href="#" class="view-more">
+                                    <span>상세보기</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-footer clearfix text-center mgt40">
+                    <ul class="pagination pagination-sm no-margin">
+                        <li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li>
+                        <li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li>
+                        <li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li>
+                        <li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li>
+                        <li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li>
+                        <li><a href="#" title="맨뒤로가기" onclick="fnGoPage('4'); return false;">»</a></li>
+                    </ul>
+                    <input type="hidden" name="currentPage" id="currentPage" value="1">
+                </div>
+            </div>
+        </section>
+        <!-- end : Main content -->
+    
+    </div>
+    
+    <!-- start : footer -->
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <!-- end : footer -->
+</body>
+</html>
