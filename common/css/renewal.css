@@ -324,6 +324,8 @@ select.form-control {
 }
 
 
+
+
 .text-left td,
 .text-left th {
     text-align: left !important;
@@ -2196,4 +2198,31 @@ span[name=toggle-control] {
     border: 0 !important;
     text-align: center;
     padding: 40px 0;
+}
+
+
+.table td input[name="upload"] {
+    border: 0;
+    width: auto;
+    min-height: auto;
+}
+
+.fileBoxWrap {
+    display: flex;
+    padding: 10px 0;
+    align-items: center 
+}
+
+.fileBoxWrap > .form-control {
+    /* padding: 10px 0; */
+}
+
+.input_file_wrap {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    
+}
+
+.file-wrapper {
+    
 }
