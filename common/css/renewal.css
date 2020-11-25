@@ -2257,3 +2257,26 @@ ol.tab-cont li {
 ol.tab-cont li.active {
     display: block;
 }
+
+.layout-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.layout-box > div {
+    /* flex-basis: auto; */
+}
+
+.layout-box .img-box img {
+    display: block;
+    width: 100%;
+}
+
+.layout-box .sub-title {
+    font-family: 'NotoSansKR-Bold';
+    font-size: 20px;
+}
+
+.box-button {
+    text-align: right;
+}
