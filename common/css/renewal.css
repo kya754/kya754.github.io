@@ -256,6 +256,7 @@ select.form-control {
     background: #fff url('/common/images/ic-cal.png') no-repeat;
     background-size: 17px 15px;
     background-position: right 7px top 50%;
+    padding-right: 9px;
 }
 
 #sch_start_ymd {
@@ -2279,4 +2280,14 @@ ol.tab-cont li.active {
 
 .box-button {
     text-align: right;
+}
+
+.form-group .only-search {
+    background: url(/common/images/ic-search.png) center no-repeat;
+    background-size: 22px 22px;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
 }

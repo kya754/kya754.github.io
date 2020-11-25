@@ -1464,9 +1464,13 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control input-sm hasDatepicker" id="sch_start_ymd" name="sch_start_ymd" placeholder="검색 시작일" value="2020.11.21"> -
                                         <input type="text" class="form-control input-sm hasDatepicker" id="sch_end_ymd" name="sch_end_ymd" placeholder="검색 종료일" value="2020.11.21">
-                                        <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                    </div>
+                                    <!-- s: 20201125 form-group 분리, 버튼에 only-search 클래스 추가 -->
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-sm btn-default only-search" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
                                         </button>
                                     </div>
+                                    <!-- s: 20201125 form-group 분리, 버튼에 only-search 클래스 추가 -->
                                 </div>
                             </div><!-- /.box-header -->
                             <div class="box-body no-pad-top table-responsive" style="border: 0px;">
