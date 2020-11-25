@@ -2254,6 +2254,6 @@ ol.tab-cont li {
     display: none;
 }
 
-ol.tab-cont li.on {
+ol.tab-cont li.active {
     display: block;
 }
