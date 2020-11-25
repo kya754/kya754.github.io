@@ -6,7 +6,8 @@ button {
 	background: inherit; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
 }
 
-.btn.btn-default {
+/* 기본 타입 color00 */
+.btn.color00 {
     border: 0;
     background: #426aff;
     color: #fff;
@@ -17,20 +18,46 @@ button {
     font-family: 'NotoSansKR-Medium';
 }
 
-.btn.btn-default.color01 {
+.btn.color01 {
     background: #eef2fb;
     color: #426aff;
     border: 1px solid #426aff;
     box-sizing: border-box;
+    vertical-align: top;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
 }
-.btn.btn-default.color02 {
+.btn.color02 {
+    border: 0;
+    color: #fff;
     background: #223786;
+    vertical-align: top;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
 }
-.btn.btn-default.color03 {
+.btn.color03 {
+    border: 0;
+    color: #fff;
     background:#8795ff;
+    vertical-align: top;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
 }
-.btn.btn-default.color04 {
+.btn.color04 {
+    border: 0;
+    color: #fff;
     background:#e33d3e;
+    vertical-align: top;
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
 }
 
 
@@ -2223,6 +2250,10 @@ span[name=toggle-control] {
     
 }
 
-.file-wrapper {
-    
+ol.tab-cont li {
+    display: none;
+}
+
+ol.tab-cont li.on {
+    display: block;
 }

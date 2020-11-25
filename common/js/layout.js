@@ -116,42 +116,67 @@ $(document).ready(function(){
     });
 
 
-    //커뮤니티, 마이페이지 그래프 검색 버튼
-    var selectAllBtn = $('.select-all .filter-item');
-    var selectBtn = $('.filter-box .filter-item');
-    // disabled 제외한 버튼 개수
-    var activeFilterNum = selectBtn.length - $('.filter-item.disabled').length;
+    //20201125 square-filter 영역 체크박스 기능 주석처리 
 
-    //전체선택
-    selectAllBtn.on('click', function(){
-        if(selectAllBtn.hasClass('active')){
-            $(this).removeClass('active');
-            selectBtn.not('.disabled').removeClass('active');
-        }else{
-            $(this).addClass('active');
-            selectBtn.not('.disabled').addClass('active');
-        }
-    });
+    // //커뮤니티, 마이페이지 그래프 검색 버튼
+    // var selectAllBtn = $('.select-all .filter-item');
+    // var selectBtn = $('.filter-box .filter-item');
+    // // disabled 제외한 버튼 개수
+    // var activeFilterNum = selectBtn.length - $('.filter-item.disabled').length;
 
-    //개별선택
-    selectBtn.not('.disabled').on('click', function(){
+    // //전체선택
+    // selectAllBtn.on('click', function(){
+    //     if(selectAllBtn.hasClass('active')){
+    //         $(this).removeClass('active');
+    //         selectBtn.not('.disabled').removeClass('active');
+    //     }else{
+    //         $(this).addClass('active');
+    //         selectBtn.not('.disabled').addClass('active');
+    //     }
+    // });
+
+    // //개별선택
+    // selectBtn.not('.disabled').on('click', function(){
+    //     if($(this).hasClass('active')){
+    //         $(this).removeClass('active');
+    //     }else{
+    //         $(this).addClass('active');
+    //     }    
+
+    //     //전체선택이 활성화 상태일때 개별선택 해제 시
+    //     if(selectAllBtn.hasClass('active')){
+    //         selectAllBtn.removeClass('active');
+    //     }
+
+    //     //개별선택 전체 되면 전체선택 활성화
+    //     if($('.filter-box .filter-item.active').length == activeFilterNum){
+    //         selectAllBtn.addClass('active');
+    //     }
+    // });
+
+
+    //20201125 square-filter 영역 탭메뉴 기능
+    $('.square-filter .filter-item').not('.disabled').on('click', function(){
+        $('.square-filter .filter-item').removeClass('active');
+        $('.tab-cont > li').hide();
+
         if($(this).hasClass('active')){
             $(this).removeClass('active');
-        }else{
+        }else {
             $(this).addClass('active');
-        }    
 
-        //전체선택이 활성화 상태일때 개별선택 해제 시
-        if(selectAllBtn.hasClass('active')){
-            selectAllBtn.removeClass('active');
-        }
-
-        //개별선택 전체 되면 전체선택 활성화
-        if($('.filter-box .filter-item.active').length == activeFilterNum){
-            selectAllBtn.addClass('active');
+            var tabBtnValue = $(this).val();
+            var sameValueIndex = tabContList.indexOf(tabBtnValue);
+            
+            $('.tab-cont > li').eq(sameValueIndex).show();
         }
     });
-    
+
+    // 컨텐츠 영역 value 배열에 추가
+    var tabContList = [];
+    for(i = 0; i < $('.tab-cont > li').length; i++){
+        tabContList.push($('.tab-cont > li').eq(i).attr('value'));
+    }
 
 });
 
