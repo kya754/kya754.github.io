@@ -6,7 +6,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="robots" content="NONE">
-<link rel="shortcut icon" href="/common/images/favicon.png">
+<link rel="shortcut icon" href="http://15.165.202.174:8080/common/images/favicon.png">
     <title>IoT도시데이터 관리시스템
     </title>
     
@@ -17,14 +17,14 @@
 <link rel="stylesheet" type="text/css" href="/common/css/layout.css">
 <link rel="stylesheet" type="text/css" href="/common/css/renewal.css">
 
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
-<script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
-<!-- <script type="text/javascript">
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/page/layout.js"></script>
+<script type="text/javascript" src=http://15.165.202.174:8080/common/js/moment.js"></script>
+<script type="text/javascript">
     $(function () {
         $(document).ajaxStart(function () {
             $('#loading-wrap').show();
@@ -41,36 +41,29 @@
     <script type="text/javascript">
         //<![CDATA[
         $(function () {
-            $('[name=sch_organ_code], [name=sch_user_se_code], [name=sch_user_sttus_code], [name=sch_row_per_page]').change(function (e) {
+            //활동을 기본으로 검색
+            $('[name=sch_organ_code], [name=sch_row_per_page]').change(function (e) {
                 fnSearch();
             });
         });
 
-        // 페이지 이동
         function fnGoPage(currentPage) {
             $("#currentPage").val(currentPage);
-            $("#aform").attr({action: "/admin/user/selectPageListUserMgt.do", method: 'post'}).submit();
+            $("#aform").attr({action: "/admin/authmenu/selectPageListAuthMenuMgt.do", method: 'post'}).submit();
         }
 
-        // 사용자등록폼 이동
-        function fnInsertForm() {
-            document.location.href = "/admin/user/insertFormUserMgt.do";
+        function fnAuthMenuList(auth_id) {
+            $("#author_id").val(auth_id);
+            $("#aform").attr({action: "/admin/authmenu/selectListAuthMenuMgt.do", method: 'post'}).submit();
         }
 
-        // 상세조회
-        function fnSelect(user_no) {
-            $("#user_no").val(user_no);
-            $("#aform").attr({action: "/admin/user/selectUserMgt.do", method: 'post'}).submit();
-        }
-
-        // 검색
         function fnSearch() {
             $("#currentPage").val("1");
-            $("#aform").attr({action: "/admin/user/selectPageListUserMgt.do", method: 'get'}).submit();
+            $("#aform").attr({action: "/admin/authmenu/selectPageListAuthMenuMgt.do", method: 'post'}).submit();
         }
 
         //]]>
-    </script> -->
+    </script>
 </head>
 <body class="skin-blue-light layout-top-nav">
 <div class="wrapper">
@@ -1213,54 +1206,32 @@
 
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 954px;">
+    <div class="content-wrapper" style="min-height: 936px;">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>사용자관리</h1>
+            <h1>권한별 메뉴관리</h1>
         </section>
 
         <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <form role="form" id="aform" method="post" action="/admin/user/selectPageListUserMgt.do">
-                        <input type="hidden" id="user_no" name="user_no">
-                        <div class="box box-primary">
+                    <form role="form" id="aform" method="post" action="/admin/authmenu/selectPageListAuthMenuMgt.do">
+                        <input type="hidden" id="author_id" name="author_id">
+                        <div class="box box-primary common-search"><!-- 20201129 클래스 추가 : common-search -->
                             <div class="box-header">
-                                <div class="text-right form-inline">
-                                    
-                                    <!--  기관 구분 -->
+                                <div class="form-wrap align-right"><!-- 20201129 클래스 text-right form-inline 삭제 / form-wrap align-right 추가 -->
+                                    <!--  기관 -->
                                     <div class="form-group">
-                                        <select id="sch_organ_code" name="sch_organ_code" class="form-control input-sm">
-                                            <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
-                                        </select>
-                                    </div>
-                                    
-
-                                    <!--  사용자구분 -->
-                                    <div class="form-group">
-                                        <select id="sch_user_se_code" name="sch_user_se_code" class="form-control input-sm">
-                                            <option value="">사용자 구분</option><option value="10">시스템 관리자</option><option value="40">서비스 담당자</option><option value="30">기관 담당자</option><option value="50">일반 사용자</option>
-                                        </select>
-                                    </div>
-
-                                    <!--  사용자상태 -->
-                                    <div class="form-group">
-                                        <select id="sch_user_sttus_code" name="sch_user_sttus_code" class="form-control input-sm">
-                                            <option value="">사용자 상태</option><option value="10">활동</option><option value="20">탈퇴</option><option value="99">정지</option><option value="0">승인 대기</option>
-                                        </select>
+                                        
+                                            <select class="form-control input-sm" id="sch_organ_code" name="sch_organ_code">
+                                                <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                            </select>
+                                        
                                     </div>
                                     <div class="form-group">
-                                        <select id="search_list_st" name="sch_type" class="form-control input-sm">
-                                            <option value="user_nm">
-                                                이름
-                                            </option>
-                                            <option value="user_id">
-                                                사용자ID
-                                            </option>
-                                        </select>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control" id="sch_text" name="sch_text" placeholder="검색어를 입력하세요." onkeydown="if(event.keyCode==13){fnSearch(); return false;}" value="">
+                                        <div class="input-group">
+                                            <input type="text" name="sch_auth_nm" value="" class="form-control input-sm pull-right" placeholder="권한명을 입력하세요." style="width: 232px;"><!-- 20201129 style 추가 -->
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
                                                 </button>
@@ -1278,233 +1249,121 @@
                                         <col width="*">
                                         <col width="10%">
                                         <col width="10%">
-                                        <col width="10%">
-                                        <col width="10%">
                                     </colgroup>
                                     <thead>
                                     <tr>
                                         <th class="text-center">번호</th>
-                                        <th class="text-center">기관 명</th>
-                                        <th class="text-center">사용자 ID</th>
-                                        <th class="text-center txt_overflow">이름</th>
-                                        <th class="text-center">사용자 구분</th>
-                                        <th class="text-center">사용자 상태</th>
-                                        <th class="text-center txt_overflow">등록자 명</th>
+                                        <th class="text-center">기관명</th>
+                                        <th class="text-center">권한 ID</th>
+                                        <th class="text-center">권한 명</th>
+                                        <th class="text-center">등록자</th>
                                         <th class="text-center">등록일</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('300')">
-                                        <td class="text-center">277
-                                        </td>
-                                        <td class="text-center">금천구
-                                        </td>
-                                        <td class="text-center">widcats
-                                        </td>
-                                        <td class="text-center">aasdasd
-                                        </td>
-                                        <td class="text-center">일반 사용자
-                                        </td>
-                                        <td class="text-center">승인 대기
-                                        </td>
-                                        <td class="text-center">aasdasd
-                                        </td>
-                                        <td class="text-center">2020.10.26
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_300')">
+                                            <td class="text-center">115</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_300</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.26</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('253')">
-                                        <td class="text-center">276
-                                        </td>
-                                        <td class="text-center">
-                                        </td>
-                                        <td class="text-center">fivelucky
-                                        </td>
-                                        <td class="text-center">지승업
-                                        </td>
-                                        <td class="text-center">서비스 담당자
-                                        </td>
-                                        <td class="text-center">승인 대기
-                                        </td>
-                                        <td class="text-center">지승업
-                                        </td>
-                                        <td class="text-center">2020.06.29
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_460')">
+                                            <td class="text-center">114</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_460</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.08.04</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('236')">
-                                        <td class="text-center">275
-                                        </td>
-                                        <td class="text-center">
-                                        </td>
-                                        <td class="text-center">ml.kookmin.ac.kr
-                                        </td>
-                                        <td class="text-center">이미영
-                                        </td>
-                                        <td class="text-center">일반 사용자
-                                        </td>
-                                        <td class="text-center">승인 대기
-                                        </td>
-                                        <td class="text-center">이미영
-                                        </td>
-                                        <td class="text-center">2020.06.02
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_370')">
+                                            <td class="text-center">113</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_370</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.31</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('153')">
-                                        <td class="text-center">274
-                                        </td>
-                                        <td class="text-center">관악구
-                                        </td>
-                                        <td class="text-center">jdj9821
-                                        </td>
-                                        <td class="text-center">전동준
-                                        </td>
-                                        <td class="text-center">일반 사용자
-                                        </td>
-                                        <td class="text-center">승인 대기
-                                        </td>
-                                        <td class="text-center">전동준
-                                        </td>
-                                        <td class="text-center">2020.04.01
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_440')">
+                                            <td class="text-center">112</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_440</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.04.09</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('280')">
-                                        <td class="text-center">273
-                                        </td>
-                                        <td class="text-center">서울시
-                                        </td>
-                                        <td class="text-center">juabae
-                                        </td>
-                                        <td class="text-center">배주아
-                                        </td>
-                                        <td class="text-center">기관 담당자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">배주아
-                                        </td>
-                                        <td class="text-center">2020.10.06
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_280')">
+                                            <td class="text-center">111</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_280</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.26</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('279')">
-                                        <td class="text-center">272
-                                        </td>
-                                        <td class="text-center">서울시
-                                        </td>
-                                        <td class="text-center">highland68
-                                        </td>
-                                        <td class="text-center">이우종
-                                        </td>
-                                        <td class="text-center">시스템 관리자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">이우종
-                                        </td>
-                                        <td class="text-center">2020.10.05
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_350')">
+                                            <td class="text-center">110</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_350</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.26</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('278')">
-                                        <td class="text-center">271
-                                        </td>
-                                        <td class="text-center">서울시
-                                        </td>
-                                        <td class="text-center">zpzgdev2
-                                        </td>
-                                        <td class="text-center">조인성
-                                        </td>
-                                        <td class="text-center">시스템 관리자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">관리자
-                                        </td>
-                                        <td class="text-center">2020.09.15
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_420')">
+                                            <td class="text-center">109</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_420</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.31</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('277')">
-                                        <td class="text-center">270
-                                        </td>
-                                        <td class="text-center">마포구
-                                        </td>
-                                        <td class="text-center">mapoadmin
-                                        </td>
-                                        <td class="text-center">최미란
-                                        </td>
-                                        <td class="text-center">기관 담당자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">최미란
-                                        </td>
-                                        <td class="text-center">2020.09.15
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_260')">
+                                            <td class="text-center">108</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_260</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.26</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('275')">
-                                        <td class="text-center">269
-                                        </td>
-                                        <td class="text-center">광진구
-                                        </td>
-                                        <td class="text-center">spiritoso
-                                        </td>
-                                        <td class="text-center">유종헌
-                                        </td>
-                                        <td class="text-center">기관 담당자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">유종헌
-                                        </td>
-                                        <td class="text-center">2020.09.10
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_330')">
+                                            <td class="text-center">107</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_330</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.26</td>
+                                        </tr>
                                     
-                                    <tr style="cursor:pointer;cursor:hand;" onclick="fnSelect('274')">
-                                        <td class="text-center">268
-                                        </td>
-                                        <td class="text-center">광진구
-                                        </td>
-                                        <td class="text-center">sire
-                                        </td>
-                                        <td class="text-center">광진구테스트
-                                        </td>
-                                        <td class="text-center">일반 사용자
-                                        </td>
-                                        <td class="text-center">활동
-                                        </td>
-                                        <td class="text-center">관리자
-                                        </td>
-                                        <td class="text-center">2020.09.09
-                                        </td>
-                                    </tr>
+                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnAuthMenuList('MGT_USR_400')">
+                                            <td class="text-center">106</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">MGT_USR_400</td>
+                                            <td>기관 담당자</td>
+                                            <td class="text-center">관리자</td>
+                                            <td class="text-center">2020.03.31</td>
+                                        </tr>
                                     
                                     
-
                                     </tbody>
                                 </table>
                             </div><div class="scroll-element scroll-x"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 100px;"></div></div></div><div class="scroll-element scroll-y"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 100px;"></div></div></div></div><!-- /.box-body -->
                             <div class="box-footer clearfix text-center">
                                 <div class="pull-left form-inline">
-                                    Row Per Page
+                                    <!-- Row Per Page --> <!-- 20201129 삭제 -->
                                     <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
                                         <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
                                     </select>
                                 </div>
-                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li><li><a href="#" onclick="fnGoPage('5'); return false;">5</a></li><li><a href="#" onclick="fnGoPage('6'); return false;">6</a></li><li><a href="#" onclick="fnGoPage('7'); return false;">7</a></li><li><a href="#" onclick="fnGoPage('8'); return false;">8</a></li><li><a href="#" onclick="fnGoPage('9'); return false;">9</a></li><li><a href="#" onclick="fnGoPage('10'); return false;">10</a></li><li><a href="#" title="뒤로가기" onclick="fnGoPage('11'); return false;">&gt;</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('28'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
-                            </div>
-                            <div class="box-footer clearfix no-pad-top">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-info" onclick="fnInsertForm(); return false;">
-                                        <i class="fa fa-pencil"></i> 등록
-                                    </button>
-                                </div>
+                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li><li><a href="#" onclick="fnGoPage('5'); return false;">5</a></li><li><a href="#" onclick="fnGoPage('6'); return false;">6</a></li><li><a href="#" onclick="fnGoPage('7'); return false;">7</a></li><li><a href="#" onclick="fnGoPage('8'); return false;">8</a></li><li><a href="#" onclick="fnGoPage('9'); return false;">9</a></li><li><a href="#" onclick="fnGoPage('10'); return false;">10</a></li><li><a href="#" title="뒤로가기" onclick="fnGoPage('11'); return false;">&gt;</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('12'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
                             </div>
                         </div><!-- /.box -->
                     </form>

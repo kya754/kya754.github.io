@@ -24,7 +24,7 @@
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function () {
         $(document).ajaxStart(function () {
             $('#loading-wrap').show();
@@ -36,43 +36,151 @@
             $('#loading-wrap').hide();
         });
     });
-</script>
+</script> -->
 
-    <script type="text/javascript">
+
+    <!-- <script type="text/javascript">
         //<![CDATA[
-
         $(function () {
-            //기관 셀렉트 박스 변경시 조회
-            $("#sch_organ_code").change(function () {
-                fnSearch();
+
+            // 사용자 권한 체크
+            
+
+            // 비밀번호 수정 checkBox 이벤트
+            $("#change_password_YN").change(function () {
+                if ($("#change_password_YN").is(":checked")) {
+                    $("[name = password]").show();
+                    $("[name = check_password]").show();
+                } else {
+                    $("[name = password]").hide();
+                    $("[name = check_password]").hide();
+                    $("[name = password]").val("");
+                    $("[name = check_password]").val("");
+                }
             });
-            // 목록 수 셀렉트 박스 변경시 조회
-            $("#sch_row_per_page").change(function () {
-                fnSearch();
+
+            // 데이터 셋팅
+            $('input[name=organ_code]').val('130');
+            var cttpc = ''.split('-');
+            $('input[name=cttpc1]').val(cttpc[0]);
+            $('input[name=cttpc2]').val(cttpc[1]);
+            $('input[name=cttpc3]').val(cttpc[2]);
+            var email = ''.split('@');
+            $('input[name=email1]').val(email[0]);
+            $('input[name=email2]').val(email[1]);
+
+            var emailList = ["직접입력", "naver.com", "hanmail.net", "gmail.com", , "nate.com", "hotmail.com"];
+            var str = "";
+            for (var i in emailList) {
+                str += '<option value="' + emailList[i] + '">' + emailList[i] + '</option>';
+            }
+            $(".emailSelect").html(str);
+
+            $('[name=organ_code]').change(function (e) {
+                fnGetAuthor();
             });
+            fnGetAuthor();
         });
 
-        function fnGoPage(currentPage) {
-            $("#currentPage").val(currentPage);
-            $("#aform").attr({action: "/admin/author/selectPageListAuthorMgt.do", method: 'post'}).submit();
+        function fnEmailSelect_b(v) {
+            if (v == '직접입력') $('[name=email2]').val("");
+            else $('[name=email2]').val(v);
         }
 
-        function fnInsertForm() {
-            document.location.href = "/admin/author/insertFormAuthorMgt.do";
+        // 목록
+        function fnDetail() {
+            $("#aform").attr({action: "/admin/user/selectPageListUserMgt.do", method: 'post'}).submit();
         }
 
-        function fnUpdateForm(author_id) {
-            $("#author_id").val(author_id);
-            $("#aform").attr({action: "/admin/author/updateFormAuthorMgt.do", method: 'post'}).submit();
+        // 수정
+        function fnGoUpdate() {
+            if ($("[name=cttpc1]").val() != "" && $("[name=cttpc2]").val() != "" && $("[name=cttpc3]").val() != "") {
+                var cttpc = $("[name=cttpc1]").val() + "-" + $("[name=cttpc2]").val() + "-" + $("[name=cttpc3]").val();
+                $("[name=cttpc]").val(cttpc);
+            }
+
+            if ($("[name=email1]").val() != "" && $("[name=email2]").val() != "") {
+                $("[name=email]").val($("[name=email1]").val() + "@" + $("[name=email2]").val());
+            }
+
+            if ($("[name=user_nm]").val() == "") {
+                alert("이름을 입력해 주세요.");
+                $("[name=user_nm]").focus();
+                return;
+            }
+
+            if ($("[name=password]").val() == "" && ($("#change_password_YN").is(":checked"))) {
+                alert("비밀번호를 입력해 주세요.");
+                $("[name=password]").focus();
+                return;
+            }
+
+            if ($("input:radio[name='author_id']").is(":checked") == false) {
+                alert("사용자 권한을 체크해 주세요");
+                return;
+            }
+
+            if ($("[name=user_se_code]").val() == "") {
+                alert("신청권한을 선택해 주세요.");
+                $("[name=user_se_code]").focus();
+                return;
+            }
+
+            if ($("#change_password_YN").is(":checked")) {
+                if ($("[name=password]").val() != $("[name=check_password]").val()) {
+                    alert("비밀번호가 일치하지 않습니다.");
+                    $("[name=password]").focus();
+                    return;
+                }
+            }
+
+            if (confirm("수정하시겠습니까?")) {
+                $("#aform").attr({action: "/admin/user/updateUserAcpt.do", method: 'post'}).submit();
+            }
         }
 
-        function fnSearch() {
-            $("#currentPage").val("1");
-            $("#aform").attr({action: "/admin/author/selectPageListAuthorMgt.do", method: 'post'}).submit();
+        // 선택 기관 권한
+        function fnGetAuthor() {
+            var param = {'organ_code': $('[name=organ_code]').val()};
+
+            $.ajax({
+                url: '/admin/user/selectOrganAuthorAjax.do',
+                type: 'post',
+                dataType: 'json',
+                data: param,
+                async: false,
+                success: function (param) {
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+                    $("#organAuthor").children().remove();
+
+                    var html = "";
+                    for (var i = 0; i < param.resultMap.length; i++) {
+                        var item = param.resultMap[i];
+
+                        var authorId = item.AUTHOR_ID;
+                        var authorNm = item.AUTHOR_NM;
+                        var author = "author" + i;
+
+                        html += '<div class="checkbox">';
+                        html += '		<label for="' + author + '">';
+                        html += '		<input type="radio" name="author_id" id="' + author + '"'
+                            + ' 		value="' + authorId + '">' + authorNm;
+                        html += ' 	</label>';
+                        html += ' </div>';
+                    }
+                    $("#organAuthor").append(html);
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
         }
 
         //]]>
-    </script>
+    </script> -->
 </head>
 <body class="skin-blue-light layout-top-nav">
 <div class="wrapper">
@@ -1213,195 +1321,219 @@
 </div>
 
 
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 954px;">
+    <!-- content -->
+    <div class="content-wrapper" style="min-height: 936px;">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>권한관리 </h1>
+            <h1>사용자관리</h1>
         </section>
 
         <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <form role="form" id="aform" method="post" action="/admin/author/selectPageListAuthorMgt.do">
-                        <input type="hidden" id="author_id" name="author_id">
+                    <form role="form" id="aform" method="post" action="/admin/user/updateUserAcpt.do">
+                        <input type="hidden" id="user_no" name="user_no" value="300">
+                        <input type="hidden" id="cttpc" name="cttpc">
+                        <input type="hidden" id="cttpc_se_code" name="cttpc_se_code" value="10">
+                        <input type="hidden" id="email" name="email">
+
+                        
+                        <input type="hidden" name="sch_organ_code" value="">
+                        <input type="hidden" name="sch_user_se_code" value="">
+                        <input type="hidden" name="sch_user_sttus_code" value="">
+                        <input type="hidden" name="sch_type" value="user_nm">
+                        <input type="hidden" name="sch_text" value="">
+                        <input type="hidden" name="currentPage" value="1">
+                        <input type="hidden" name="sch_row_per_page" value="10">
+
                         <div class="box box-primary">
-                            <div class="box-header">
-                                <div class="text-right form-inline">
-                                    <div class="form-group">
-                                        
-                                            <select id="sch_organ_code" name="sch_organ_code" class="form-control input-sm">
-                                                <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
-                                            </select>
-                                        
-                                        <div class="input-group">
-                                            <input type="text" name="sch_auth_nm" value="" class="form-control input-sm pull-right" placeholder="권한명을 입력하세요.">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- /.box-header -->
-                            <div class="scroll-wrapper box-body no-pad-top table-responsive scrollbar-outer" style="position: relative;"><div class="box-body no-pad-top table-responsive scrollbar-outer scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 451px;">
-                                <table class="table table-hover table-bordered">
+                            <div class="box-body no-padding text-left"><!-- 20201129 클래스 추가 : text-left -->
+                                <table class="table table-bordered type02"><!-- 20201129 클래스 추가 : type02 -->
                                     <colgroup>
-                                        <col width="80">
-                                        <col width="10%">
-                                        <col width="20%">
-                                        <col width="*">
-                                        <col width="10%">
-                                        <col width="10%">
+                                        <col style="width:15%;">
+                                        <col style="width:35%;">
+                                        <col style="width:15%;">
+                                        <col style="width:35%;">
                                     </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">번호</th>
-                                        <th class="text-center">기관명</th>
-                                        <th class="text-center">권한 ID</th>
-                                        <th class="text-center">권한 명</th>
-                                        <th class="text-center">등록자</th>
-                                        <th class="text-center">등록일</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_380')">
-                                            <td class="text-center">115</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_380</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.31</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_290')">
-                                            <td class="text-center">114</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_290</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.26</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_450')">
-                                            <td class="text-center">113</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_450</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.05.21</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_360')">
-                                            <td class="text-center">112</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_360</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.31</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_430')">
-                                            <td class="text-center">111</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_430</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.04.02</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_270')">
-                                            <td class="text-center">110</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_270</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.26</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_340')">
-                                            <td class="text-center">109</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_340</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.26</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_410')">
-                                            <td class="text-center">108</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_410</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.31</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_250')">
-                                            <td class="text-center">107</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_250</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.26</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;" onclick="fnUpdateForm('MGT_USR_320')">
-                                            <td class="text-center">106</td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center">MGT_USR_320</td>
-                                            <td>기관 담당자</td>
-                                            <td class="text-center">관리자</td>
-                                            <td class="text-center">2020.03.26</td>
-                                        </tr>
-                                    
-                                    
+                                    <tr>
+                                        <th class="required_field">기관</th>
+                                        <td colspan="3">
+                                            
+                                            <select class="form-control" id="organ_code" name="organ_code">
+                                                <option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130" selected="selected">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                            </select>
+                                            
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="required_field">사용자 권한</th>
+                                        <td id="organAuthor" colspan="3">
+                                            
+                                            <!-- s: 20201129 기존 소스 주석 -->
+                                            <!-- <div class="checkbox">
+                                                <label for="author0">
+                                                <input type="radio" name="author_id" id="author0" value="ASSIGN_USR_130">서비스 담당자 	</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label for="author1">
+                                                <input type="radio" name="author_id" id="author1" value="MGT_USR_130">기관 담당자 	</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label for="author2">
+                                                <input type="radio" name="author_id" id="author2" value="USR_130">일반 사용자 	</label>
+                                            </div> -->
+                                            <!-- e: 20201129 기존 소스 주석 -->
+
+                                            <!-- s: 20201129 수정 -->
+                                            <div class="checkbox">
+                                                <input type="radio" id="author0" name="author_id" value="ASSIGN_USR_130">
+                                                <label for="author0">서비스 담당자</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <input type="radio" id="author1" name="author_id" value="MGT_USR_130">
+                                                <label for="author1">기관 담당자</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <input type="radio" id="author2" name="author_id" value="USR_130">
+                                                <label for="author2">일반 사용자</label>
+                                            </div>
+                                            <!-- e: 20201129 수정 -->
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
-                            </div><div class="scroll-element scroll-x"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 100px;"></div></div></div><div class="scroll-element scroll-y"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 100px;"></div></div></div></div><!-- /.box-body -->
-                            <div class="box-footer clearfix text-center">
-                                <div class="pull-left form-inline">
-                                    Row Per Page
-                                    <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
-                                        <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
-                                    </select>
-                                </div>
-                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li><li><a href="#" onclick="fnGoPage('5'); return false;">5</a></li><li><a href="#" onclick="fnGoPage('6'); return false;">6</a></li><li><a href="#" onclick="fnGoPage('7'); return false;">7</a></li><li><a href="#" onclick="fnGoPage('8'); return false;">8</a></li><li><a href="#" onclick="fnGoPage('9'); return false;">9</a></li><li><a href="#" onclick="fnGoPage('10'); return false;">10</a></li><li><a href="#" title="뒤로가기" onclick="fnGoPage('11'); return false;">&gt;</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('12'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
-                            </div>
-                            <div class="box-footer clearfix no-pad-top">
-                                
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info" onclick="fnInsertForm(); return false;"><i class="fa fa-pencil"></i> 등록
-                                        </button>
-                                    </div>
-                                
-                            </div>
+                            </div><!-- /.box-body -->
                         </div><!-- /.box -->
-                    </form>
-                </div><!--  /.col-xs-12 -->
-            </div><!-- /.row -->
-        </section><!-- /.content -->
-    </div><!-- /.content-wrapper -->
 
-    <!-- footer -->
-    
+                        <div class="box box-primary">
+                            <div class="box-body no-padding text-left"><!-- 20201129 클래스 추가 : text-left -->
+                                <table class="table table-bordered type02"><!-- 20201129 클래스 추가 : type02 -->
+                                    <colgroup>
+                                        <col style="width:15%;">
+                                        <col style="width:35%;">
+                                        <col style="width:15%;">
+                                        <col style="width:35%;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>사용자ID</th>
+                                        <td>
+                                            widcats
+                                            <input type="hidden" class="form-control" id="user_id" name="user_id" placeholder="사용자ID" onkeyup="cfLengthCheck('사용자ID는', this, 100);" value="widcats" readonly="readonly">
+                                        </td>
+                                        <th>이름</th>
+                                        <td>
+                                            aasdasd
+                                            <input type="hidden" class="form-control" id="user_nm" name="user_nm" placeholder="이름" onkeyup="cfLengthCheck('이름은', this, 250);" value="aasdasd">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="required_field">사용자 상태</th>
+                                        <td>
+                                            <select class="form-control" id="user_sttus_code" name="user_sttus_code">
+                                                <option value="10">활동</option><option value="20">탈퇴</option><option value="99">정지</option><option value="0" selected="selected">승인 대기</option>
+                                            </select>
+                                        </td>
+                                        <th class="required_field">신청권한</th>
+                                        <td>
+                                            <select class="form-control" id="user_se_code" name="user_se_code">
+                                                <option value="10">시스템 관리자</option><option value="40">서비스 담당자</option><option value="30">기관 담당자</option><option value="50" selected="selected">일반 사용자</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+
+
+                        <div class="box box-primary">
+                            <div class="box-body no-padding text-left"><!-- 20201129 클래스 추가 : text-left -->
+                                <table class="table table-bordered type02"><!-- 20201129 클래스 추가 : type02 -->
+                                    <colgroup>
+                                        <col style="width:15%;">
+                                        <col style="width:85%;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>부서명</th>
+                                        <td>
+                                            <input type="text" class="form-control" id="user_dept_nm" name="user_dept_nm" placeholder="부서명" onkeyup="cfLengthCheck('부서명은', this, 50);" value="">
+                                        </td>
+                                    </tr>
+                                    <tr class="text-area"><!-- 20201129 클래스 추가 : text-area (textarea 높이 조정 필요할 경우 atuo 클래스 추가하고 태그에 style 직접 추가) -->
+                                        <th>이용업무</th>
+                                        <td>
+                                            <textarea style="height:62px" class="form-control" rows="3" name="user_role_desc" placeholder="업무 내용을 작성해주십시오." onkeyup="cfLengthCheck('업무내용은', this, 250);"></textarea>
+                                        </td><!-- 20201129 textarea style추가 -->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+
+                        <div class="box box-primary">
+                            <div class="box-body no-padding text-left"><!-- 20201129 클래스 추가 : text-left -->
+                                <table class="table table-bordered type02"><!-- 20201129 클래스 추가 : type02 -->
+                                    <colgroup>
+                                        <col style="width:15%;">
+                                        <col style="width:85%;">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td>
+                                                
+                                            <input type="hidden" name="cttpc1" class="form-control numeric" maxlength="4" title="전화번호 첫번째 입력칸입니다" style="width:80px;" value="">
+                                            <input type="hidden" name="cttpc2" class="form-control numeric" maxlength="4" title="전화번호 두번째 입력칸입니다" style="width:80px;" value="">
+                                            <input type="hidden" name="cttpc3" class="form-control numeric" maxlength="4" title="전화번호 세번째 입력칸입니다" style="width:80px;" value="">
+                            
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>이메일</th>
+                                <td>
+                                    
+                                    <input type="hidden" class="form-control" name="email1" placeholder="이메일" maxlength="40" style="display:inline-block; width:150px" value="">
+                                    <input type="hidden" class="form-control" name="email2" placeholder="도메인" maxlength="40" style="display:inline-block; width:150px" value="">
+                                </td>
+                            </tr>
+                            </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default color03" onclick="fnDetail(); return false;"><i class="fa fa-reply"></i> 취소
+                                </button><!-- 20201129 클래스 추가 color03 -->
+                                <button type="button" class="btn btn-info" onclick="fnGoUpdate(); return false;"><i class="fa fa-pencil"></i> 승인
+                                </button>
+                            </div>
+                        </div><!-- /.box-footer -->
+                </div><!-- /.box -->
+
+                </form>
+            </div><!--  /.col-xs-12 -->
+    </div><!-- ./row -->
+    </section><!-- /.content -->
+</div>
+<!-- footer -->
+
 <div id="footer">
     <div class="inner clfix">
         <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
         <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
     </div>
 </div>
-<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+<div id="loading-wrap" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 11000; display: none;">
     <div class="loading_img" style="text-align:center;padding-top:370px;"><img src="/common/images/common/code_loading.gif"></div>
 </div>
-    <!-- //fooTer -->
-
-</div><!-- ./wrapper -->
-
+<!-- //fooer -->
+</div>
 
 
 
-<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div></body></html>
+
+</body></html>

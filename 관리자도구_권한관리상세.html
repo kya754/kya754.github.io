@@ -24,7 +24,7 @@
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
 <script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(function () {
         $(document).ajaxStart(function () {
             $('#loading-wrap').show();
@@ -36,55 +36,33 @@
             $('#loading-wrap').hide();
         });
     });
-</script>
+</script> -->
+
 
     <script type="text/javascript">
         //<![CDATA[
         $(function () {
-            //f_divView('main_0', 'main_0');	//메뉴구조 유지
-            // 목록 수 셀렉트 박스 변경시 조회
-            $("#sch_row_per_page").change(function () {
-                fnSearch();
-            });
         });
 
-        function fnGoPage(currentPage) {
-            $("#currentPage").val(currentPage);
-            $("#aform").attr({action: "/admin/code/selectPageListGroupCodeMgt.do", method: 'post'}).submit();
-        }
-
-        function fnInsertForm() {
-            document.location.href = "/admin/code/insertFormGroupCodeMgt.do";
-        }
-
-        function fnSelectCodeList(groupId) {
-            $("#group_id").val(groupId);
-            $("#aform").attr({action: "/admin/code/selectListCodeMgt.do", method: 'post'}).submit();
-        }
-
-        function fnSearch() {
-            $("#currentPage").val("1");
-            $("#aform").attr({action: "/admin/code/selectPageListGroupCodeMgt.do", method: 'post'}).submit();
-        }
-
-        function fnDelete() {
-            var delGrpCodeList = f_getList("del_grp_code");
-            var chkFag = false;
-
-            for (i = 0; i < delGrpCodeList.length; i++) {
-                if (delGrpCodeList[i].checked == true) {
-                    chkFag = true;
-                    break;
-                }
-            }
-
-            if (chkFag == false) {
-                alert("삭제할 그룹코드를 선택해 주세요.");
+        function fnGoUpdate() {
+            if ($("#author_nm").val() == "") {
+                alert("권한명을 입력해 주세요.");
+                $("#author_nm").focus();
                 return;
             }
 
+            if (confirm("수정하시겠습니까?")) {
+                $("#aform").attr({action: "/admin/author/updateAuthorMgt.do", method: 'post'}).submit();
+            }
+        }
+
+        function fnGoList() {
+            $("#aform").attr({action: "/admin/author/selectPageListAuthorMgt.do", method: 'post'}).submit();
+        }
+
+        function fnGoDelete() {
             if (confirm("삭제하시겠습니까?")) {
-                $("#aform").attr({action: "/admin/code/deleteGroupCodeMgt.do", method: 'post'}).submit();
+                $("#aform").attr({action: "/admin/author/deleteAuthorMgt.do", method: 'post'}).submit();
             }
         }
 
@@ -1230,208 +1208,94 @@
 </div>
 
 
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 972px;">
+    <!-- content -->
+    <div class="content-wrapper" style="min-height: 936px;">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>코드관리</h1>
+            <h1>권한관리</h1>
         </section>
 
-        <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <!-- content 영역 -->
-                    <form id="aform" method="post">
-                        <input type="hidden" name="group_id" id="group_id">
+                    <div class="box box-primary">
+                        <!-- form start -->
+                        <form role="form" id="aform" method="post" action="/admin/author/insertAuthorMgt.do">
+                            <!--검색조건-->
+                            <input type="hidden" name="author_id" value="MGT_USR_420">
+                            <input type="hidden" name="sch_auth_nm" value="">
+                            <!--페이징조건-->
+                            <input type="hidden" name="currentPage" value="1">
+                            
+                            <input type="hidden" id="sch_organ_code" name="sch_organ_code" value="">
+                            <input type="hidden" id="sch_row_per_page" name="sch_row_per_page" value="10">
 
-                        <div class="box box-primary">
-                            <div class="box-header">
-                                <div class="text-right form-inline">
-                                    <div class="form-group">
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" id="sch_grp_code_nm" name="sch_grp_code_nm" value="" class="form-control" placeholder="그룹코드명을 입력하세요. ">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- /.box-header -->
-                            <div class="scroll-wrapper box-body no-pad-top table-responsive scrollbar-outer" style="position: relative;"><div class="box-body no-pad-top table-responsive scrollbar-outer scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 451px;">
-                                <table class="table table-bordered table-hover">
+                            <div class="box-body text-left"><!--20201129 클래스 추가 : text-left-->
+                                <table class="table table-bordered type02"><!--20201129 클래스 추가 : type02-->
+                                    <caption></caption>
                                     <colgroup>
-                                        <col width="50">
-                                        <col width="80">
-                                        <col width="*">
-                                        <col width="*">
-                                        <col width="*">
-                                        <col width="150">
-                                        <col width="150">
+                                        <col style="width:20%;">
+                                        <col style="width:30%;">
+                                        <col style="width:20%;">
+                                        <col style="width:30%;">
                                     </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center"></th>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">그룹코드</th>
-                                        <th class="text-center">그룹코드 명</th>
-                                        <th class="text-center">영문그룹코드 명</th>
-                                        <th class="text-center">등록자</th>
-                                        <th class="text-center">등록일</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010270"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010270')">
-                                                26
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010270')">R010270</td>
-                                            <td onclick="fnSelectCodeList('R010270')">페이지 목록 수 </td>
-                                            <td onclick="fnSelectCodeList('R010270')"></td>
-                                            <td onclick="fnSelectCodeList('R010270')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010270')" class="text-center">2020.01.29</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010260"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010260')">
-                                                25
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010260')">R010260</td>
-                                            <td onclick="fnSelectCodeList('R010260')">서울시 하위분류 체계 코드</td>
-                                            <td onclick="fnSelectCodeList('R010260')"></td>
-                                            <td onclick="fnSelectCodeList('R010260')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010260')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010250"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010250')">
-                                                24
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010250')">R010250</td>
-                                            <td onclick="fnSelectCodeList('R010250')">서울시 상위분류 체계 코드</td>
-                                            <td onclick="fnSelectCodeList('R010250')"></td>
-                                            <td onclick="fnSelectCodeList('R010250')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010250')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010240"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010240')">
-                                                23
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010240')">R010240</td>
-                                            <td onclick="fnSelectCodeList('R010240')">이용 타입 코드</td>
-                                            <td onclick="fnSelectCodeList('R010240')"></td>
-                                            <td onclick="fnSelectCodeList('R010240')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010240')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010230"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010230')">
-                                                22
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010230')">R010230</td>
-                                            <td onclick="fnSelectCodeList('R010230')">차트 단위</td>
-                                            <td onclick="fnSelectCodeList('R010230')">Chart Unit</td>
-                                            <td onclick="fnSelectCodeList('R010230')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010230')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010220"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010220')">
-                                                21
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010220')">R010220</td>
-                                            <td onclick="fnSelectCodeList('R010220')">패킷 오류 코드</td>
-                                            <td onclick="fnSelectCodeList('R010220')"></td>
-                                            <td onclick="fnSelectCodeList('R010220')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010220')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010210"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010210')">
-                                                20
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010210')">R010210</td>
-                                            <td onclick="fnSelectCodeList('R010210')">차트 유형</td>
-                                            <td onclick="fnSelectCodeList('R010210')">Chart Type</td>
-                                            <td onclick="fnSelectCodeList('R010210')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010210')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010200"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010200')">
-                                                19
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010200')">R010200</td>
-                                            <td onclick="fnSelectCodeList('R010200')">서비스 상태</td>
-                                            <td onclick="fnSelectCodeList('R010200')">SRVC_STATUS</td>
-                                            <td onclick="fnSelectCodeList('R010200')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010200')" class="text-center">2020.01.08</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010190"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010190')">
-                                                18
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010190')">R010190</td>
-                                            <td onclick="fnSelectCodeList('R010190')">패킷 공개여부</td>
-                                            <td onclick="fnSelectCodeList('R010190')"></td>
-                                            <td onclick="fnSelectCodeList('R010190')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010190')" class="text-center">2019.12.03</td>
-                                        </tr>
-                                    
-                                        <tr style="cursor:pointer;cursor:hand;">
-                                            <td class="text-center"><input type="checkbox" name="del_grp_code" value="R010180"></td>
-                                            <td class="text-center" onclick="fnSelectCodeList('R010180')">
-                                                17
-                                            </td>
-                                            <td onclick="fnSelectCodeList('R010180')">R010180</td>
-                                            <td onclick="fnSelectCodeList('R010180')">협치 분류체계 코드</td>
-                                            <td onclick="fnSelectCodeList('R010180')"></td>
-                                            <td onclick="fnSelectCodeList('R010180')" class="text-center">관리자</td>
-                                            <td onclick="fnSelectCodeList('R010180')" class="text-center">2019.12.03</td>
-                                        </tr>
-                                    
-                                    
+                                    <tr>
+                                        <th>권한ID</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                MGT_USR_420
+                                            </div>
+                                        </td>
+                                        <th class="required_field">권한명</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" id="author_nm" name="author_nm" value="기관 담당자" placeholder="권한명" onkeyup="cfLengthCheck('권한명은', this, 100);">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>기관명</th>
+                                        <td colspan="3"><!-- 20201129 colspan 추가 -->
+                                            
+                                                
+
+                                                    <select class="form-control" id="organ_code" name="organ_code">
+                                                        <option value="">선택</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                                    </select>
+                                                
+                                                
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr class="text-area">
+                                        <th>내용</th>
+                                        <td colspan="3">
+                                            <div class="outBox1">
+                                                <textarea class="form-control" rows="3" name="rm" placeholder="내용..." onkeyup="cfLengthCheck('내용은', this, 100);">auto create</textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
-                            </div><div class="scroll-element scroll-x"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 100px;"></div></div></div><div class="scroll-element scroll-y"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 100px;"></div></div></div></div><!-- /.box-body -->
-                            <div class="box-footer clearfix text-center">
-                                <div class="pull-left form-inline">
-                                    Row Per Page
-                                    <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
-                                        <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
-                                    </select>
-                                </div>
-                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('3'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
-                            </div>
-                            <div class="box-footer clearfix no-pad-top">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-warning" onclick="fnDelete(); return false;"><i class="fa fa-trash"></i> 삭제
+
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-default" onclick="fnGoList(); return false;"><i class="fa fa-reply"></i> 목록
+                                </button>
+                                <div class="btn-wrap-right"><!-- 20201129 클레스 변경 : pull-right -> btn-wrap-right -->
+                                    <button type="button" class="btn btn-info" onclick="fnGoUpdate(); return false;"><i class="fa fa-pencil"></i> 수정
                                     </button>
-                                    <button type="button" class="btn btn-info" onclick="fnInsertForm(); return false;">
-                                        <i class="fa fa-pencil"></i> 등록
+                                    <button type="button" class="btn btn-warning" onclick="fnGoDelete(); return false;">
+                                        <i class="fa fa-trash"></i> 삭제
                                     </button>
                                 </div>
                             </div>
-                        </div><!-- /.box -->
-                    </form>
-                    <!-- content 영역 -->
-                </div><!-- /.col-xs-12 -->
-            </div><!-- /.row -->
-        </section><!-- /.content -->
+                        </form>
+                    </div><!-- box -->
+                </div><!-- col-xs-12 -->
+            </div><!-- row -->
+        </section><!-- //content -->
     </div>
     <!-- footer -->
     
@@ -1444,10 +1308,10 @@
 <div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
     <div class="loading_img" style="text-align:center;padding-top:370px;"><img src="/common/images/common/code_loading.gif"></div>
 </div>
-    <!--//footer -->
+    <!-- //fooer -->
 </div>
 
 
 
 
-<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div></body></html>
+</body></html>

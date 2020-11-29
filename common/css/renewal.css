@@ -132,6 +132,39 @@ input[type="checkbox"]:checked + label {
     color: #3f3f3f;
 }
 
+/* 라디오 */
+input[type="radio"] + label:before {
+	content:'';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 3px;
+	border: solid 2px #c5caea;
+	background-color: transparent;
+	cursor: pointer;
+	margin-right: 9px;
+	vertical-align: middle;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+}
+input[type="radio"]:checked + label:before {
+	border: solid 2px #426aff;
+	background: #426aff url('/common/images/check-solid.png') center no-repeat;
+	background-size: 70%;
+} 
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"] + label {
+	color: #808080;
+	font-family: 'NotoSansKR-Medium';
+}
+input[type="radio"]:checked + label {
+	color: #426aff;
+}
+
+
 /* map popup */
 .leaflet-popup-content-wrapper {
     border-radius: 0 !important;
@@ -202,6 +235,7 @@ input[type="checkbox"]:checked + label {
     border: 0;
 }
 
+.table td input[type=text],
 .form-control {
     box-sizing: border-box;
     border: 1px solid #c4c6c8;
@@ -338,6 +372,11 @@ select.form-control {
 }
 
 /* table */
+.table td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 .table th input,
 .table td input {
     border: 0;
@@ -349,16 +388,28 @@ select.form-control {
     color: #44474a;
     font-family: 'NotoSansKR-Regular';
     letter-spacing: -0.6px;
+    /* margin: 8px 0; */
 }
 
 .table .text-area textarea {
-    border: 0;
+    height: auto;
+    padding: 0;
+    padding: 10px;
     width: 100%;
-    min-height: 302px;
+    /* min-height: 302px; */
+    height: 298px;
     resize: none;
     border: 1px solid #c4c6c8;
     border-radius: 3px;
+    font-size: 12px;
+    color: #44474a;
+    font-family: 'NotoSansKR-Regular';
+    letter-spacing: -0.6px;
 }
+/* .table .text-area textarea {
+    min-height: auto;
+    height: 41px;
+} */
 
 
 
@@ -575,6 +626,7 @@ border-top: 1px solid #c4c6c8; */
     background: #eef2fb;
     border-top: 0;
     border-bottom: 0;
+    padding: 0;
 }
 .table.tab-wrap td .btn {
     height: 100%;
@@ -651,6 +703,7 @@ border-top: 1px solid #c4c6c8; */
 
 .box-footer .pull-right {
     margin-top: 32px;
+    /* text-align: right; */
 }
 
 .toggle-wrap {
@@ -1661,6 +1714,13 @@ span[name=toggle-control] {
 .common-search .box-header {
     margin-bottom: 21px;
 }
+
+.common-search .box-header .form-inline {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 0 7px;
+}
+
 .common-search .form-wrap {
     display: flex;
     padding-top: 8px;
@@ -1802,12 +1862,8 @@ span[name=toggle-control] {
 
 
 
-.box-body table.type02 .text-area th,
 .box-body table.type02 .text-area td {
-    height: 341px;
-}
-.box-body table.type02 .text-area td {
-    padding: 15px;
+    padding: 8px 15px;
 }
 
 .view .box-body {
@@ -1827,6 +1883,14 @@ span[name=toggle-control] {
 .btn-wrap-right {
     float: right;
 }
+
+.btn-wrap-right .btn {
+    margin-left: 6px;
+}
+.btn-wrap-right .btn:first-child {
+    margin-left: 0;
+}
+
 
 .btn.btn-bookmark {
     width: 50px;
@@ -1990,18 +2054,24 @@ span[name=toggle-control] {
     border-bottom: 1px solid #c4c6c8;
 }
 
+
+.btn-info,
 .post-btn {
     border: 0;
     background: #426aff;
     color: #fff;
     vertical-align: top;
-    width: 150px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
     float: right;
 }
 
+.btn-wrap-right .btn-info {
+    float: none;
+}
 
 
 .check-wrap .check-list {
@@ -2302,4 +2372,18 @@ ol.tab-cont li.active {
     border: 0;
     cursor: pointer;
     padding: 0;
+}
+
+.btn[onclick^=fnRemoveLine] {
+    width: 55px;
+    height: 32px;
+    font-size: 14px;
+}
+
+.table .checkbox {
+    margin-top: 5px;
+}
+
+.table .checkbox:first-child {
+    margin-top: 0;
 }
