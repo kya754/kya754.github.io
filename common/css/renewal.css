@@ -12,7 +12,8 @@ button {
     background: #426aff;
     color: #fff;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -24,7 +25,8 @@ button {
     border: 1px solid #426aff;
     box-sizing: border-box;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -34,7 +36,8 @@ button {
     color: #fff;
     background: #223786;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -44,7 +47,8 @@ button {
     color: #fff;
     background:#8795ff;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -54,7 +58,8 @@ button {
     color: #fff;
     background:#e33d3e;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -340,6 +345,10 @@ select.form-control {
     width: calc(100% - 15px);
     border: 1px solid #c4c6c8;
     border-radius: 3px;
+    box-sizing: border-box;
+    color: #44474a;
+    font-family: 'NotoSansKR-Regular';
+    letter-spacing: -0.6px;
 }
 
 .table .text-area textarea {
@@ -357,6 +366,7 @@ select.form-control {
 .text-left td,
 .text-left th {
     text-align: left !important;
+    padding: 8px 0;
     padding-left: 15px;
 }
 
@@ -2237,7 +2247,6 @@ span[name=toggle-control] {
 
 .fileBoxWrap {
     display: flex;
-    padding: 10px 0;
     align-items: center 
 }
 
@@ -2247,8 +2256,11 @@ span[name=toggle-control] {
 
 .input_file_wrap {
     margin-left: 10px;
-    margin-bottom: 5px;
-    
+    margin-top: 5px;
+}
+
+.input_file_wrap:first-child {
+    margin-top: 0;
 }
 
 ol.tab-cont li {

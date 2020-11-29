@@ -1,0 +1,2746 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="http://15.165.202.174:8080/common/images/favicon.png">
+    <title>IoT도시데이터 관리시스템
+    </title>
+    
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery-ui-themes-1.8.18/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/font.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" type="text/css" href="/common/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/common/css/layout.css">
+<link rel="stylesheet" type="text/css" href="/common/css/renewal.css">
+
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script>
+
+
+    <script src="http://15.165.202.174:8080/common/js/bootstrap/Chart.js"></script>
+    <script src="http://15.165.202.174:8080/common/js/bootstrap/flot/jquery.flot.js"></script>
+    <script src="http://15.165.202.174:8080/common/js/bootstrap/flot/jquery.flot.pie.js"></script>
+    <script src="http://15.165.202.174:8080/common/js/bootstrap/flot/jquery.flot.resize.js"></script>
+    <script src="http://15.165.202.174:8080/common/js/bootstrap/flot/jquery.flot.categories.js"></script>
+
+    <link rel="stylesheet" href="http://15.165.202.174:8080/common/css/common.css">
+    <link rel="stylesheet" href="http://15.165.202.174:8080/common/css/custom.css">
+    <link rel="stylesheet" href="http://15.165.202.174:8080/common/css/bootstrap/morris.css">
+
+
+    <!-- 지도 sdk -->
+    <style type="text/css">
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!-- 서울맵 지도 SDK -->
+    <link rel="stylesheet" type="text/css" href="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapCss">
+    <script type="text/javascript" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&amp;key=6413fff343724983b9a0c343239f8654"></script>
+    <script type="text/javascript" src="http://15.165.202.174:8080/common/js/map_api/seoul_map/api.js"></script>
+
+
+    <script type="text/javascript">
+
+        var marker = null;			//지도 마커
+        var map = null;					//지도
+        var showMarkerArr = [];	//지도마커를 담을 배열
+        var iem = null;					//측정항목
+
+        //마커 전체 삭제 함수
+        function mkClear() {
+            var markerArr = showMarkerArr;
+
+            if (markerArr != null) {
+                var markerLen = markerArr.length;
+                for (var i = 0; i < markerLen; i++) {
+                    var lastMarker = markerArr.pop();
+                    map.removeLayer(lastMarker);
+                }
+            }
+        }
+
+        //마커 생성 함수
+        function setPoint(x, y) {
+            marker = new L.Marker(new L.LatLng(x, y), {
+                icon: new L.Icon({   // 마커 찍기
+                    iconUrl: "/common/images/seoul_map/pin_1.png",   //핀 이미지
+                    iconAnchor: [13, 34]  // 오프셋 (핀의 끝이 좌표로 매칭하기 위해 적용)
+                })
+            }).addTo(map);
+            showMarkerArr.push(marker);
+
+            //툴팁 생성
+            var t_data = "<b><div class='tooltip_col'>경도 </div>: " + y + "<br/><div class='tooltip_col'>위도 </div>: " + x + "</b><br/><div class='tooltip_col'>측정항목 </div>: " + iem + "</div>";
+            marker.bindPopup(mkContent(t_data), {
+                offset: [0, -30],          //오프셋
+                keepInView: false,      //팝업이 열려 있는동안 지도 벗어나게 이동 막기
+                autoPan: true,          //팝업창이 지도에서 안보일시 보이는 위치까지 자동 지도 이동
+                closeButton: true      //팝업 닫기 버튼 유,무
+            });
+
+            //마커 툴팁 오픈
+            marker.on('popupopen', function () {
+                map.setView([x, y], 10);
+            });
+
+            //마커 툴팁 클로즈
+            marker.on('popupclose', function () {
+                map.setView([x, y], 6);
+            });
+        }
+
+
+        //지도 선언
+        var mapInit = function () {
+            map = L.map('map', {
+                continuousWorld: true
+                , worldCopyJump: false
+                , zoomControl: false
+                , zoomAnimation: true
+                , markerZoomAnimation: true
+                , fadeAnimation: true
+                , inertia: false
+                , closePopupOnClick: false
+                , attributionControl: true
+            });
+
+            map.setView([37.5683206, 126.9905207], 5);  //지도 좌표 이동
+
+            BaseMapChange(map, L.Dawul.BASEMAP_GEN);  // 일반지도
+
+            // 스케일바
+            var scaleBar = new L.Control.Scale({position: 'bottomright'});
+            map.addControl(scaleBar);
+
+        };
+
+        $(function () {
+            // 기관 셀렉트 박스 변경시 조회 + 서비스명 선택값 초기화
+            $("#sch_organ_code").change(function () {
+                
+                fnSearch();
+            });
+        });
+
+        // 검색
+        function fnSearch() {
+            $('#aform').attr({action: '/dashboard/selectDashBoard.do', method: 'get'}).submit();
+        }
+
+        $(document).ready(function () {
+            $('.sidebar-toggle').hide();	// 1depth 메뉴바에서 사이드바 단추 숨김처리
+
+            mapInit();	//지도 불러오기
+
+            //기관의 서비스명 팝업 체크박스에 적용된 기관에 체크해주기
+            var poppup_choose = null;
+            if (poppup_choose != null) {
+                for (var i = 0; i <0; i++) {
+                    $("input[name=popup_check1]:checkbox[value='" + poppup_choose[i * 2] + "," + poppup_choose[i * 2 + 1] + "']").attr("checked", true);
+                }
+            }
+
+            //div(데이터 수집 현황 , 이용 현황) 높이 맞추기
+            var highestBox = 0;
+            $('.EqHeightDiv', this).each(function () {
+
+                if ($(this).height() > highestBox)
+                    highestBox = $(this).height();
+            });
+
+            $('.EqHeightDiv', this).height(highestBox);
+
+        });
+
+
+    </script>
+
+
+    
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        var transmit_server_no = "";
+        var data_no = "";
+
+        function fnGoBltn() {	//공지사항 이동
+            document.location.href = "/iot/bltn/selectPageListBltn.do";
+        }
+
+        function fnDataservice(obj2, obj3, obj4) {	//설치위치이동 - 데이터 둘러보기로
+            document.location.href = "/iot/dataservice/selectPage2.do?trnsmit_server_no=" + obj2 + "&data_no=" + obj3 + "&srvc_nm=" + encodeURI(obj4);
+        }
+
+        function fnDataservice1(trnsmit_server_no, data_no, srvc_nm, error_type) {	// 나의 서비스 관리 - 서비스 수신관리 탭별 이동
+            if (error_type == "ERROR-600") {	//미등록 기기
+                document.location.href = "/iot/srvcRecptn/selectListModelSerialInfo.do?trnsmit_server_no=" + trnsmit_server_no + "&data_no=" + data_no + "&srvc_nm=" + encodeURI(srvc_nm);
+            } else if (error_type == "ERROR-610") {	//수신간격 초과
+                document.location.href = "/iot/srvcRecptn/selectListRecptnIntrvlOverInfo.do?trnsmit_server_no=" + trnsmit_server_no + "&data_no=" + data_no + "&srvc_nm=" + encodeURI(srvc_nm);
+            } else {	//범례 초과
+                document.location.href = "/iot/srvcRecptn/selectListDataRangeOverInfo.do?trnsmit_server_no=" + trnsmit_server_no + "&data_no=" + data_no + "&srvc_nm=" + encodeURI(srvc_nm);
+            }
+        }
+
+        function fnGoDataSrvc() {	//수집 데이터 통계로 이동 서비스별 현황 +
+            document.location.href = "/iot/statsservice/selectRecptnDataStats.do";
+        }
+
+        function fnGoServiceRecptn() {	//수집간격 지연현황 +
+            document.location.href = "/iot/srvcRecptn/selectPageListServiceRecptn.do";
+        }
+
+        function fnGoDistbStats() {	//이용현황 서비스별 현황 +
+            document.location.href = "/iot/statsservice/selectDistbStats.do";
+        }
+
+        function fnGotServiceRecptn() {	//품질관리 현황 +
+            document.location.href = "/iot/srvcRecptn/selectPageListServiceRecptn.do";
+        }
+
+        // 공지사항 상세조회
+        function fnSelectBltn(bbs_seq) {
+            $('#bbs_seq').val(bbs_seq);
+            $('#aform').attr({action: '/iot/bltn/selectBltn.do', method: 'get'}).submit();
+        }
+
+        function fnGoDashBoad(type) {	//전체 대시보드
+            document.location.href = "/dashboard/selectDashBoard.do?dashboard_type=" + type;
+        }
+
+        //]]>
+
+        //지도(설치위치) 서비스명 검색
+        function fnMapSch() {
+            var sch = document.getElementById("sch_srvc_nm").value;	//검색
+            var dashboard_type = 1;	//대시보드 전체인지 기관인지
+            var srvc_nm = "";	//서비스명
+            var param = {sch_srvc_nm: sch, dashboard_type: dashboard_type};
+
+            $.ajax({
+                url: '/dashboard/selectMapSch.do',
+                type: 'post',
+                data: param,
+                dataType: 'json',
+                async: false,
+                success: function (response) {
+                    $("[name=db_map_legend]").empty();
+                    if (response.resultStats.mySensorList.length == 0) {
+                        //검색된 값이 없을 경우
+                        $("[name=db_map_legend]").append("<li><a href='javaScript:void(0)'> 검색된 값이 없습니다. </a> </li>");
+                        return;
+                    } else {
+                        //검색된 값이 있을 경우 지도에 핀을 꽂을수 있는 값을 준다.fnMapAjax()
+                        $.each(response.resultStats.mySensorList, function (i, data) {
+                            srvc_nm = response.resultStats.mySensorList[i].SRVC_NM;
+                            $("[name=db_map_legend]").append("<li id='mySensormap" + i + "'><a href='javaScript:void(0)'  onclick=\"mkClear(); fnMapAjax(this," + response.resultStats.mySensorList[i].TRNSMIT_SERVER_NO + "," + response.resultStats.mySensorList[i].DATA_NO + ",'" + srvc_nm + "');\">" + srvc_nm + "(" + response.resultStats.mySensorList[i].SENSOR_CNT + ") </a></li>");
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+
+        }
+
+        // 도시데이터 센서 설치 현황 리스트 값 검색 지도
+        function fnMapAjax(obj, obj2, obj3, obj4) {
+            transmit_server_no = obj2;
+            data_no = obj3;
+            var srvc_nm = obj4;
+            var listSize = null;
+
+            $("[name=goSchMap]").empty();
+            var html = '<button type="button" class="btn btn-box-tool" onClick="fnDataservice(' + transmit_server_no + ',' + data_no + ',\'' + srvc_nm + '\');">';
+            html += '<i class="fa fa-plus"></i>';
+            html += '</button>';
+            $("[name=goSchMap]").append(html);
+
+            var param = {
+                transmit_server_no: transmit_server_no,
+                data_no: data_no
+            };
+
+            $.ajax({
+                url: '/dashboard/selectMapAjax.do',
+                type: 'post',
+                data: param,
+                dataType: 'json',
+                success: function (response) {
+                    listSize = response.resultStats.mySensorLocationList.length;
+
+                    if (listSize == 0) {
+                        alert("등록된 위도, 경도가 없거나 표시할수 없는 정보입니다.");
+                    } else {
+                        iem = response.resultStats.mySensorLocationList[0].MESURE_IEM;	//측정항목
+                        for (var x = 0; x < listSize; x++) {
+                            setPoint(response.resultStats.mySensorLocationList[x].LA_MAP, response.resultStats.mySensorLocationList[x].LO_MAP);	//마커 찍기
+                        }	//for문
+                        map.setView([response.resultStats.mySensorLocationList[listSize - 1].LA_MAP, response.resultStats.mySensorLocationList[listSize - 1].LO_MAP], 10);	//지도 포커스
+                    }
+                },	//ajax success
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+
+        }
+
+        // 선택서비스 검색
+        function fnSelectSrvc() {
+            var selectList = [];
+            $("input[name=popup_check1]:checked").each(function (i) {
+                selectList.push($(this).val());
+            });
+
+            if (selectList.length == 0) {
+                alert("검색할 서비스를 선택해 주세요.");
+                return;
+            }
+
+            $("#aform").attr({action: "/dashboard/selectDashBoard.do", method: 'post'}).submit();
+        }
+
+    </script>
+
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+<body class="skin-blue-light layout-top-nav">
+
+    <div class="wrapper dash_h_wrapper">
+        <!-- 헤더  -->
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="/main.do">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="/main.do" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <div class="gnb-wrap">
+                <ul class="gnb-menu clfix" style="width: 818px;">
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-data">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>데이터</span>
+                            </a>
+                            
+                                <div class="depth2-wrap">
+                                    <ul class="depth2">
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">센서 데이터</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/data/service/selectPageListDataSrvc.do">서비스 데이터</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/data/collection/selectPageListDataCollectionStatus.do">데이터 수집 현황</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                        </li>
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-tool">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>분석시각화 도구</span>
+                            </a>
+                            
+                                <div class="depth2-wrap">
+                                    <ul class="depth2">
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/tool/visualization/selectPageStep1.do">데이터 시각화</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">분석 프로세스</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                        </li>
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-community">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>커뮤니티</span>
+                            </a>
+                            
+                                <div class="depth2-wrap">
+                                    <ul class="depth2">
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">시각화 그래프 공유</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/community/analysis/selectPageListAnals.do">분석리포트 공유</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/community/external/selectPageListExternal.do">외부 데이터 공유</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                        </li>
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-my">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>마이페이지</span>
+                            </a>
+                            
+                                <div class="depth2-wrap">
+                                    <ul class="depth2">
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/mypage/history/selectPageListHistory.do">검색 히스토리</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">스크랩</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">나의 시각화 그래프</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">나의 분석 리포트</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/exam">나의 외부 데이터</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/mypage/user/selectPageUser.do">회원정보 관리</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                        </li>
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-info">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>이용안내</span>
+                            </a>
+                            
+                                <div class="depth2-wrap">
+                                    <ul class="depth2">
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/info/platform/selectPage.do">IoT 도시데이터 소개</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/info/service/selectPage.do">주요서비스</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/info/faq/selectPageListFaq.do">자주 하는 질문</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                                <li>
+                                                    <a href="/info/notice/selectPageListBltn.do">공지사항</a>
+                                                </li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                        </li>
+                    
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                        
+                        <li class="depth-wrap category-admin">
+                            <a href="javascript:void(0);" class="depth1-menu">
+                                <em aria-hidden="true"></em>
+                                <span>관리자도구</span>
+                            </a>
+                            
+                            
+                                <div class="depth2-wrap clfix">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <div class="depth2-list">
+                                                <p class="title">서비스 관리</p>
+                                                <ul class="depth2">
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/dashboard/selectDashBoard.do">데이터 대시보드</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/srvcInfo/selectPageListSrvcInfo.do">서비스 정보 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/exam">표준 측정 항목 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/srvcRecptn/selectPageListServiceRecptn.do">서비스 수신 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/charger/selectPageListBsnsCharger.do">서비스 담당자 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/sms/selectSMSReciever.do">통합 SMS 수신 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/sms/selectPageListSrvcSMSReciever.do">서비스별 SMS 수신 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/exam">공공데이터 신청관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/statsservice/selectDistbStats.do">데이터 개방 현황</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/provd/selectPageProvdMgt.do">데이터 공개 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                </ul>
+                                            </div>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <div class="depth2-list">
+                                                <p class="title">시스템 관리</p>
+                                                <ul class="depth2">
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/exam">시스템 대시보드</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/menu/selectListMenuMgt.do">메뉴 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/statsservice/selectSystemStats.do">페이지뷰</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/stats/selectPageListAdminEventLog.do">접속 이력</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/user/selectPageListUserMgt.do">계정 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/author/selectPageListAuthorMgt.do">권한 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/authmenu/selectPageListAuthMenuMgt.do">권한별 메뉴 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                </ul>
+                                            </div>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <div class="depth2-list">
+                                                <p class="title">개발자 도구</p>
+                                                <ul class="depth2">
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/certkey/selectPageListCertKey.do">API 인증키 운영관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/admin/code/selectPageListGroupCodeMgt.do">코드 관리</a>
+                                                            </li>
+                                                        
+                                                    
+                                                        
+                                                            <li>
+                                                                <a href="/iot/data/selectPageListDataMgt.do">데이터 수동 파싱</a>
+                                                            </li>
+                                                        
+                                                    
+                                                </ul>
+                                            </div>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </div>
+                            
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    
+                </a>
+                <a href="javascript:void(0);" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    
+                </a>
+            </div>
+            <div class="user-popup">
+                <p class="user-name"><span>테스트</span>&nbsp;님</p>
+                <ul>
+                    <li><a href="/mypage/user/selectPageUser.do">나의 정보 보기</a></li>
+                    <li><a href="/mypage/user/selectPageUser.do">비밀번호 변경</a></li>
+                    <li><a href="/admin/logout.do">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    
+    <div class="dashboard wrapper" id="iot_custom">
+        <!-- .dashboard는 대시보드 페이지만 추가, #iot_custom은 폰트, 헤더, 푸터 공통 정의 -->
+    
+    
+        <div class="content-wrapper" style="min-height: 2932px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <form id="aform" method="post">
+                    
+                    <!-- 시스템 관리자일 경우 기관 선택 셀렉트 박스를 보여준다 -->
+                    <div style="margin: 0 0 10px 0px; width: 150px;">
+                        <select class="form-control input-sm" id="sch_organ_code" name="sch_organ_code">
+                            <option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                        </select>
+                    </div>
+                    
+    
+                    <div class="header_tabs nav-tabs-custom">
+                        <div class="tabs_list">
+                            <button type="button" class="btn btn-flat active " onclick="fnGoDashBoad(1);">기관
+                            </button>
+                            <span class="btn_popup"><i class="fa fa-caret-down"></i></span></div>
+                        <div class="tabs_list">
+                            <button type="button" class="btn btn-flat  " onclick="fnGoDashBoad(2);">전체
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!-- 서비스별 체크하는 팝업 -->
+                    <div class="popup_box">
+                        <button type="button" class="btn btn-box-tool popup_x"><i class="fa fa-close"></i></button>
+                        <ul class="popup_list">
+                            
+                                
+                                <li><input type="checkbox" id="popup_check1" name="popup_check1" value="1,1"> 테스트
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check2" name="popup_check1" value="3,1"> 정화조악취저감감시 서비스
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check3" name="popup_check1" value="15,1"> 자동심장충격기(AED)관리
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check4" name="popup_check1" value="19,1"> 서울시-어린이집 실내공기질 측정
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check5" name="popup_check1" value="28,1"> 화재감지시스템(운영)
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check6" name="popup_check1" value="30,1"> S-DoT(서울시 도시데이터 센서)_측정자료
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check7" name="popup_check1" value="31,1"> S-DoT(서울시 도시데이터 센서)_관제자료
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check8" name="popup_check1" value="32,1"> 유동 인구 측정자료
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check9" name="popup_check1" value="24,2"> 캠핑장안전사고방지시스템
+                                </li>
+                            
+                                
+                                <li><input type="checkbox" id="popup_check10" name="popup_check1" value="24,3"> 실내GPS시스템
+                                </li>
+                            
+                        </ul>
+                        <button type="button" class="btn btn-flat popup_ok" onclick="fnSelectSrvc(); return false;">확인
+                        </button>
+                    </div>
+    
+                    <div class="data_refresh">
+                        <span>기준일자</span>
+                        <span class="fc_pink"> 2020 .11 .28</span>
+                    </div>
+                </form>
+    
+            </section>
+    
+            <!-- Main content -->
+            <div class="tab_wrapper">
+                <section class="content active">
+                    <div class="row">
+                        <div class="col-xs-5 box_p1">
+    
+                            <div class="box EqHeightDiv" style="height: 703px;">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">데이터 수집 현황</h4>
+                                </div>
+    
+                                <div class="nav-tabs-custom">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab1">
+    
+                                            <ul class="status_txt2">
+                                                <li>서비스 연계 <span>10</span>건</li>
+                                                <li>일
+                                                    <span>0</span>건
+                                                </li>
+                                                <li>누적
+                                                    <span>99,266,305</span>건
+                                                </li>
+                                            </ul>
+                                            <h4 class="db_tit2">분류별 현황</h4>
+                                            <div class="pieChart1 height_auto">
+                                                <div class="chart_box1">
+                                                    <div class="pie1_wrapper">
+                                                        <div id="Piechart1" style="width: 100%; height: 176px; padding: 0px; position: relative;">
+                                                            <canvas class="flot-base" width="410" height="176" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 410px; height: 176px;"></canvas>
+                                                            <canvas class="flot-overlay" width="410" height="176" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 410px; height: 176px;"></canvas>
+                                                        <span class="pieLabel" id="pieLabel0" style="position: absolute; top: 52px; left: 250.5px;"><div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">4종<br>(40%)</div></span><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 138px; left: 187.5px;"><div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">2종<br>(20%)</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 92px; left: 124.5px;"><div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">2종<br>(20%)</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 33px; left: 134.5px;"><div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">1종<br>(10%)</div></span><span class="pieLabel" id="pieLabel4" style="position: absolute; top: 9px; left: 167.5px;"><div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">1종<br>(10%)</div></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="chart_con1">
+                                                    <ul class="chart-legend">
+                                                        
+                                                        <li class="legend_red">안전
+                                                            (4
+                                                            종, 40%)
+                                                        </li>
+                                                        
+                                                        <li class="legend_green">일반행정
+                                                            (2
+                                                            종, 20%)
+                                                        </li>
+                                                        
+                                                        <li class="legend_yellow">환경
+                                                            (2
+                                                            종, 20%)
+                                                        </li>
+                                                        
+                                                        <li class="legend_sky">도시관리
+                                                            (1
+                                                            종, 10%)
+                                                        </li>
+                                                        
+                                                        <li class="legend_blue">교통
+                                                            (1
+                                                            종, 10%)
+                                                        </li>
+                                                        
+                                                    </ul>
+                                                </div>
+    
+                                            </div><!-- /.pieChart1 -->
+                                            <div class="box_each box_vs">
+                                                <div class="box-header">
+                                                    <h4 class="db_tit2">서비스별 현황</h4>
+                                                    <div class="box-tools pull-right">
+                                                        <span class="day active"><label>일</label></span> / <span class="allday"><label>전체</label></span>
+                                                        <button type="button" class="btn btn-box-tool" onclick="fnGoDataSrvc();"><i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="tbl_scroll_box">
+                                                    <div class="fix_th_bg"></div>
+                                                    <div class="fix_wrap">
+                                                        <table class="table table-bordered">
+                                                            <colgroup>
+                                                                <col style="width: 15%;">
+                                                                <col style="width: 45%;">
+                                                                <col style="width: 20%;">
+                                                                <col style="width: 20%;">
+                                                            </colgroup>
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col" style="width: 15%;">
+                                                                    <div class="fix_th">기관명</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 45%;">
+                                                                    <div class="fix_th">서비스명</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 20%;">
+                                                                    <div class="fix_th">수집건수</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 20%;">
+                                                                    <div class="fix_th">정상수집률</div>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+    
+                                                            
+                                                                
+                                                                
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="서울시-어린이집 실내공기질 측정">서울시-어린이집 실내공기질 측정</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	36,989,912</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">99.9 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="테스트">테스트</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	8</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">80.0 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="S-DoT(서울시 도시데이터 센서)_관제자료">S-DoT(서울시 도시데이터 센서)_관제자료</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	28,795,293</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">100.0 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="실내GPS시스템">실내GPS시스템</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	433,906</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">99.9 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="자동심장충격기(AED)관리">자동심장충격기(AED)관리</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	40,493</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">99.9 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="S-DoT(서울시 도시데이터 센서)_측정자료">S-DoT(서울시 도시데이터 센서)_측정자료</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	31,265,459</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">99.9 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="캠핑장안전사고방지시스템">캠핑장안전사고방지시스템</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	56,975</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">100.0 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="정화조악취저감감시 서비스">정화조악취저감감시 서비스</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	1,629,385</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">99.9 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="유동 인구 측정자료">유동 인구 측정자료</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	0</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">0.0 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="화재감지시스템(운영)">화재감지시스템(운영)</td>
+                                                                            <td align="right"><span class="tabtab1 active">	0</span>
+                                                                                <span class="tabtab2">	48,326</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="tabtab1 active">0.0 %</span>
+                                                                                <span class="tabtab2">100.0 %</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    
+                                                                
+                                                            
+    
+                                                            </tbody>
+                                                        </table>
+                                                    </div><!-- /.tbl_scroll -->
+                                                </div>
+    
+                                            </div><!-- //box_tbl -->
+                                        </div>
+    
+                                        <div class="tab-pane" id="tab2">
+                                            <h4 class="db_tit2">분류별 현황</h4>
+                                        </div>
+                                    </div><!-- /.tab-content -->
+                                </div><!-- /.nav-tabs-custom -->
+                            </div><!-- /.box -->
+    
+    
+                            <div class="box height275 bltn">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">공지사항</h4>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" onclick="fnGoBltn();"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div><!-- /.box-header -->
+    
+                                <div class="box-body">
+                                    <!-- 상단고정 공지사항-->
+                                    
+                                        
+                                        
+                                            
+                                                <a href="/iot/bltn/selectBltn.do?bbs_seq=37" class="nt_box">
+                                                    <h5 class="tit1">[공지] 333</h5>
+                                                    <span class="nt_date">2020.11.23</span>
+                                                </a>
+                                            
+                                                <a href="/iot/bltn/selectBltn.do?bbs_seq=35" class="nt_box">
+                                                    <h5 class="tit1">[공지] dsfsdfsd</h5>
+                                                    <span class="nt_date">2020.11.23</span>
+                                                </a>
+                                            
+                                                <a href="/iot/bltn/selectBltn.do?bbs_seq=23" class="nt_box">
+                                                    <h5 class="tit1">[공지] IoT 도시데이터 연계 API인터페이스 정의서</h5>
+                                                    <span class="nt_date">2020.09.11</span>
+                                                </a>
+                                            
+                                        
+                                    
+    
+                                    <!-- 일반 공지사항 -->
+                                    
+                                        
+                                        
+                                            
+                                        
+                                    
+    
+                                </div>
+                            </div><!-- /.box -->
+    
+                            
+                            <div class="box height255">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">품질관리 현황</h4>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" onclick="fnGotServiceRecptn();"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div><!-- /.box-header -->
+    
+                                <div class="box-body">
+    
+                                    <h4 class="db_titA">
+                                        <span></span>
+                                    </h4>
+                                    <div class="box_each mt5">
+                                        <div class="tbl_scroll_box">
+                                            <div class="fix_th_bg"></div>
+                                            <div class="fix_wrap">
+                                                <table class="table table-bordered">
+                                                    <colgroup>
+                                                        <col style="width: 15%;">
+                                                        <col style="width: 45%;">
+                                                        <col style="width: 20%;">
+                                                        <col style="width: 20%;">
+                                                    </colgroup>
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" style="width: 15%;">
+                                                            <div class="fix_th">기관명</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 45%;">
+                                                            <div class="fix_th">서비스명</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%;">
+                                                            <div class="fix_th">구분</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%;">
+                                                            <div class="fix_th">건수</div>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    
+                                                        
+                                                            <tr><td class="text-center" colspan="4">조회된 결과가 없습니다.</td>
+                                                        
+                                                        
+                                                    
+    
+                                                    </tr></tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- /.tbl_scroll_box -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+    
+                        </div><!--  /.col-xs-5 -->
+    
+    
+                        <div class="col-xs-7 box_p2">
+                            <div class="box EqHeightDiv height714" style="height: 703px;">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">이용 현황</h4>
+                                </div>
+    
+                                <div class="nav-tabs-custom">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="service_chart">
+    
+                                            <ul class="status_txt2">
+                                                <li>서비스 연계 <span>10</span>건</li>
+                                                <li>일 <span>0</span>건
+                                                </li>
+                                                <li>누적
+                                                    <span>14,634</span>건
+                                                </li>
+                                            </ul>
+                                            <div class="bar_pcs2">
+                                                <div class="bar2_wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                                    <div class="chartjs-size-monitor">
+                                                        <div class="chartjs-size-monitor-expand">
+                                                            <div class=""></div>
+                                                        </div>
+                                                        <div class="chartjs-size-monitor-shrink">
+                                                            <div class=""></div>
+                                                        </div>
+                                                    </div>
+                                                    <canvas id="barChart1" height="218" style="display: block; height: 218px; width: 486px;" width="486" class="chartjs-render-monitor"></canvas>
+                                                </div>
+                                                <div class="bar2_wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                                    <div class="chartjs-size-monitor">
+                                                        <div class="chartjs-size-monitor-expand">
+                                                            <div class=""></div>
+                                                        </div>
+                                                        <div class="chartjs-size-monitor-shrink">
+                                                            <div class=""></div>
+                                                        </div>
+                                                    </div>
+                                                    <canvas id="barChart2" height="218" width="486" class="chartjs-render-monitor" style="display: block; height: 218px; width: 486px;"></canvas>
+                                                </div>
+    
+    
+                                            </div><!-- /.pieChart1 -->
+                                            <div class="box_each box_vs">
+                                                <div class="box-header">
+                                                    <h4 class="db_tit2">서비스별 현황</h4>
+                                                    <div class="box-tools pull-right">
+                                                        <span class="use_day active"><label>일</label></span> / <span class="use_all"><label>전체</label></span>
+                                                        <button type="button" class="btn btn-box-tool" onclick="fnGoDistbStats();"><i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="tbl_scroll_box">
+                                                    <div class="fix_th_bg"></div>
+                                                    <div class="fix_wrap">
+                                                        <table class="table table-bordered">
+                                                            <colgroup>
+                                                                <col style="width: 8%;">
+                                                                <col style="width: 20%;">
+                                                                <col style="width: 10%;">
+                                                                <col style="width: 12%;">
+                                                                <col style="width: 10%;">
+                                                                <col style="width: 10%;">
+                                                                <col style="width: 10%;">
+                                                                <col style="width: 10%;">
+                                                                <col style="width: 10%;">
+                                                            </colgroup>
+                                                            <thead class="fz_sm">
+                                                            <tr>
+                                                                <th scope="col" style="width: 8%;">
+                                                                    <div class="fix_th">기관</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 20%;">
+                                                                    <div class="fix_th">서비스명</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">계</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 12%;">
+                                                                    <div class="fix_th">열린데이터광장</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">디지털시장실</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">협치시스템</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">파일다운로드</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">조회수</div>
+                                                                </th>
+                                                                <th scope="col" style="width: 10%;">
+                                                                    <div class="fix_th">시각화이용</div>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody class="fz_sm">
+                                                            
+                                                                
+                                                                
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="S-DoT(서울시 도시데이터 센서)_관제자료">S-DoT(서울시 도시데이터 센서)_관제자료</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">1,935</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">550</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">550</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">71</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">640</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">124</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="서울시-어린이집 실내공기질 측정">서울시-어린이집 실내공기질 측정</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">4,816</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1,030</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1,030</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1,975</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">110</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">539</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">132</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="S-DoT(서울시 도시데이터 센서)_측정자료">S-DoT(서울시 도시데이터 센서)_측정자료</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">3,186</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1,100</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1,100</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">111</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">722</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">153</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="자동심장충격기(AED)관리">자동심장충격기(AED)관리</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">618</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">41</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">456</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">121</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="화재감지시스템(운영)">화재감지시스템(운영)</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">1,180</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">300</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">300</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">67</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">400</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">113</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="정화조악취저감감시 서비스">정화조악취저감감시 서비스</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">687</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">1</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">62</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">521</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">103</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="실내GPS시스템">실내GPS시스템</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">760</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">100</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">100</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">40</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">426</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">94</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="테스트">테스트</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">237</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">180</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">57</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="유동 인구 측정자료">유동 인구 측정자료</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">575</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">57</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">412</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">106</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                        <tr>
+                                                                            <td align="center">서울시</td>
+                                                                            <td title="캠핑장안전사고방지시스템">캠핑장안전사고방지시스템</td>
+                                                                            <td align="right"><span class="usetab1 active">0</span>
+                                                                                <span class="usetab2">640</span>
+                                                                            </td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">0</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">2</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">48</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">482</span></td>
+                                                                            <td align="right"><span class="usetab1 active">0</span><span class="usetab2">108</span></td>
+                                                                        </tr>
+                                                                        
+                                                                        
+                                                                        
+    
+                                                                        
+                                                                        
+                                                                        
+                                                                    
+                                                                
+                                                            
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div><!-- //box_tbl_box -->
+                                        </div>
+    
+                                    </div><!-- /.tab-content -->
+                                </div><!-- /.nav-tabs-custom -->
+    
+    
+                            </div><!-- /.box -->
+    
+                            <div class="box height275">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">설치 위치</h4>
+                                    <div class="box-tools pull-right" name="goSchMap">
+                                        <button type="button" class="btn btn-box-tool" onclick="alert('서비스를 선택해주세요.');"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div><!-- /.box-header -->
+    
+                                <div class="box-body">
+                                    <div class="pieChart1 mapChart1">
+                                        <div class="chart_box1">
+                                            <!-- 지도 -->
+                                            <div id="map" class="leaflet-container leaflet-fade-anim" tabindex="0" style="position: relative;"><div class="leaflet-map-pane" style="transform: translate3d(-99px, 22px, 0px);"><div class="leaflet-tile-pane"><div class="leaflet-layer"><div class="leaflet-tile-container leaflet-zoom-animated"></div><div class="leaflet-tile-container leaflet-zoom-animated"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/52_46.png" style="height: 256px; width: 256px; left: 77px; top: -64px;"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/52_45.png" style="height: 256px; width: 256px; left: 77px; top: 192px;"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/51_46.png" style="height: 256px; width: 256px; left: -179px; top: -64px;"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/53_46.png" style="height: 256px; width: 256px; left: 333px; top: -64px;"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/51_45.png" style="height: 256px; width: 256px; left: -179px; top: 192px;"><img class="leaflet-tile leaflet-tile-loaded" border="0" alt="" src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getTileMap&amp;key=6413fff343724983b9a0c343239f8654&amp;URL=http://smjd3:7070/MapAppServer/Service?timg=dawul_kor_normal/6/1/0/53_45.png" style="height: 256px; width: 256px; left: 333px; top: 192px;"></div></div></div><div class="leaflet-objects-pane"><div class="leaflet-shadow-pane"></div><div class="leaflet-overlay-pane"></div><div class="leaflet-marker-pane"></div><div class="leaflet-popup-pane"></div></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"><div class="leaflet-control-attribution leaflet-control"><a href="http://map.seoul.go.kr"><img src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=getMapSvrRes&amp;resource={'resType':'image','resPath':'sdk/ajax/3.0/images/', 'resName':'copyright.gif'}" border="0" alt=""></a></div></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-scale leaflet-control"><div class="leaflet-control-scale-line" style="width: 68px;">5 km</div></div></div></div></div>
+                                        </div>
+                                        <div class="chart_con1">
+                                            <div class="legend_sch_box">
+                                                <input type="text" class="legend_sch" id="sch_srvc_nm" name="sch_srvc_nm" title="검색어 입력" onkeydown="if(event.keyCode==13){fnMapSch(); return false;}" placeholder="검색어를 입력하세요">
+                                                <button type="button" class="legend_sch_btn" onclick="fnMapSch();">검색
+                                                </button>
+                                            </div>
+                                            <div class="db_scroll_box">
+                                                <ul class="db_map_legend" id="db_map_legend" name="db_map_legend" style="width: -webkit-fill-available;">
+                                                    
+                                                    <li id="mySensormap0"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 24, 2, '캠핑장안전사고방지시스템');">
+                                                        캠핑장안전사고방지시스템
+                                                        (133) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap1"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 24, 3, '실내GPS시스템');">
+                                                        실내GPS시스템
+                                                        (80) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap2"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 3, 1, '정화조악취저감감시 서비스');">
+                                                        정화조악취저감감시 서비스
+                                                        (180) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap3"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 28, 1, '화재감지시스템(운영)');">
+                                                        화재감지시스템(운영)
+                                                        (242) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap4"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 32, 1, '유동 인구 측정자료');">
+                                                        유동 인구 측정자료
+                                                        (50) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap5"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 15, 1, '자동심장충격기(AED)관리');">
+                                                        자동심장충격기(AED)관리
+                                                        (1) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap6"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 1, 1, '테스트');">
+                                                        테스트
+                                                        (2) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap7"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 30, 1, 'S-DoT(서울시 도시데이터 센서)_측정자료');">
+                                                        S-DoT(서울시 도시데이터 센서)_측정자료
+                                                        (851) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap8"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 31, 1, 'S-DoT(서울시 도시데이터 센서)_관제자료');">
+                                                        S-DoT(서울시 도시데이터 센서)_관제자료
+                                                        (850) </a>
+                                                    </li>
+                                                    
+                                                    <li id="mySensormap9"><a href="javaScript:void(0)" onclick="mkClear(); fnMapAjax(this, 19, 1, '서울시-어린이집 실내공기질 측정');">
+                                                        서울시-어린이집 실내공기질 측정
+                                                        (1,506) </a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div><!--  /.row -->
+    
+                                </div><!--  /.box-body -->
+                            </div><!-- /.box -->
+    
+                            
+                            <div class="box height255">
+                                <div class="box-header">
+                                    <h4 class="box-title db_tit1">수집간격 지연현황</h4>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" onclick="fnGoServiceRecptn();"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div><!-- /.box-header -->
+    
+                                <div class="box-body">
+                                    <h4 class="db_titA">
+                                        <span class="legend_green">수집 간격(분)</span>
+                                        <span class="legend_red">최종 수집간격(120분 초과)</span>
+                                        <span class="legend_yellow">최종 수집간격(120분 미만)</span>
+                                    </h4>
+                                    <div class="box_each mt5">
+                                        <div class="tbl_scroll_box">
+                                            <div class="fix_th_bg"></div>
+                                            <div class="fix_wrap">
+                                                <table class="table table-bordered">
+                                                    <colgroup>
+                                                        <col style="width: 15%;">
+                                                        <col style="width: 35%;">
+                                                        <col style="width: 50%;">
+                                                    </colgroup>
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" style="width: 15%;">
+                                                            <div class="fix_th">기관명</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 35%;">
+                                                            <div class="fix_th">서비스명</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 50%;">
+                                                            <div class="fix_th">수집 간격(분)</div>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="캠핑장안전사고방지시스템" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(24,2,'캠핑장안전사고방지시스템','ERROR-610' );">캠핑장안전사고방지시스템
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 25.0000%">
+                                                                    <span class="pbar_legend">30</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="자동심장충격기(AED)관리" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(15,1,'자동심장충격기(AED)관리','ERROR-610' );">자동심장충격기(AED)관리
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0.0000%">
+                                                                    <span class="pbar_legend" style="color: #000;">0</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="정화조악취저감감시 서비스" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(3,1,'정화조악취저감감시 서비스','ERROR-610' );">정화조악취저감감시 서비스
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 50.0000%">
+                                                                    <span class="pbar_legend">60</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="화재감지시스템(운영)" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(28,1,'화재감지시스템(운영)','ERROR-610' );">화재감지시스템(운영)
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 25.0000%">
+                                                                    <span class="pbar_legend">30</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="실내GPS시스템" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(24,3,'실내GPS시스템','ERROR-610' );">실내GPS시스템
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 25.0000%">
+                                                                    <span class="pbar_legend">30</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="S-DoT(서울시 도시데이터 센서)_측정자료" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(30,1,'S-DoT(서울시 도시데이터 센서)_측정자료','ERROR-610' );">S-DoT(서울시 도시데이터 센서)_측정자료
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 1.6667%">
+                                                                    <span class="pbar_legend">2</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="테스트" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(1,1,'테스트','ERROR-610' );">테스트
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 8.3333%">
+                                                                    <span class="pbar_legend">10</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="서울시-어린이집 실내공기질 측정" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(19,1,'서울시-어린이집 실내공기질 측정','ERROR-610' );">서울시-어린이집 실내공기질 측정
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 8.3333%">
+                                                                    <span class="pbar_legend">10</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="text-center">서울시
+                                                        </td>
+                                                        <td title="S-DoT(서울시 도시데이터 센서)_관제자료" style="cursor:pointer;cursor:hand;" onclick="fnDataservice1(31,1,'S-DoT(서울시 도시데이터 센서)_관제자료','ERROR-610' );">S-DoT(서울시 도시데이터 센서)_관제자료
+                                                        </td>
+                                                        <td>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-success" style="width: 1.6667%">
+                                                                    <span class="pbar_legend">2</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-md">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 100.0%"><span class="pbar_legend"> 120분 초과</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- /.tbl_scroll_box -->
+                                    </div><!-- box_each mt5 -->
+                                </div><!-- box-body -->
+                            </div><!-- box height255 -->
+                            
+    
+                        </div><!--  /.col-xs-7 -->
+                    </div><!-- /.row -->
+                </section>
+    
+            </div>
+        </div><!-- #iot_custom -->
+    
+        <!-- footer -->
+        
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+        <div class="loading_img" style="text-align:center;padding-top:370px;"><img src="/common/images/common/code_loading.gif"></div>
+    </div>
+        <!-- //fooTer -->
+    </div><!-- ./wrapper -->
+    
+    
+    
+    
+    <script>
+        //데이터 수집 현황 >> 분류별 현황 >> 원형 그래프
+        var data = [
+            
+            {
+                label: "안전",
+                data: 4,
+                color: "#e5705c"
+            },
+            
+            {
+                label: "일반행정",
+                data: 2,
+                color: "#47a362"
+            },
+            
+            {
+                label: "환경",
+                data: 2,
+                color: "#e79f3b"
+            },
+            
+            {
+                label: "도시관리",
+                data: 1,
+                color: "#54bdea"
+            },
+            
+            {
+                label: "교통",
+                data: 1,
+                color: "#518cb8"
+            },
+            
+        ];
+    
+        $.plot($("#Piechart1"), data, {
+            series: {
+                pie: {
+                    show: true,
+                    radius: 1,
+                    innerRadius: 0.5,
+                    label: {
+                        show: true,
+                        radius: 3 / 4,
+                        formatter: function (label, series) {
+                            return '<div style="font-size:12px;line-height:14px;text-align:center;padding:2px;color:#fff;">' + series.data[0][1] + '종<br/>(' + Math.round(series.percent) + '%)</div>';
+                        },
+                        background: {
+                            opacity: 0
+                        },
+                        threshold: 0.1
+                    }
+                }
+            },
+            legend: {
+                show: false
+            }
+        });
+    
+        // 이용현황 >> 막대그래프(좌)
+        new Chart(document.getElementById("barChart1"), {
+            "type": "bar",
+            "data": {
+                "labels": ["열린데이터광장", "디지털시장실", "협치시스템"],
+                "datasets": [{
+                    "label": "이용 현황",
+                    "data": [0, 0, 0],
+                    "fill": false,
+                    "backgroundColor": ["#23599f", "#0178d4", "#569ce4"],
+                    "borderWidth": 0
+                }]
+            },
+            "options": {
+                "legend": {
+                    display: false
+                },
+                "labels": {
+                    display: false
+                },
+                "scales": {
+                    "xAxes": [{
+                        barThickness: 30,
+                        "gridLines": {
+                            "display": false,
+                            "color": "#FFFFFF"
+                        },
+                        "legend": false
+                    }],
+                    "yAxes": [{
+                        "ticks": {
+                            "beginAtZero": true
+                        }
+                    }],
+                },
+                maintainAspectRatio: false,
+            }
+        });
+    
+        //이용현황 >> 막대그래프(우)
+        new Chart(document.getElementById("barChart2"), {
+            "type": "bar",
+            "data": {
+                "labels": ["파일다운로드수", "조회수", "시각화 이용횟수"],
+                "datasets": [{
+                    "label": "이용 현황",
+                    "data": [0, 0, 0],
+                    "fill": false,
+                    "backgroundColor": ["#80b9ee", "#add9ff", "#569ce4"],
+                    "borderWidth": 0
+                }]
+            },
+            "options": {
+                "legend": {
+                    display: false
+                },
+                "labels": {
+                    display: false
+                },
+                "scales": {
+                    "xAxes": [{
+                        barThickness: 30,
+                        "gridLines": {
+                            "display": false,
+                            "color": "#FFFFFF"
+                        },
+                        "legend": false
+                    }],
+                    "yAxes": [{
+                        position: 'right',
+                        "ticks": {
+                            "beginAtZero": true
+                        }
+                    }],
+                },
+                maintainAspectRatio: false,
+            }
+        });
+    
+        ///////////////////////////////////////////////////////////
+    
+        //기관,전체 탭
+        $('.header_tabs button').click(function () {
+            var tabIndex = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $(this).parents('.content-header').siblings('.box_each').children('.tabtab').removeClass('active').eq(tabIndex).addClass('active');
+        });
+    
+        // 서비스별 현황 >> 일 /전체
+        $('.day').click(function () {
+            $('.day').toggleClass('active');
+            $('.allday').toggleClass('active');
+            $('.tabtab1').toggleClass('active');
+            $('.tabtab2').toggleClass('active');
+        });
+    
+        $('.allday').click(function () {
+            $('.allday').toggleClass('active');
+            $('.day').toggleClass('active');
+            $('.tabtab1').toggleClass('active');
+            $('.tabtab2').toggleClass('active');
+        });
+    
+        $('.use_all').click(function () {
+            $('.use_all').toggleClass('active');
+            $('.use_day').toggleClass('active');
+            $('.usetab1').toggleClass('active');
+            $('.usetab2').toggleClass('active');
+        });
+    
+        $('.use_day').click(function () {
+            $('.use_day').toggleClass('active');
+            $('.use_all').toggleClass('active');
+            $('.usetab1').toggleClass('active');
+            $('.usetab2').toggleClass('active');
+        });
+    
+        // 설치위치 선택시
+        $('#db_map_legend > li > a').click(function () {
+            $(this).parent().addClass('active').siblings().removeClass('active');
+            return false;
+        });
+    
+        // 서비스명 선택 팝업
+        $('.btn_popup').click(function () {
+            $('.popup_box').toggleClass('active');
+        });
+        $('.popup_box .popup_x, .popup_box .popup_ok').click(function () {
+            $('.popup_box').removeClass('active');
+        });
+    
+    </script>
+    
+    </body>
+</html>
+
+
+

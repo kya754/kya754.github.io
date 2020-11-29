@@ -1,0 +1,1505 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="/common/images/favicon.png">
+    <title>IoT도시데이터 관리시스템
+    </title>
+    
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery-ui-themes-1.8.18/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/font.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" type="text/css" href="/common/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/common/css/layout.css">
+<link rel="stylesheet" type="text/css" href="/common/css/renewal.css">
+
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
+<!-- <script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script> -->
+
+    <!-- <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+            //기관 셀렉트 박스 변경시 조회
+            $("#sch_organ_code").change(function () {
+                fnSearch();
+            });
+            // 목록 수 셀렉트 박스 변경시 조회
+            $("#sch_row_per_page").change(function () {
+                fnSearch();
+            });
+
+            $('[name=sch_start_event_de]').datetimepicker({
+                locale: 'ko', 	// 화면에 출력될 언어를 한국어로 설정한다.
+                format: 'YYYY.MM.DD',
+                useCurrent: false, 	//Important! See issue #1075
+                sideBySide: true,
+            });
+
+
+            $('[name=sch_end_event_de]').datetimepicker({
+                locale: 'ko', 	// 화면에 출력될 언어를 한국어로 설정한다.
+                format: 'YYYY.MM.DD',
+                useCurrent: false, 	//Important! See issue #1075
+                sideBySide: true,
+            });
+
+            // 지점검색 이벤트
+            $('[name=sch_text]').on({
+                'keyup': function (e) {
+                    if (e.which == 13) {
+                        fnSearch();
+                    }
+                }
+            });
+
+        });
+
+        // 페이지 이동
+        function fnGoPage(currentPage) {
+            $("#currentPage").val(currentPage);
+            $("#aform").attr({action: "/admin/stats/selectPageListAdminEventLog.do", method: 'post'}).submit();
+        }
+
+        // 검색
+        function fnSearch() {
+            $("#currentPage").val("1");
+            $("#aform").attr({action: "/admin/stats/selectPageListAdminEventLog.do", method: 'get'}).submit();
+        }
+
+        //]]>
+    </script> -->
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+    
+
+
+
+
+
+
+
+
+
+
+
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="/main.do">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="/main.do" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix" style="width: 818px;">
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">센서 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/service/selectPageListDataSrvc.do">서비스 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/collection/selectPageListDataCollectionStatus.do">데이터 수집 현황</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/tool/visualization/selectPageStep1.do">데이터 시각화</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">분석 프로세스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">시각화 그래프 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/analysis/selectPageListAnals.do">분석리포트 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/external/selectPageListExternal.do">외부 데이터 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/mypage/history/selectPageListHistory.do">검색 히스토리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">스크랩</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 시각화 그래프</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 분석 리포트</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 외부 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/mypage/user/selectPageUser.do">회원정보 관리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/platform/selectPage.do">IoT 도시데이터 소개</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/service/selectPage.do">주요서비스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/faq/selectPageListFaq.do">자주 하는 질문</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/notice/selectPageListBltn.do">공지사항</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        
+                        
+                            <div class="depth2-wrap clfix">
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">서비스 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/dashboard/selectDashBoard.do">데이터 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcInfo/selectPageListSrvcInfo.do">서비스 정보 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">표준 측정 항목 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcRecptn/selectPageListServiceRecptn.do">서비스 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/charger/selectPageListBsnsCharger.do">서비스 담당자 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectSMSReciever.do">통합 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectPageListSrvcSMSReciever.do">서비스별 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">공공데이터 신청관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectDistbStats.do">데이터 개방 현황</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/provd/selectPageProvdMgt.do">데이터 공개 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">시스템 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">시스템 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/menu/selectListMenuMgt.do">메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectSystemStats.do">페이지뷰</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/stats/selectPageListAdminEventLog.do">접속 이력</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/user/selectPageListUserMgt.do">계정 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/author/selectPageListAuthorMgt.do">권한 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/authmenu/selectPageListAuthMenuMgt.do">권한별 메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">개발자 도구</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/certkey/selectPageListCertKey.do">API 인증키 운영관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/code/selectPageListGroupCodeMgt.do">코드 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/data/selectPageListDataMgt.do">데이터 수동 파싱</a>
+                                                        </li>
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                            </div>
+                        
+                    </li>
+                
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                
+            </a>
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                
+            </a>
+        </div>
+        <div class="user-popup">
+            <p class="user-name"><span>테스트</span>&nbsp;님</p>
+            <ul>
+                <li><a href="/mypage/user/selectPageUser.do">나의 정보 보기</a></li>
+                <li><a href="/mypage/user/selectPageUser.do">비밀번호 변경</a></li>
+                <li><a href="/admin/logout.do">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 936px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>사용자관리</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form role="form" id="aform" method="post" action="/admin/stats/selectPageListAdminEventLog.do">
+                        <input type="hidden" id="user_no" name="user_no">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <div class="text-right form-inline">
+                                    <!--  기관 구분 -->
+                                    <div class="form-group">
+                                        <select name="sch_organ_code" class="form-control input-sm" onchange="fnSearch();">
+                                            <option value="">기관</option><option value="10">서울시</option><option value="220">강남구</option><option value="190">강북구</option><option value="200">관악구</option><option value="210">광진구</option><option value="110">구로구</option><option value="130">금천구</option><option value="180">노원구</option><option value="100">동작구</option><option value="160">마포구</option><option value="140">성동구</option><option value="170">양천구</option><option value="120">영등포구</option><option value="230">은평구</option><option value="150">서울시설공단</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control input-sm" name="sch_start_event_de" value="20201129" placeholder="로그 시작일">
+                                        -
+                                        <input type="text" class="form-control input-sm" name="sch_end_event_de" value="20201129" placeholder="로그 종료일">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" name="sch_text" placeholder="사용자명을 입력하세요." value="">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-default" onclick="fnSearch(); return false;"><i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-header -->
+                            <div class="scroll-wrapper box-body no-pad-top table-responsive scrollbar-outer" style="position: relative;"><div class="box-body no-pad-top table-responsive scrollbar-outer scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 451px;">
+                                <table class="table table-hover table-bordered">
+                                    <colgroup>
+                                        <col width="80">
+                                        <col width="8%">
+                                        <col width="15%">
+                                        <col width="10%">
+                                        <col width="*%">
+                                        <col width="15%">
+                                        <col width="10%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">번호</th>
+                                        <th class="text-center">기관</th>
+                                        <th class="text-center">이벤트일시</th>
+                                        <th class="text-center">메뉴유형</th>
+                                        <th class="text-center">메뉴명</th>
+                                        <th class="text-center">사용자명</th>
+                                        <th class="text-center">IP</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    <tr>
+                                        <td class="text-center">41
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:52:36
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{}">시스템 로그
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">40
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:52:15
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{sch_parent_menu_id=1000}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">39
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:51:41
+                                        </td>
+                                        <td class="text-center">기능
+                                        </td>
+                                        <td class="text-left" title="{menu_nm=분석사례, menu_id=100010002400, menu_lv=3}">메뉴관리(상세조회)
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">38
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:51:06
+                                        </td>
+                                        <td class="text-center">기능
+                                        </td>
+                                        <td class="text-left" title="{menu_nm=커뮤니티, menu_id=100010009300, menu_lv=3}">메뉴관리(상세조회)
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">37
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:49:32
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{sch_parent_menu_id=1000}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">36
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:48:23
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{sch_parent_menu_id=1000}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">35
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:48:20
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{sch_parent_menu_id=10001000}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">34
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:48:01
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">33
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:46:48
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{}">메뉴관리
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center">32
+                                        </td>
+                                        <td class="text-center">서울시
+                                        </td>
+                                        <td class="text-center">2020.11.29 13:39:42
+                                        </td>
+                                        <td class="text-center">페이지
+                                        </td>
+                                        <td class="text-left" title="{dashboard_type=1}">대시보드
+                                        </td>
+                                        <td class="text-center">테스트
+                                        </td>
+                                        <td class="text-center">39.115.15.10
+                                        </td>
+                                    </tr>
+                                    
+                                    
+
+                                    </tbody>
+                                </table>
+                            </div><div class="scroll-element scroll-x"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 100px;"></div></div></div><div class="scroll-element scroll-y"><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 100px;"></div></div></div></div><!-- /.box-body -->
+                            <div class="box-footer clearfix text-center">
+                                <div class="pull-left form-inline">
+                                    Row Per Page
+                                    <select id="sch_row_per_page" name="sch_row_per_page" class="form-control input-sm">
+                                        <option value="10">10</option><option value="30">30</option><option value="50">50</option><option value="100">100</option>
+                                    </select>
+                                </div>
+                                <ul class="pagination pagination-sm no-margin"><li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li><li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li><li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li><li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li><li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li><li><a href="#" onclick="fnGoPage('5'); return false;">5</a></li><li><a href="#" title="맨뒤로가기" onclick="fnGoPage('5'); return false;">»</a></li></ul><input type="hidden" name="currentPage" id="currentPage" value="1">
+                            </div>
+                        </div><!-- /.box -->
+                    </form>
+                </div><!--  /.col-xs-12 -->
+            </div><!-- ./row -->
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <!-- footer -->
+    
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+    <div class="loading_img" style="text-align:center;padding-top:370px;"><img src="/common/images/common/code_loading.gif"></div>
+</div>
+    <!-- //fooer -->
+
+</div><!-- ./wrapper -->
+
+
+
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div></body></html>

@@ -1,0 +1,2017 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0"> 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="robots" content="NONE">
+<link rel="shortcut icon" href="http://15.165.202.174:8080/common/images/favicon.png">
+    <title>IoT도시데이터 관리시스템
+    </title>
+    
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery-ui-themes-1.8.18/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/font.css">
+<link rel="stylesheet" type="text/css" href="http://15.165.202.174:8080/common/css/jquery.scrollbar.css">
+<link rel="stylesheet" type="text/css" href="/common/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/common/css/layout.css">
+<link rel="stylesheet" type="text/css" href="/common/css/renewal.css">
+
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/AdminLTE/app.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/common.js?update=20180619"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery.scrollbar.min.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/page/layout.js"></script>
+<script type="text/javascript" src="http://15.165.202.174:8080/common/js/moment.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(document).ajaxStart(function () {
+            $('#loading-wrap').show();
+        });
+        $(document).ajaxStop(function () {
+            $('#loading-wrap').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loading-wrap').hide();
+        });
+    });
+</script>
+
+
+    <link rel="stylesheet" href="http://15.165.202.174:8080/common/js/jsTree_new/themes/default/style.min.css">
+    <script src="http://15.165.202.174:8080/common/js/jsTree_new/jstree.min.js"></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(function () {
+            $('#jstree').jstree({
+                "core": {
+                    "themes": {
+                        "icons": false,
+                    }
+                },
+                "plugins": [
+                    "state", "wholerow"
+                ]
+            });
+
+            //url 유형 코드 select 이벤트
+            $('#url_ty_code').on('change', function () {
+                $(this).closest('table').find('th.name').text('');
+                $(this).closest('table').find('td.code').text('');
+
+                if ($(this).val() == "10") {
+                    fnSelectBbsCode("", $(this), "");
+                    return false;
+                }
+                if ($(this).val() == "20") {
+                    fnSelectCntntsId($(this), "");
+                    return false;
+                }
+                if ($(this).val() == "30") {
+                    $('#defaultTb .ty_info').html("");
+                    return false;
+                }
+            });
+
+
+            // $("#id_resize").css("height", $(window).height() - 200);
+            // $(window).resize(function () {
+            //     $("#id_resize").css("height", $(window).height() - 200);
+            // });
+
+        });
+
+        //]]>
+    </script>
+
+    <script type="text/javascript">
+        function checkNum(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        //메뉴정보 조회
+        function fnSelectMenuInfo(menu_id, menu_nm, menu_lv) {
+            var req = {
+                "menu_id": menu_id
+                , "menu_nm": menu_nm
+                , "menu_lv": menu_lv
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/admin/menu/selectMenuMgtAjax.do',
+                data: req,
+                success: function (param) {
+
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+
+                    $("#menu_id").val(param.resultMap.MENU_ID);
+                    $("#up_menu_id").val(param.resultMap.UP_MENU_ID);
+                    $("#up_menu_nm").val(param.resultMap.UP_MENU_NM);
+                    $("#menu_type_code").val(param.resultMap.MENU_TY_CODE);
+                    $("#menu_lv").val(param.resultMap.MENU_LEVEL);
+                    $("#menu_nm").val(param.resultMap.MENU_NM);
+                    $("#fnct_nm").val(param.resultMap.FNCT_NM);
+                    $("#menu_nm_cn").val(param.resultMap.MENU_NM_CN);
+                    $("#url").val(param.resultMap.URL);
+                    $("#rm").val(param.resultMap.RM);
+                    $("#srt_ord").val(param.resultMap.SORT_ORDR);
+                    $("#use_yn").val(param.resultMap.USE_YN);
+                    $("#disp_yn").val(param.resultMap.DISP_YN);
+
+                    var urlTyCode = param.resultMap.URL_TY_CODE;
+                    $("#url_ty_code").val(urlTyCode);
+
+                    $('#defaultTb tr.ty_info').html("");
+                    $('#defaultTb th.name').text("");
+                    $('#defaultTb td.code').text("");
+                    if (urlTyCode == "10") {
+                        var str = "<th>기관</th>";
+                        str += "<td>";
+                        str += "  <select name=\"bbs_organ_code\" id=\"bbs_organ_code\" class=\"form-control\">";
+                        str += param.bbsMap.bbsOrganComboStrText;
+                        str += "	</select>";
+                        str += "	<input type='hidden' name='subpath' value='" + param.bbsMap.subpath + "'/>";
+                        str += "</td>"
+                        str += "<th>게시판 명</th>";
+                        str += "<td>";
+                        str += "  <select name=\"bbs_code\" id=\"bbs_code\" class=\"form-control\">";
+                        str += param.bbsMap.bbsCodeComboStrText;
+                        str += "	</select>";
+                        str += "</td>"
+                        $('#defaultTb tr.ty_info').html(str);
+                        $('#defaultTb th.name').text('게시판 코드');
+                        $('#defaultTb td.code').text($('#bbs_code').val());
+                        fnSetBbsCode("");
+                    } else if (urlTyCode == "20") {
+                        var str = "<th>[기관]콘텐츠 제목</th>";
+                        str += "<td colspan=\"2\" class=\"cntnts_nm\">[" + param.cntntsMap.ORGAN_NM + "] " + param.cntntsMap.SJ + "</td>";
+                        str += "<td>";
+                        str += "  <span class='btnR'><button type=\"button\" id='btnCntnts' onclick=\"fnSearchCntnts('', this)\" class=\"btn btn-primary\">콘텐츠 검색</button></span>";
+                        str += "  <input type=\"hidden\" name=\"cntnts_id\" value='" + param.cntntsMap.CNTNTS_ID + "'>";
+                        str += "</td>";
+                        $('#defaultTb tr.ty_info').html(str);
+                        $('#defaultTb th.name').text('컨텐츠ID');
+                        $('#defaultTb td.code').text(param.cntntsMap.CNTNTS_ID);
+                    }
+
+                    $("#new_menu_id_val").val(param.resultMap.LOW_MENU_ID);
+                    $("#new_srt_ord_val").val(param.resultMap.MAX_SORT_ORDR);
+
+                    if (param.resultMap.LOW_MENU_ID == null) {
+                        $("#new_menu_id_val").val('900');
+                    }
+
+                    $("#sort_ordr_1").val(param.resultMap.SORT_ORDR_1);
+                    $("#sort_ordr_2").val(param.resultMap.SORT_ORDR_2);
+                    $("#sort_ordr_3").val(param.resultMap.SORT_ORDR_3);
+                    $("#sort_ordr_4").val(param.resultMap.SORT_ORDR_4);
+                    $("#sort_ordr_5").val(param.resultMap.SORT_ORDR_5);
+                    $("#sort_ordr_6").val(param.resultMap.SORT_ORDR_6);
+
+                    $("#insertArea").html("");
+                    $("#insertBtn").hide();
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+
+        } //메뉴정보 조회 끝
+
+        var oldValue = "";
+
+        function fnSetOldValue(obj, idx) {
+            oldValue = obj.value;
+        }
+
+        function fnCompNewValue(obj, idx) {
+            if (oldValue != obj.value) {
+                $("#dup_chk_yn_" + idx).val("N");
+            }
+        }
+
+        //코드정보 조회
+        function fnSelectMenuExistYnAjax(idx) {
+
+            if ($("#new_menu_id" + idx).val() == "") {
+                alert("코드ID를 입력해 주세요.");
+                return;
+            }
+
+            if ($("#new_menu_id" + idx).val() == "") {
+                alert("신규 메뉴코드 ID를입력해 주세요.");
+                return;
+            }
+
+            var req = {
+                "new_menu_id": $("#menu_id").val() + $("#new_menu_id").val()
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/admin/menu/selectExistYnMenuMgtAjax.do',
+                data: req,
+                success: function (param) {
+
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+
+                    if (param.resultMap.EXIST_YN == "Y") {
+                        alert("메뉴ID가 존재합니다.");
+                    } else {
+                        alert("사용가능한 메뉴ID입니다.");
+                        $("#dup_chk_yn_" + idx).val("Y");
+                    }
+
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+
+        } //코드정보 조회 끝
+
+
+        //입력폼 보기
+        var removeNo = 0;
+
+        function fnInsertForm() {
+
+            if ($("#menu_id").val() == "") {
+                alert("메뉴를 선택해 주세요.");
+                return;
+            }
+
+            var sortDepth = $("#menu_id").val().length / 4 + 1;
+            if (sortDepth > 7) {
+                alert(" 7 Depth 이상으로는 메뉴를 생성할 수 없습니다.");
+                return;
+            }
+
+            var nextSrtOrd = 0;	//next 정렬순서
+            var newSrtOrdList = f_getList("new_srt_ord");
+            for (i = 0; i < newSrtOrdList.length; i++) {
+
+                if (Number(nextSrtOrd) < Number(newSrtOrdList[i].value)) {
+                    nextSrtOrd = Number(newSrtOrdList[i].value);
+                }
+            }
+            if (newSrtOrdList.length == 0) {
+                nextSrtOrd = Number($("#new_srt_ord_val").val()) + 10;
+            } else {
+                nextSrtOrd = Number(nextSrtOrd) + 10;
+            }
+
+            var next_new_menu_id = 0;	//next 하위 메뉴 아이디
+            var newMenuIdList = f_getList("new_menu_id");
+            for (i = 0; i < newMenuIdList.length; i++) {
+
+                if (Number(next_new_menu_id) < Number(newMenuIdList[i].value)) {
+                    next_new_menu_id = Number(newMenuIdList[i].value);
+                }
+            }
+            if (newMenuIdList.length == 0) {
+                next_new_menu_id = Number($("#new_menu_id_val").val()) + 100;
+            } else {
+                next_new_menu_id = Number(next_new_menu_id) + 100;
+            }
+
+
+            var menuTypeComboStr = "<select name=\"new_menu_type_code\" id=\"new_menu_type_code\" class=\"form-control\">";
+            menuTypeComboStr += "	<option value=''>선택</option><option value='10' >카테고리</option><option value='20' >메뉴</option><option value='30' >페이지</option><option value='40' >기능</option>";
+            menuTypeComboStr += "</select>";
+
+            var useYnComboStr = "<select name=\"new_use_yn\" id=\"new_use_yn\" class=\"form-control\" >";
+            useYnComboStr += "	<option value='Y' >예</option><option value='N' >아니오</option>";
+            useYnComboStr += "</select>";
+
+            var dispYnComboStr = "<select name=\"new_disp_yn\" id=\"new_disp_yn\" class=\"form-control\" >";
+            dispYnComboStr += "	<option value='Y' >예</option><option value='N' >아니오</option>";
+            dispYnComboStr += "</select>";
+
+            var urlTyComboStr = "<select name=\"new_url_ty_code\" id=\"new_url_ty_code\" class=\"form-control\" >";
+            urlTyComboStr += "	";
+            urlTyComboStr += "</select>";
+
+            removeNo++;
+
+            var layer = "";
+            layer += "<table id='removeNo_" + removeNo + "' class=\"table table-bordered\">";
+            layer += "<caption>하위메뉴생성</caption>";
+            layer += "	<colgroup>";
+            layer += "		<col style=\"width:20%;\" />";
+            layer += "		<col style=\"width:25%;\" />";
+            layer += "		<col style=\"width:20%;\" />";
+            layer += "		<col style=\"width:25%;\" />";
+            layer += "		<col class=\"td5\" />";
+            layer += "	</colgroup>	";
+
+            layer += "	<tr>";
+            layer += "		<th class=\"required_field\">상위메뉴 ID</th>";
+            layer += "		<td colspan=\"3\">";
+            layer += "			<div class=\"row\">";
+            layer += "				<div class=\"col-xs-4\">";
+            layer += "					<input type=\"text\" class=\"form-control\" name=\"\" value=\"" + $("#menu_id").val() + "\" readonly />";
+            layer += "					<input type=\"hidden\" name=\"new_url_ty_code\"    value=\"30\"  />";
+            layer += "					<input type=\"hidden\" name=\"dup_chk_yn\" id=\"dup_chk_yn_" + removeNo + "\"   value=\"Y\"  />";
+            layer += "				</div>";
+            layer += "				<div class=\"col-xs-8\">";
+            layer += "						<div class=\"input-group\">";
+            layer += "							<input type=\"text\" class=\"form-control\" name=\"new_menu_id\" id=\"new_menu_id\" onkeypress=\"return checkNum(event);\" value=\"" + next_new_menu_id + "\"/>";
+            layer += "						<div class=\"input-group-btn\">";
+            layer += "								<button type=\"button\" class=\"btn btn-primary\" onclick=\"fnSelectMenuExistYnAjax('" + removeNo + "')\">중복확인</button>";
+            layer += "						</div>";
+            layer += "				</div>";
+            layer += "			</div>";
+            layer += "		</td>";
+            layer += "		<td rowspan=\"7\" class=\"bor_L\"><button type=\"button\" class=\"btn btn-warning\" onclick=\"fnRemove('removeNo_" + removeNo + "');\">삭제</button></td>";
+            layer += "	</tr>";
+            layer += "	<tr>";
+            layer += "		<th class=\"required_field\">메뉴명</th>";
+            layer += "		<td><div class=\"outBox1\"><input type=\"text\" class=\"form-control\" name=\"new_menu_nm\" id=\"new_menu_nm\"  maxlength=\"100\" onkeyup=\"cfLengthCheck('메뉴명은', this, 100);\"></div></td>";
+            layer += "		<th>상세기능명</th>";
+            layer += "		<td><div class=\"outBox1\"><input type=\"text\" class=\"form-control\" name=\"new_fnct_nm\" id=\"new_fnct_nm\"  maxlength=\"100\" onkeyup=\"cfLengthCheck('상세기능명은', this, 100);\"></div></td>";
+            layer += "	</tr>";
+            layer += "	<tr>";
+            layer += "		<th class=\"required_field\">메뉴유형</th>";
+            layer += "		<td><div class=\"outBox1\">" + menuTypeComboStr + "</div></td>";
+            layer += "		<th>정렬순서</th>";
+            layer += "		<td><div class=\"outBox1\"><input type=\"text\" class=\"form-control\" name=\"new_srt_ord\" id=\"new_srt_ord\" maxlength=\"4\" onkeypress=\"return checkNum(event);\" value=\"" + nextSrtOrd + "\"></div></td>";
+            layer += "	</tr>";
+            layer += "	<tr>";
+            layer += "		<th>사용여부</th>";
+            layer += "		<td><div class=\"outBox1\">" + useYnComboStr + "</div></td>";
+            layer += "		<th>전시여부</th>";
+            layer += "		<td><div class=\"outBox1\">" + dispYnComboStr + "</div></td>";
+            layer += "	</tr>";
+            layer += "	<tr class=\"new_ty_info\"></tr>";
+            layer += "	<tr>";
+            layer += "		<th class=\"bor_last\">URL</th>";
+            layer += "		<td colspan=\"3\"><div class=\"outBox1\"><input type=\"text\" class=\"form-control\" name=\"new_url\" id=\"new_url\" maxlength=\"100\" onkeyup=\"cfLengthCheck('URL은', this, 100);\"></div></td>";
+            layer += "	</tr>";
+            layer += "	<tr>";
+            layer += "		<th class=\"bor_last\">비고</th>";
+            layer += "		<td colspan=\"3\" class=\"bor_last\"><div class=\"outBox1\"><input type=\"text\" class=\"form-control\" name=\"new_rm\" id=\"new_rm\" maxlength=\"500\" onkeyup=\"cfLengthCheck('비고는', this, 500);\"></div></td>";
+            layer += "	</tr>";
+            layer += "</table>";
+
+            $("#insertArea").append(layer);
+            $("#insertBtn").show();
+
+            fnSetNumeric();
+            fnSetUrlTyCode();
+        } //입력폼 보기 끝
+
+        //신규등록 url 유형 코드 이벤트
+        function fnSetUrlTyCode() {
+            $('[name=new_url_ty_code]').on('change', function () {
+                $(this).closest('table').find('th.new_name').text('');
+                $(this).closest('table').find('td.new_code').text('');
+
+                if ($(this).val() == "10") {
+                    fnSelectBbsCode("", $(this), "new_");
+                    return false;
+                }
+                if ($(this).val() == "20") {
+                    fnSelectCntntsId($(this), "new_");
+                    return false;
+                }
+                if ($(this).val() == "30") {
+                    $(this).closest('tr').next('tr').html("");
+                    return false;
+                }
+            });
+
+        }
+
+        //입력폼 삭제
+        function fnRemove(removeId) {
+            $("#" + removeId).remove();
+
+            if ($("#insertArea").html().length == 0) {
+                $("#insertBtn").hide();
+            }
+        }
+
+        //메뉴정보 수정
+        function fnUpdate() {
+
+            if ($("#menu_id").val() == "") {
+                alert("메뉴를 선택해 주세요.");
+                return;
+            } else {
+
+                if ($("#menu_nm").val() == "") {
+                    alert("메뉴명을 입력해 주세요.");
+                    $("#menu_nm").focus();
+                    return;
+                }
+
+                if ($("#menu_type_code").val() == "") {
+                    alert("메뉴유형을 입력해 주세요.");
+                    $("#menu_nm").focus();
+                    return;
+                }
+
+                if ($('#url_ty_code').val() == "10" && ($('[name=bbs_organ_code]').val() == "" || $('[name=bbs_code]').val() == "")) {
+                    alert("게시판을 선택해 주세요.");
+                    $("#bbs_organ_code").focus();
+                    return;
+                } else if ($('#url_ty_code').val() == "20" && $('[name=cntnts_id]').val() == "") {
+                    alert("컨텐츠를 선택해 주세요.");
+                    $("#btnCntnts").focus();
+                    return;
+                }
+
+                fnUpdateCheck();
+            }
+        } //메뉴정보 수정 끝
+
+        //수정한 정보 체크
+        function fnUpdateCheck() {
+            var req = {
+                "up_menu_id": $("#up_menu_id").val()
+                , "menu_id": $("#menu_id").val()
+                , "srt_ord": $("#srt_ord").val()
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/admin/menu/selectExistSortMenuMgtAjax.do',
+                data: req,
+                success: function (param) {
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+                    if (param.resultMap.EXIST_SORT_YN == "Y") {
+                        alert("중복된 정렬 순서가 존재합니다.\n다른 정렬 순서번호를 이용하시기바랍니다.");
+                    } else {
+                        if (confirm("수정하시겠습니까?")) {
+                            $("#aform").attr({action: "/admin/menu/updateMenuMgt.do", method: 'post'}).submit();
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+        } //수정한 정보 체크
+
+        //메뉴 신규 등록
+        function fnInsert() {
+            var newMenuIdList = f_getList("new_menu_id");
+            var newMenuNmList = f_getList("new_menu_nm");
+            var newMenuTypeCodeList = f_getList("new_menu_type_code");
+            var newUseYnList = f_getList("new_use_yn");
+            var newDispYnList = f_getList("new_disp_yn");
+
+            var newStrOrdList = f_getList("new_srt_ord");
+
+            var dupChkYnList = f_getList("dup_chk_yn");
+            var newUrlList = f_getList("new_url");
+
+            var menuIdDupYn = false;
+
+            if (newMenuIdList.length == 0) {
+
+                alert("신규메뉴정보를 입력해 주세요.");
+                return;
+            } else {
+
+                for (i = 0; i < newMenuIdList.length; i++) {
+
+                    if (newMenuIdList[i].value == "") {
+                        alert("신규 메뉴ID를 입력해 주세요.");
+                        newMenuIdList[i].focus();
+                        return;
+                    }
+                    if (/^[0-9]{4}$/.test(newMenuIdList[i].value) == false) {
+                        alert("신규 메뉴ID를 4자리수를 입력해 주세요.");
+                        newMenuIdList[i].focus();
+                        return;
+                    }
+
+                    if (dupChkYnList[i].value == "N") {
+                        alert($("#menu_id").val() + "" + newMenuIdList[i].value + " 메뉴ID의 중복검사가 필요합니다.");
+                        return;
+                    }
+
+                    if (newMenuNmList[i].value == "") {
+                        alert("신규 메뉴명을 입력해 주세요.");
+                        newMenuNmList[i].focus();
+                        return;
+                    }
+
+                    if (newMenuTypeCodeList[i].value == "") {
+                        alert("신규 메뉴유형을 입력해 주세요.");
+                        newMenuTypeCodeList[i].focus();
+                        return;
+                    }
+                }
+
+                //메뉴 아이디 중복 검사
+                var dupCnt = 0;
+                for (i = 0; i < newMenuIdList.length; i++) {
+
+                    dupCnt = 0;
+
+                    for (k = 0; k < newMenuIdList.length; k++) {
+
+                        if (newMenuIdList[i].value == newMenuIdList[k].value) {
+                            dupCnt++;
+                            //alert(newMenuIdList[i]+":"+newMenuIdList[k]+":"+dupCnt);
+                            if (dupCnt > 1) {
+                                menuIdDupYn = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (menuIdDupYn) {
+                    alert("메뉴ID가 중복입력 되었습니다.");
+                    return;
+                }
+
+                if ($('#new_url_ty_code').val() == "10" && ($('[name=new_bbs_organ_code]').val() == "" || $('[name=new_bbs_code]').val() == "")) {
+                    alert("게시판을 선택해 주세요.");
+                    $("#new_bbs_code").focus();
+                    return;
+                } else if ($('#new_url_ty_code').val() == "20" && $('[name=new_cntnts_id]').val() == "") {
+                    alert("컨텐츠를 선택해 주세요.");
+                    $("#new_btnCntnts").focus();
+                    return;
+                }
+
+                if (confirm("등록하시겠습니까?")) {
+                    $("#aform").attr({action: "/admin/menu/insertMenuMgt.do", method: 'post'}).submit();
+                }
+            }
+
+        } //매뉴 신규 등록 끝
+
+        //메뉴 삭제
+        function fnDelete() {
+
+            if ($("#menu_id").val() == "") {
+                alert("메뉴를 선택해 주세요.");
+                return;
+            }
+            if ($("#up_menu_id").val() == "") {
+                alert("Root는 삭제할 수 없습니다.");
+                return;
+            }
+
+            if (confirm("\nWARNNING!!!!\n\n하위 메뉴 포함하여 삭제됩니다. \n\n삭제하시겠습니까?\n")) {
+                $("#aform").attr({action: "/admin/menu/deleteMenuMgt.do", method: 'post'}).submit();
+            }
+        }
+
+        //게시판 코드 리스트 조회
+        function fnSelectBbsCode(organCode, urlTyCodeObj, prefix) {
+            var req = {
+                organ_code: organCode
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/admin/menu/selectListBbsCodeAjax.do',
+                data: req,
+                success: function (param) {
+                    if (param.resultStats.resultCode == "error") {
+                        alert(param.resultStats.resultMsg);
+                        return;
+                    }
+
+                    if (organCode == "") {
+                        var str = "<th>기관</th>";
+                        str += "<td>";
+                        str += "  <select name=\"" + prefix + "bbs_organ_code\" class=\"form-control\">";
+                        str += param.organComboStrText;
+                        str += "	</select>";
+                        str += "	<input type='hidden' name='subpath' />";
+                        str += "</td>";
+                        str += "<th>게시판 명</th>";
+                        str += "<td>";
+                        str += "  <select name=\"" + prefix + "bbs_code\" disabled=\"disabled\" class=\"form-control\">";
+                        str += "		<option>게시판</option>";
+                        str += "	</select>";
+                        str += "</td>";
+                        $(urlTyCodeObj).closest('tr').next().html(str);
+                        fnSetBbsCode(prefix);
+                        return;
+
+                    } else {
+                        if (param.bbsListLength == 0) {
+                            $(urlTyCodeObj).closest('table').find("[name=" + prefix + "bbs_code]").html('<option value="">게시판</option>');
+                            $(urlTyCodeObj).closest('table').find("[name=" + prefix + "bbs_code]").prop('disabled', true);
+                            return;
+                        } else {
+                            $(urlTyCodeObj).closest('table').find("[name=" + prefix + "bbs_code]").html(param.bbsCodeComboStrText);
+                            $(urlTyCodeObj).closest('table').find("[name=" + prefix + "bbs_code]").prop('disabled', false);
+                            $(urlTyCodeObj).closest('table').find("[name=subpath]").val("/" + param.subpath);
+                            return;
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, thrownError) {
+                    ajaxJsonErrorAlert(jqXHR, textStatus, thrownError)
+                }
+            });
+        }
+
+        //게시판 코드 select 이벤트
+        function fnSetBbsCode(prefix) {
+            $('[name=' + prefix + 'bbs_organ_code]').on('change', function () {
+                fnSelectBbsCode($(this).val(), $(this), prefix);
+            });
+
+            $('[name=' + prefix + 'bbs_code]').on('change', function () {
+                $(this).closest('table').find('th.name').text('게시판 코드');
+                $(this).closest('table').find('td.code').text($(this).val());
+
+                if ($(this).closest('table').find('[name=' + prefix + 'menu_nm]').val().indexOf("상세") == -1) {
+                    var subpath = $(this).closest('table').find('[name=subpath]').val();
+                    $(this).closest('table').find('[name=' + prefix + 'url]').val(subpath + '' + $(this).val());
+                }
+            });
+        }
+
+        //콘텐츠 조회
+        function fnSelectCntntsId(urlTyCodeObj, prefix) {
+            var str = "<th>[기관]콘텐츠 제목</th>";
+            str += "<td colspan=\"2\" class=\"cntnts_nm\"></td>";
+            str += "<td>";
+            str += "  <span class='btnR'><button type=\"button\" id='" + prefix + "btnCntnts' onclick=\"fnSearchCntnts('" + prefix + "', this)\" class=\"btn btn-primary\">콘텐츠 검색</button></span>";
+            str += "  <input type=\"hidden\" name=\"" + prefix + "cntnts_id\">";
+            str += "</td>";
+            $(urlTyCodeObj).closest('tr').next('tr').html(str);
+        }
+
+        //콘텐츠 조회 window popup
+        function fnSearchCntnts(prefix, obj) {
+            var popupX = (window.screen.width / 2) - (800 / 2); // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+            var popupY = (window.screen.height / 2) - (1000 / 2); // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+            var tbId = $(obj).closest('table').attr('id');
+            window.open('/admin/menu/selectPageListCntnts.do?prefix=' + prefix + '&tbId=' + tbId, 'popup', 'width=1000, height=800, left=' + popupX + ', top=' + popupY + ', screenX=' + popupX + ', screenY= ' + popupY);
+            document.aform.target = 'popup';
+        }
+
+        function fnChageParentMenuId(obj) {
+            document.location.href = "/admin/menu/selectListMenuMgt.do?sch_parent_menu_id=" + obj.value;
+        }
+    </script>
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+    <!-- 헤더  -->
+    
+
+
+
+
+
+
+
+
+
+
+
+<div id="header" style="left: 0px;">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="/main.do">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="/main.do" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix" style="width: 818px;">
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">센서 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/service/selectPageListDataSrvc.do">서비스 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/data/collection/selectPageListDataCollectionStatus.do">데이터 수집 현황</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/tool/visualization/selectPageStep1.do">데이터 시각화</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">분석 프로세스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">시각화 그래프 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/analysis/selectPageListAnals.do">분석리포트 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/community/external/selectPageListExternal.do">외부 데이터 공유</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/mypage/history/selectPageListHistory.do">검색 히스토리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">스크랩</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 시각화 그래프</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 분석 리포트</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/exam">나의 외부 데이터</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/mypage/user/selectPageUser.do">회원정보 관리</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        
+                            <div class="depth2-wrap">
+                                <ul class="depth2">
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/platform/selectPage.do">IoT 도시데이터 소개</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/service/selectPage.do">주요서비스</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/faq/selectPageListFaq.do">자주 하는 질문</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                            <li>
+                                                <a href="/info/notice/selectPageListBltn.do">공지사항</a>
+                                            </li>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </ul>
+                            </div>
+                        
+                        
+                    </li>
+                
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        
+                        
+                            <div class="depth2-wrap clfix">
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">서비스 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/dashboard/selectDashBoard.do">데이터 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcInfo/selectPageListSrvcInfo.do">서비스 정보 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">표준 측정 항목 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/srvcRecptn/selectPageListServiceRecptn.do">서비스 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/charger/selectPageListBsnsCharger.do">서비스 담당자 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectSMSReciever.do">통합 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/sms/selectPageListSrvcSMSReciever.do">서비스별 SMS 수신 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">공공데이터 신청관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectDistbStats.do">데이터 개방 현황</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/provd/selectPageProvdMgt.do">데이터 공개 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">시스템 관리</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/exam">시스템 대시보드</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/menu/selectListMenuMgt.do">메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/statsservice/selectSystemStats.do">페이지뷰</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/stats/selectPageListAdminEventLog.do">접속 이력</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/user/selectPageListUserMgt.do">계정 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/author/selectPageListAuthorMgt.do">권한 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/authmenu/selectPageListAuthMenuMgt.do">권한별 메뉴 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                        <div class="depth2-list">
+                                            <p class="title">개발자 도구</p>
+                                            <ul class="depth2">
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/certkey/selectPageListCertKey.do">API 인증키 운영관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/admin/code/selectPageListGroupCodeMgt.do">코드 관리</a>
+                                                        </li>
+                                                    
+                                                
+                                                    
+                                                        <li>
+                                                            <a href="/iot/data/selectPageListDataMgt.do">데이터 수동 파싱</a>
+                                                        </li>
+                                                    
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                                    
+                                
+                            </div>
+                        
+                    </li>
+                
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                
+            </a>
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                
+            </a>
+        </div>
+        <div class="user-popup">
+            <p class="user-name"><span>테스트</span>&nbsp;님</p>
+            <ul>
+                <li><a href="/mypage/user/selectPageUser.do">나의 정보 보기</a></li>
+                <li><a href="/mypage/user/selectPageUser.do">비밀번호 변경</a></li>
+                <li><a href="/admin/logout.do">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 2426px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>메뉴관리</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <form id="aform" method="post" action="/admin/menu/selectListMenuMgt.do">
+                    <div class="col-lg-5">
+                        <div id="id_resize" class="box box-primary" style="overflow-y: auto; height: 737px;">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <select name="sch_parent_menu_id" id="sch_parent_menu_id" class="form-control" onchange="fnChageParentMenuId(this);">
+                                            <option value="1000" selected="selected">ROOT</option><option value="10001000">IoT도시데이터 관리시스템</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button type="button" class="btn btn-success pull-right" onclick="$('#jstree').jstree('close_all');"><i class="fa fa-minus"></i>
+                                            접기
+                                        </button>
+                                        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="$('#jstree').jstree('open_all');"><i class="fa fa-plus"></i> 펼치기
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 접기, 펼치기 -->
+
+                            <!-- 좌측 메뉴 트리 -->
+                            <div class="left_list jstree jstree-1 jstree-default" id="jstree" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_210" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-no-icons jstree-wholerow-ul jstree-no-dots" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j1_1_anchor" aria-expanded="true" id="j1_1" class="jstree-node  jstree-open jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  pointer" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000', 'ROOT', '1');return false;" id="j1_1_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>ROOT</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j1_2_anchor" aria-expanded="true" id="j1_2" class="jstree-node  jstree-open jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000', 'IoT도시데이터 관리시스템', '2');return false;" id="j1_2_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>IoT도시데이터 관리시스템</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_3_anchor" id="j1_3" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009000', '메인', '3');return false;" id="j1_3_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>메인</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_4_anchor" aria-expanded="true" id="j1_4" class="jstree-node  jstree-open"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009100', '데이터', '3');return false;" id="j1_4_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="4" aria-labelledby="j1_5_anchor" id="j1_5" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000100091001000', '센서 데이터', '4');return false;" id="j1_5_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>센서 데이터</a></li><li role="treeitem" aria-selected="false" aria-level="4" aria-labelledby="j1_6_anchor" aria-expanded="true" id="j1_6" class="jstree-node  jstree-open"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000100091001100', '서비스 데이터', '4');return false;" id="j1_6_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스 데이터</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_7_anchor" id="j1_7" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000910011001000', '서비스별 열람(기본 정보 - 엑셀다운로드)', '5');return false;" id="j1_7_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스별 열람(기본 정보 - 엑셀다운로드)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_8_anchor" id="j1_8" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000910011001100', '서비스별 열람(설치 정보)', '5');return false;" id="j1_8_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스별 열람(설치 정보)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_9_anchor" id="j1_9" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000910011001200', '서비스별 열람(설치 정보 - 엑셀다운로드)', '5');return false;" id="j1_9_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스별 열람(설치 정보 - 엑셀다운로드)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_10_anchor" id="j1_10" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000910011001300', '서비스별 열람(데이터 유통)', '5');return false;" id="j1_10_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스별 열람(데이터 유통)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_11_anchor" id="j1_11" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000910011001400', '서비스별 열람(데이터 검색)', '5');return false;" id="j1_11_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>서비스별 열람(데이터 검색)</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="4" aria-labelledby="j1_12_anchor" id="j1_12" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000100091001200', '데이터 수집 현황', '4');return false;" id="j1_12_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 수집 현황</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_13_anchor" aria-expanded="true" id="j1_13" class="jstree-node  jstree-open"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009200', '분석시각화 도구', '3');return false;" id="j1_13_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>분석시각화 도구</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="4" aria-labelledby="j1_14_anchor" aria-expanded="true" id="j1_14" class="jstree-node  jstree-open"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000100092001000', '데이터 시각화', '4');return false;" id="j1_14_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 시각화</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_15_anchor" id="j1_15" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000920010001000', '데이터 시각화(데이터 확인)', '5');return false;" id="j1_15_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 시각화(데이터 확인)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_16_anchor" id="j1_16" class="jstree-node  jstree-leaf"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000920010001100', '데이터 시각화(시각화 선택)', '5');return false;" id="j1_16_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 시각화(시각화 선택)</a></li><li role="treeitem" aria-selected="false" aria-level="5" aria-labelledby="j1_17_anchor" id="j1_17" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('10001000920010001200', '데이터 시각화(시각화 편집/완성)', '5');return false;" id="j1_17_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 시각화(시각화 편집/완성)</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="4" aria-labelledby="j1_18_anchor" id="j1_18" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('1000100092001100', '분석 프로세스', '4');return false;" id="j1_18_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>분석 프로세스</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_19_anchor" aria-expanded="false" id="j1_19" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009300', '커뮤니티', '3');return false;" id="j1_19_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>커뮤니티</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_23_anchor" aria-expanded="false" id="j1_23" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009400', '마이페이지', '3');return false;" id="j1_23_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>마이페이지</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_30_anchor" aria-expanded="false" id="j1_30" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009500', '이용안내', '3');return false;" id="j1_30_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>이용안내</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_41_anchor" aria-expanded="false" id="j1_41" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010009600', '관리자도구', '3');return false;" id="j1_41_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>관리자도구</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_147_anchor" aria-expanded="false" id="j1_147" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002010', '대시보드', '3');return false;" id="j1_147_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>대시보드</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_152_anchor" aria-expanded="false" id="j1_152" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002100', '데이터 둘러보기', '3');return false;" id="j1_152_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>데이터 둘러보기</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_172_anchor" aria-expanded="false" id="j1_172" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002200', '나의 서비스 관리', '3');return false;" id="j1_172_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>나의 서비스 관리</a></li><li role="treeitem" aria-selected="true" aria-level="3" aria-labelledby="j1_194_anchor" aria-expanded="false" id="j1_194" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow jstree-wholerow-clicked">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002400', '분석사례', '3');return false;" id="j1_194_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>분석사례</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_202_anchor" aria-expanded="false" id="j1_202" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002500', '공지사항', '3');return false;" id="j1_202_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>공지사항</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_210_anchor" aria-expanded="false" id="j1_210" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002300', '관리자 공간', '3');return false;" id="j1_210_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>관리자 공간</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_289_anchor" aria-expanded="false" id="j1_289" class="jstree-node  jstree-closed"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010002600', '공통기능', '3');return false;" id="j1_289_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>공통기능</a></li><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j1_294_anchor" aria-expanded="false" id="j1_294" class="jstree-node  jstree-closed jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" onclick="fnSelectMenuInfo('100010001000', '1차 사업 메뉴 (미사용)', '3');return false;" id="j1_294_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>1차 사업 메뉴 (미사용)</a></li></ul></li></ul></li></ul></div>    <!-- 좌측 메뉴 트리 끝 -->
+                        </div>
+                    </div>
+                    <!-- 우측 메뉴 정보 -->
+                    <div class="col-lg-7">
+                        <div class="box box-primary">
+                            <div class="box-body no-pad-top">
+                                <input type="hidden" name="sort_ordr_1" id="sort_ordr_1" value="1">
+                                <input type="hidden" name="sort_ordr_2" id="sort_ordr_2" value="10">
+                                <input type="hidden" name="sort_ordr_3" id="sort_ordr_3" value="40">
+                                <input type="hidden" name="sort_ordr_4" id="sort_ordr_4" value="0">
+                                <input type="hidden" name="sort_ordr_5" id="sort_ordr_5" value="0">
+                                <input type="hidden" name="sort_ordr_6" id="sort_ordr_6" value="0">
+                                <input type="hidden" name="new_menu_id_val" id="new_menu_id_val" value="1600">
+                                <input type="hidden" name="new_srt_ord_val" id="new_srt_ord_val" value="70">
+                                <input type="hidden" name="url_ty_code" value="30">
+
+                                <table class="table table-bordered" id="defaultTb">
+                                    <caption>
+                                    </caption>
+                                    <colgroup>
+                                        <col style="width: 20%;">
+                                        <col style="width: 30%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 30%;">
+                                    </colgroup>
+                                    <tbody><tr>
+                                        <th>상위메뉴 ID</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="up_menu_id" id="up_menu_id" readonly="">
+                                            </div>
+                                        </td>
+                                        <th>상위메뉴명</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="up_menu_nm" id="up_menu_nm" readonly="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>메뉴 ID</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="menu_id" id="menu_id" readonly="">
+                                            </div>
+                                        </td>
+                                        <th>메뉴레벨</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="menu_lv" id="menu_lv" readonly="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="required_field">메뉴명</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="menu_nm" id="menu_nm" onkeyup="cfLengthCheck('메뉴명은', this, 100);">
+                                            </div>
+                                        </td>
+                                        <th>상세기능명</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="fnct_nm" id="fnct_nm" onkeyup="cfLengthCheck('상세기능명은', this, 100);">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="required_field">메뉴유형</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <select name="menu_type_code" id="menu_type_code" class="form-control">
+                                                    <option value="">선택</option><option value="10">카테고리</option><option value="20">메뉴</option><option value="30">페이지</option><option value="40">기능</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <th>정렬순서</th>
+                                        <td>
+                                            <div class="outBox1">
+                                                <input type="text" class="form-control" name="srt_ord" id="srt_ord" onkeypress="return checkNum(event);" maxlength="4">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>사용여부</th>
+                                        <td>
+                                            <select name="use_yn" id="use_yn" class="form-control">
+                                                <option value="Y">예</option><option value="N">아니오</option>
+                                            </select>
+                                        </td>
+                                        <th>전시여부</th>
+                                        <td>
+                                            <select name="disp_yn" id="disp_yn" class="form-control">
+                                                <option value="Y">예</option><option value="N">아니오</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="ty_info"></tr>
+                                    <tr>
+                                        <th>URL</th>
+                                        <td colspan="3"><input type="text" class="form-control" name="url" id="url" onkeyup="cfLengthCheck('URL은', this, 100);"></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bor_last">비고</th>
+                                        <td class="bor_last" colspan="3"><input type="text" class="form-control" name="rm" id="rm" onkeyup="cfLengthCheck('비고는', this, 500);">
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button type="button" class="btn btn btn-primary" onclick="fnUpdate(); return false;">수정
+                                        </button>
+                                        <button type="button" class="btn btn-warning" onclick="fnDelete(); return false;">
+                                            <i class="fa fa-trash"></i> 삭제
+                                        </button>
+                                    </div>
+
+                                    <div class="col-xs-6" style="text-align: right;">
+											<span class="btnR">
+												<button type="button" class="btn btn-info" onclick="fnInsertForm(); return false;">
+													<i class="fa fa-plus"></i> 신규등록
+												</button>
+											</span>
+                                    </div>
+                                </div>
+                            </div>    <!-- 우측 메뉴 정보 끝 -->
+
+                            <!-- 하위 메뉴 생성 -->
+                            <div class="box-body no-pad-top">
+                                <span id="insertArea"><table id="removeNo_2" class="table table-bordered"><caption>하위메뉴생성</caption>	<colgroup>		<col style="width:20%;">		<col style="width:25%;">		<col style="width:20%;">		<col style="width:25%;">		<col class="td5">	</colgroup>		<tbody><tr>		<th class="required_field">상위메뉴 ID</th>		<td colspan="3">			<div class="row">				<div class="col-xs-4">					<input type="text" class="form-control" name="" value="100010002400" readonly="">					<input type="hidden" name="new_url_ty_code" value="30">					<input type="hidden" name="dup_chk_yn" id="dup_chk_yn_2" value="Y">				</div>				<div class="col-xs-8">						<div class="input-group">							<input type="text" class="form-control" name="new_menu_id" id="new_menu_id" onkeypress="return checkNum(event);" value="1700">						<div class="input-group-btn">								<button type="button" class="btn btn-primary" onclick="fnSelectMenuExistYnAjax('2')">중복확인</button>						</div>				</div>			</div>		</div></td>		<td rowspan="7" class="bor_L"><button type="button" class="btn btn-warning" onclick="fnRemove('removeNo_2');">삭제</button></td>	</tr>	<tr>		<th class="required_field">메뉴명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_menu_nm" id="new_menu_nm" maxlength="100" onkeyup="cfLengthCheck('메뉴명은', this, 100);"></div></td>		<th>상세기능명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_fnct_nm" id="new_fnct_nm" maxlength="100" onkeyup="cfLengthCheck('상세기능명은', this, 100);"></div></td>	</tr>	<tr>		<th class="required_field">메뉴유형</th>		<td><div class="outBox1"><select name="new_menu_type_code" id="new_menu_type_code" class="form-control">	<option value="">선택</option><option value="10">카테고리</option><option value="20">메뉴</option><option value="30">페이지</option><option value="40">기능</option></select></div></td>		<th>정렬순서</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_srt_ord" id="new_srt_ord" maxlength="4" onkeypress="return checkNum(event);" value="80"></div></td>	</tr>	<tr>		<th>사용여부</th>		<td><div class="outBox1"><select name="new_use_yn" id="new_use_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>		<th>전시여부</th>		<td><div class="outBox1"><select name="new_disp_yn" id="new_disp_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>	</tr>	<tr class="new_ty_info"></tr>	<tr>		<th class="bor_last">URL</th>		<td colspan="3"><div class="outBox1"><input type="text" class="form-control" name="new_url" id="new_url" maxlength="100" onkeyup="cfLengthCheck('URL은', this, 100);"></div></td>	</tr>	<tr>		<th class="bor_last">비고</th>		<td colspan="3" class="bor_last"><div class="outBox1"><input type="text" class="form-control" name="new_rm" id="new_rm" maxlength="500" onkeyup="cfLengthCheck('비고는', this, 500);"></div></td>	</tr></tbody></table></span>
+                                <div class="show_btn mT10" id="insertBtn" style="display: block;">
+                                    <button type="button" class="btn btn-info" onclick="fnInsert(); return false;">등록
+                                    </button>
+                                </div>
+                            </div>
+                        </div>    <!-- box-primary -->
+                    </div>    <!-- col-xs-7 -->
+                </form>    <!-- aform -->
+            </div>    <!-- row -->
+        </section>    <!-- content -->
+    </div>
+
+    <!-- footer -->
+    
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+    <div class="loading_img" style="text-align:center;padding-top:370px;"><img src="/common/images/common/code_loading.gif"></div>
+</div>
+    <!--//footer -->
+</div>    <!-- wrapper -->
+
+
+
+</body></html>

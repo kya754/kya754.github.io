@@ -7,10 +7,13 @@
 </head>
 <style>
     .wrap {padding: 20px; padding-bottom: 200px;}
-    table {width: 100%;}
+    table {width: 100%; border-spacing: 0;}
     th {text-align: left}
-    td {border-bottom: 1px solid #ddd; padding-bottom: 20px;}
+    td {border-bottom: 1px solid #ddd; padding: 15px;}
     ul {list-style-type: none; padding: 0;}
+    a, a:link, a:visited {
+        color: #000;
+    }
 </style>
 <body>
     <div class="wrap">
@@ -62,10 +65,10 @@
                             <li>- 이미지 수급 대기 (맵 커스텀 메뉴 아이콘)</li>
                             <br>
                             <li style="font-weight: bold">20201109 주석처리</li>
-                            <li style="color:red">+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
+                            <li>+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
                             <br>
                             <li style="font-weight: bold">20201110 주석처리</li>
-                            <li style="color:red">+ 우측 그래프 영역 클래스 추가, 테스트</li>
+                            <li>+ 우측 그래프 영역 클래스 추가, 테스트</li>
                         </ul>
                     </td>
                 </tr>
@@ -136,7 +139,7 @@
                             <li>+ 클래스 추가</li>
                             <br>
                             <li style="font-weight: bold">20201109 주석처리</li>
-                            <li style="color:red">+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
+                            <li>+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
                             <br>
                             <li style="font-weight: bold">20201110 주석처리</li>
                             <li>+ 버튼 추가</li>
@@ -172,7 +175,7 @@
                     <td>
                         <ul>
                             <li style="font-weight: bold">20201109 주석처리</li>
-                            <li style="color:red">+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
+                            <li>+ datepicker 교체 (common.js 수정 / 날짜 셀렉트 박스 false 처리)</li>
                             <br>
                             <li style="font-weight: bold">20201110 주석처리</li>
                             <li>+ 시각화 선택 버튼 추가</li>
@@ -314,7 +317,7 @@
                 </tr>
                 <tr>
                     <td>기존</td>
-                    <td>공지사항리스트</td>
+                    <td>공지사항 리스트</td>
                     <td><a href="이용안내_공지사항리스트.html" target="_blank">이용안내_공지사항리스트.html</a></td>
                     <td style="color:blue">100%</td>
                     <td>
@@ -325,7 +328,7 @@
                 </tr>
                 <tr>
                     <td>기존</td>
-                    <td>공지사항상세</td>
+                    <td>공지사항 상세</td>
                     <td><a href="이용안내_공지사항상세.html" target="_blank">이용안내_공지사항상세.html</a></td>
                     <td style="color:blue">100%</td>
                     <td>
@@ -336,13 +339,108 @@
                 </tr>
                 <tr>
                     <td>기존</td>
-                    <td>공지사항상세</td>
+                    <td>공지사항 수정</td>
+                    <td><a href="이용안내_공지사항수정.html" target="_blank">이용안내_공지사항수정.html</a></td>
+                    <td style="color:blue">100%</td>
+                    <td>
+                        <ul>
+                            <li style="font-weight: bold">20201124 주석처리</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>주요서비스</td>
                     <td><a href="이용안내_주요서비스.html" target="_blank">이용안내_주요서비스.html</a></td>
                     <td style="color:blue">100%</td>
                     <td>
                         <ul>
                             <li style="font-weight: bold">20201125 주석처리</li>
                         </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background: gray; font-size: 18px; color: #fff; font-weight: bold;">
+                        관리자도구
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background: darkgrey; font-size: 15px; color: #fff; font-weight: bold;">
+                        서비스 관리
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>데이터공개관리</td>
+                    <td><a href="관리자도구_데이터대시보드.html" target="_blank">관리자도구_데이터대시보드.html</a></td>
+                    <td>0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>데이터공개관리</td>
+                    <td><a href="관리자도구_데이터공개관리.html" target="_blank">관리자도구_데이터공개관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background: darkgrey; font-size: 15px; color: #fff; font-weight: bold;">
+                        시스템 관리
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>메뉴관리</td>
+                    <td><a href="관리자도구_메뉴관리.html" target="_blank">관리자도구_메뉴관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>접속이력</td>
+                    <td><a href="관리자도구_접속이력.html" target="_blank">관리자도구_접속이력.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>계정관리</td>
+                    <td><a href="관리자도구_계정관리.html" target="_blank">관리자도구_계정관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>권한관리</td>
+                    <td><a href="관리자도구_권한관리.html" target="_blank">관리자도구_권한관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>권한별메뉴관리</td>
+                    <td><a href="관리자도구_권한별메뉴관리.html" target="_blank">관리자도구_권한별메뉴관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background: darkgrey; font-size: 15px; color: #fff; font-weight: bold;">
+                        개발자도구 관리
+                    </td>
+                </tr>
+                <tr>
+                    <td>기존</td>
+                    <td>코드관리</td>
+                    <td><a href="관리자도구_코드관리.html" target="_blank">관리자도구_코드관리.html</a></td>
+                    <td style="color:blue">0%</td>
+                    <td>
                     </td>
                 </tr>
             </tbody>
