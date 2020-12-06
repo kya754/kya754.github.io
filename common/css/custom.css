@@ -73,7 +73,7 @@
 /* .dashboard .col-xs-6, .dashboard .col-xs-4, .dashboard .col-xs-8, .dashboard .col-xs-5, .dashboard .col-xs-7{padding: 0 9px;} */
 .dashboard .col-xs-12{padding: 0 9px;}
 .dashboard .box{padding: 0; margin-bottom: 18px; border-top: 0; overflow: hidden; background: #fff; border-radius: 5px}
-.dashboard .box-header{padding: 12px 15px 10px; margin-bottom: 0; background: none; border: none; border-bottom: 1px solid #ddd;}
+.dashboard .box-header{padding: 12px 15px 10px; margin-bottom: 0; background: none; border: none; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;}
 .dashboard .box-tools{top: 7px;}
 .dashboard .box-tools i{font-size: 18px;}
 .dashboard .box-body{padding: 15px;}
@@ -252,7 +252,7 @@
 .fix_wrap{overflow-y: auto; max-height: 130px;}
 .fix_th_bg{width: 100%; height: 30px; background: #778492; position: absolute; top: 0; right: 0; left: 0; border-top: 2px solid #59687b;}
 .fix_th{width: inherit; padding: 0 2px; line-height: 30px; position: absolute; top: 0; text-align: center; border-left: 1px solid #ddd; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
-.tbl_scroll_box .fix_wrap .table{margin-top: -1px; margin-bottom: 0; border-top-width: 0;}
+.tbl_scroll_box .fix_wrap .table{margin-top: -1px; margin-bottom: 0; border-top-width: 0;width: 100%;}
 
 
 

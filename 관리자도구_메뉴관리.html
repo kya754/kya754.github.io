@@ -1822,7 +1822,7 @@
 
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 2426px;">
+    <div class="content-wrapper root"><!-- 20201207 클래스 추가 : root -->
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>메뉴관리</h1>
@@ -1831,9 +1831,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <form id="aform" method="post" action="/admin/menu/selectListMenuMgt.do">
+                <form id="aform" class="flex-warp" method="post" action="/admin/menu/selectListMenuMgt.do"><!-- 20201207 클래스 추가 : flex-wrap -->
                     <div class="col-lg-5">
-                        <div id="id_resize" class="box box-primary" style="overflow-y: auto; height: 737px;">
+                        <div id="id_resize" class="box box-primary">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -1842,11 +1842,13 @@
                                         </select>
                                     </div>
                                     <div class="col-xs-6">
-                                        <button type="button" class="btn btn-success pull-right" onclick="$('#jstree').jstree('close_all');"><i class="fa fa-minus"></i>
+                                        <!-- s: 20201207 btn에 클래스 추가 : color00, color03 -->
+                                        <button type="button" class="btn btn-success color00 pull-right" onclick="$('#jstree').jstree('close_all');"><i class="fa fa-minus"></i>
                                             접기
                                         </button>
-                                        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="$('#jstree').jstree('open_all');"><i class="fa fa-plus"></i> 펼치기
+                                        <button type="button" class="btn btn-primary color03 pull-right" style="margin-right: 5px;" onclick="$('#jstree').jstree('open_all');"><i class="fa fa-plus"></i> 펼치기
                                         </button>
+                                        <!-- e: 20201207 btn에 클래스 추가 : color00, color03 -->
                                     </div>
                                 </div>
                             </div>
@@ -1858,7 +1860,7 @@
                     </div>
                     <!-- 우측 메뉴 정보 -->
                     <div class="col-lg-7">
-                        <div class="box box-primary">
+                        <div class="box box-primary text-left"><!-- 20201207 클래스 추가 : text-left -->
                             <div class="box-body no-pad-top">
                                 <input type="hidden" name="sort_ordr_1" id="sort_ordr_1" value="1">
                                 <input type="hidden" name="sort_ordr_2" id="sort_ordr_2" value="10">
@@ -1870,7 +1872,7 @@
                                 <input type="hidden" name="new_srt_ord_val" id="new_srt_ord_val" value="70">
                                 <input type="hidden" name="url_ty_code" value="30">
 
-                                <table class="table table-bordered" id="defaultTb">
+                                <table class="table table-bordered type02" id="defaultTb"><!-- 20201207 클래스 추가 : type02 -->
                                     <caption>
                                     </caption>
                                     <colgroup>
@@ -1966,8 +1968,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <button type="button" class="btn btn btn-primary" onclick="fnUpdate(); return false;">수정
-                                        </button>
+                                        <button type="button" class="btn btn btn-primary color01" onclick="fnUpdate(); return false;">수정</button><!-- 20201207 클래스 추가 : color01 -->
                                         <button type="button" class="btn btn-warning" onclick="fnDelete(); return false;">
                                             <i class="fa fa-trash"></i> 삭제
                                         </button>
@@ -1985,7 +1986,9 @@
 
                             <!-- 하위 메뉴 생성 -->
                             <div class="box-body no-pad-top">
-                                <span id="insertArea"><table id="removeNo_2" class="table table-bordered"><caption>하위메뉴생성</caption>	<colgroup>		<col style="width:20%;">		<col style="width:25%;">		<col style="width:20%;">		<col style="width:25%;">		<col class="td5">	</colgroup>		<tbody><tr>		<th class="required_field">상위메뉴 ID</th>		<td colspan="3">			<div class="row">				<div class="col-xs-4">					<input type="text" class="form-control" name="" value="100010002400" readonly="">					<input type="hidden" name="new_url_ty_code" value="30">					<input type="hidden" name="dup_chk_yn" id="dup_chk_yn_2" value="Y">				</div>				<div class="col-xs-8">						<div class="input-group">							<input type="text" class="form-control" name="new_menu_id" id="new_menu_id" onkeypress="return checkNum(event);" value="1700">						<div class="input-group-btn">								<button type="button" class="btn btn-primary" onclick="fnSelectMenuExistYnAjax('2')">중복확인</button>						</div>				</div>			</div>		</div></td>		<td rowspan="7" class="bor_L"><button type="button" class="btn btn-warning" onclick="fnRemove('removeNo_2');">삭제</button></td>	</tr>	<tr>		<th class="required_field">메뉴명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_menu_nm" id="new_menu_nm" maxlength="100" onkeyup="cfLengthCheck('메뉴명은', this, 100);"></div></td>		<th>상세기능명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_fnct_nm" id="new_fnct_nm" maxlength="100" onkeyup="cfLengthCheck('상세기능명은', this, 100);"></div></td>	</tr>	<tr>		<th class="required_field">메뉴유형</th>		<td><div class="outBox1"><select name="new_menu_type_code" id="new_menu_type_code" class="form-control">	<option value="">선택</option><option value="10">카테고리</option><option value="20">메뉴</option><option value="30">페이지</option><option value="40">기능</option></select></div></td>		<th>정렬순서</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_srt_ord" id="new_srt_ord" maxlength="4" onkeypress="return checkNum(event);" value="80"></div></td>	</tr>	<tr>		<th>사용여부</th>		<td><div class="outBox1"><select name="new_use_yn" id="new_use_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>		<th>전시여부</th>		<td><div class="outBox1"><select name="new_disp_yn" id="new_disp_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>	</tr>	<tr class="new_ty_info"></tr>	<tr>		<th class="bor_last">URL</th>		<td colspan="3"><div class="outBox1"><input type="text" class="form-control" name="new_url" id="new_url" maxlength="100" onkeyup="cfLengthCheck('URL은', this, 100);"></div></td>	</tr>	<tr>		<th class="bor_last">비고</th>		<td colspan="3" class="bor_last"><div class="outBox1"><input type="text" class="form-control" name="new_rm" id="new_rm" maxlength="500" onkeyup="cfLengthCheck('비고는', this, 500);"></div></td>	</tr></tbody></table></span>
+                                <span id="insertArea">
+                                    <table id="removeNo_2" class="table table-bordered type02"><!-- 20201207 클래스 추가 : type02 -->
+                                        <caption>하위메뉴생성</caption>	<colgroup>		<col style="width:20%;">		<col style="width:25%;">		<col style="width:20%;">		<col style="width:25%;">		<col class="td5">	</colgroup>		<tbody><tr>		<th class="required_field">상위메뉴 ID</th>		<td colspan="3">			<div class="row">				<div class="col-xs-4">					<input type="text" class="form-control" name="" value="100010002400" readonly="">					<input type="hidden" name="new_url_ty_code" value="30">					<input type="hidden" name="dup_chk_yn" id="dup_chk_yn_2" value="Y">				</div>				<div class="col-xs-8">						<div class="input-group">							<input type="text" class="form-control" name="new_menu_id" id="new_menu_id" onkeypress="return checkNum(event);" value="1700">						<div class="input-group-btn">								<button type="button" class="btn btn-primary color02" onclick="fnSelectMenuExistYnAjax('2')">중복확인</button><!-- 20201207 클래스 추가 : color02-->						</div>				</div>			</div>		</div></td>		<td rowspan="7" class="bor_L"><button type="button" class="btn btn-warning" onclick="fnRemove('removeNo_2');">삭제</button></td>	</tr>	<tr>		<th class="required_field">메뉴명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_menu_nm" id="new_menu_nm" maxlength="100" onkeyup="cfLengthCheck('메뉴명은', this, 100);"></div></td>		<th>상세기능명</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_fnct_nm" id="new_fnct_nm" maxlength="100" onkeyup="cfLengthCheck('상세기능명은', this, 100);"></div></td>	</tr>	<tr>		<th class="required_field">메뉴유형</th>		<td><div class="outBox1"><select name="new_menu_type_code" id="new_menu_type_code" class="form-control">	<option value="">선택</option><option value="10">카테고리</option><option value="20">메뉴</option><option value="30">페이지</option><option value="40">기능</option></select></div></td>		<th>정렬순서</th>		<td><div class="outBox1"><input type="text" class="form-control" name="new_srt_ord" id="new_srt_ord" maxlength="4" onkeypress="return checkNum(event);" value="80"></div></td>	</tr>	<tr>		<th>사용여부</th>		<td><div class="outBox1"><select name="new_use_yn" id="new_use_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>		<th>전시여부</th>		<td><div class="outBox1"><select name="new_disp_yn" id="new_disp_yn" class="form-control">	<option value="Y">예</option><option value="N">아니오</option></select></div></td>	</tr>	<tr class="new_ty_info"></tr>	<tr>		<th class="bor_last">URL</th>		<td colspan="3"><div class="outBox1"><input type="text" class="form-control" name="new_url" id="new_url" maxlength="100" onkeyup="cfLengthCheck('URL은', this, 100);"></div></td>	</tr>	<tr>		<th class="bor_last">비고</th>		<td colspan="3" class="bor_last"><div class="outBox1"><input type="text" class="form-control" name="new_rm" id="new_rm" maxlength="500" onkeyup="cfLengthCheck('비고는', this, 500);"></div></td>	</tr></tbody></table></span>
                                 <div class="show_btn mT10" id="insertBtn" style="display: block;">
                                     <button type="button" class="btn btn-info" onclick="fnInsert(); return false;">등록
                                     </button>

@@ -670,7 +670,8 @@ border-top: 1px solid #c4c6c8; */
     background: #8795ff;
     color: #fff;
     vertical-align: top;
-    width: 157px;
+    min-width: 157px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -681,8 +682,9 @@ border-top: 1px solid #c4c6c8; */
     background: #426aff;
     color: #fff;
     vertical-align: top;
-    width: 249px;
+    min-width: 249px;
     height: 50px;
+    padding: 0 30px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
     float: right;
@@ -1874,7 +1876,8 @@ span[name=toggle-control] {
     background: #e33d3e;
     color: #fff;
     vertical-align: top;
-    width: 160px;
+    min-width: 160px;
+    padding: 0 30px;
     height: 50px;
     font-size: 16px;
     font-family: 'NotoSansKR-Medium';
@@ -2387,3 +2390,80 @@ ol.tab-cont li.active {
 .table .checkbox:first-child {
     margin-top: 0;
 }
+
+
+/* root 있는 페이지 */
+.root {}
+.flex-warp {
+    display: flex;
+}
+
+.root .box-body table {
+    width: 100%;
+}
+
+
+.root .col-lg-5,
+.root .col-lg-7,
+.root .col-lg-6 {
+    flex: 1;
+}
+
+.root .col-lg-5,
+.root .col-lg-6:first-child {
+    margin-right: 20px;
+}
+.root .col-lg-6:nth-child(2) .box-body:last-child {
+    border-top: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.root select.form-control {
+    margin: 15px 0;
+}
+
+.root .left_list {
+    font-size: 14px;
+}
+
+.root .btn-info, .root .post-btn {
+    float: none;
+}
+
+.root #defaultTb + br + .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.root .btn {
+    min-width: auto;
+    padding: 0 20px;
+    height: 36px;
+    font-size: 14px;
+}
+
+.root .mT10 {
+    margin-top: 10px;
+}
+
+.root .show_btn {
+    text-align: right;
+}
+
+.root .col-xs-4 + .col-xs-8 .input-group {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.root .col-xs-8 .input-group #new_menu_id {
+    width: 67%;
+    margin-right: 5px;
+ }
+
+ .root #id_resize > .box-body > .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
