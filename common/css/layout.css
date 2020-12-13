@@ -254,7 +254,109 @@ body.main #header {
 }
 
 
+/* alarm popup */
+.alarm-popup {
+	display: none;
+	position: absolute;
+	right: 22px;
+	top: 58px;
+	background: #fff;
+	border: 1px solid #c4c6c8;
+	box-sizing: border-box;
+	font-size: 14px;
+	padding: 16px 0 0;
+	text-align: left;
+	color: #474747;
+}
 
+.alarm-popup.on {
+	display: block;
+}
+
+.alarm-popup:before {
+	position: absolute;
+	right: 52px;
+	top: -8px;
+	content:'';
+	display: block;
+	width: 11px;
+	height: 10px;
+	background: #fff url('/common/images/user_pop_ico.png') no-repeat;
+	background-size: contain;
+	/* border-top: 1px solid #c4c6c8;
+	border-right: 1px solid #c4c6c8;
+	transform: rotate(-45deg); */
+}
+
+.alarm-popup .alarm-top {
+	padding: 0px 17px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.alarm-popup .alarm-top .read-btn {
+	font-size: 12px;
+	color: #687799;
+	letter-spacing: -1px;
+}
+.alarm-popup .alarm-top > p {
+	font-size: 16px;
+	color: #426aff;
+}
+
+.alarm-popup .alarm-list {
+	padding: 0px 17px;
+}
+
+.alarm-popup .alarm-list li {
+	padding: 12px 0;
+	display: flex;
+	justify-content: space-between;
+	border-top: 1px solid #bfbfbf;
+	box-sizing: border-box;
+}
+
+.alarm-popup .alarm-list .text-area .title {
+	font-size: 14px;
+	color: #474747;
+	font-family: 'NotoSansKR-Bold';
+}
+
+.alarm-popup .alarm-list .text-area .date {
+	font-size: 12px;
+	color: #a1a1a1;
+	margin-left: 8px;
+}
+.alarm-popup .alarm-list .text-area .text {
+	font-size: 14px;
+	color: #666;
+}
+.alarm-popup .alarm-list .read {
+	font-size: 12px;
+	color: #666;
+	margin-left: 23px;
+}
+
+.alarm-popup .alarm-list .read.on {
+	color: #426aff;
+}
+
+.alarm-popup .view-all {
+	display: block;
+	width: 100%;
+	background: #223786;
+	text-align: center;
+	height: 34px;
+}
+
+.alarm-popup .view-all span {
+	line-height: 34px;
+	color:#efefef;
+	font-size: 12px;
+	font-family: 'NotoSansKR-Bold';
+}
 
 
 /* user popup */
@@ -444,6 +546,32 @@ body.main #header {
 
 .ui-datepicker-today a.ui-state-active:after {
 	border-right: 8px solid #fff;
+}
+
+
+
+/* 자치구별 관리자페이지 */
+#header .region {
+	font-size: 22px;
+	color: #223786;
+	font-family: 'NotoSansKR-Bold';
+	float: left;
+	line-height: 61px;
+}
+
+#header .region:before {
+	content:'';
+	margin-right: 46px;
+	display: inline-block;
+	width: 1px;
+	height: 20px;
+	background: #223786;
+	position: relative;
+	top: 3px;
+}
+
+.region-type #header .main-logo {
+	margin-right: 50px;
 }
 
 

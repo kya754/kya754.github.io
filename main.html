@@ -448,6 +448,58 @@
                     <em class="icon-label">5</em>
                 </a>
             </div>
+            <!-- s:20201213 알림 팝업 추가 -->
+            <div class="alarm-popup on">
+                <div class="alarm-top">
+                    <p>알림</p>
+                    <button type="button" class="read-btn">모두 읽음으로 표시</button>
+                </div>
+                <ul class="alarm-list">
+                    <li>
+                        <div class="text-area">
+                            <a href="#"><!-- a태그 필요할 시 위치 -->
+                                <p>
+                                    <span class="title">데이터 연계 신청</span>
+                                    <span class="date">2020.09.18 09:13:50</span>
+                                </p>
+                                <p class="text">성동구 공유주차 서비스</p>
+                            </a>
+                        </div>
+                        <div>
+                            <span class="read">안읽음</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-area">
+                            <p>
+                                <span class="title">공공데이터 이용 신청</span>
+                                <span class="date">2020.09.18 09:13:50</span>
+                            </p>
+                            <p class="text">성동구 공유주차 서비스</p>
+                        </div>
+                        <div>
+                            <span class="read">안읽음</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-area">
+                            <p>
+                                <span class="title">수신간격초과</span>
+                                <span class="date">2020.09.18 09:13:50</span>
+                            </p>
+                            <p class="text">성동구 공유주차 서비스</p>
+                        </div>
+                        <div>
+                            <span class="read on">읽음</span>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-all">
+                    <span>전체보기</span>
+                </a>
+            </div>
+            <!-- e:20201213 알림 팝업 추가 -->
+
             <!-- s:20201106 user 팝업 -->
             <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
             <div class="user-popup">
@@ -553,6 +605,88 @@
         </div>
         <!-- start : 검색 필터 영역 -->
         <div class="filter-section">
+            <!-- s: 20201213 검색 영역 추가 -->
+            <div class="search-wrap">
+                <div class="search-top">
+                    <div class="main-search">
+                        <input type="text" placeholder="검색어를 입력해 주세요">
+                        <button type="button" class="search-btn"></button>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="result-row">
+                        <p class="result-text"><span>‘심장충격기’</span> 검색 결과</p>
+                        <button type="button" class="close-btn">
+                            <span>닫기</span>
+                        </button>
+                    </div>
+                    <div class="list-wrap scrollbar-outer"><!-- 스크롤 가능 영역 스크립트 추가 예정 / 임시로 .list-wrap에 height:600px 지정해놓음-->
+                        <div class="title-wrap">
+                            <p class="title">서비스 바로가기 <span>1</span>건</p>
+                        </div>
+                        <div class="cont-wrap">
+                            <ul class="cont-list">
+                                <li>
+                                    <p class="text01">자동심장충격기(AED)관리</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="title-wrap">
+                            <p class="title">시각화 <span>3</span>건</p>
+                        </div>
+                        <div class="cont-wrap">
+                            <ul class="cont-list">
+                                <li>
+                                    <p class="text01">자동심장충격기(AED)관리</p>
+                                </li>
+                                <li>
+                                    <p class="text01">심장충격기 관리 정보 2019</p>
+                                </li>
+                                <li>
+                                    <p class="text01">심장충격기 관리 정보 2020</p>
+                                </li>
+                            </ul>
+                            <button type="button" class="view-more">
+                                <span>더보기</span>
+                            </button>
+                        </div>
+                        <div class="title-wrap">
+                            <p class="title">분석리포트 <span>1</span>건</p>
+                        </div>
+                        <div class="cont-wrap">
+                            <ul class="cont-list">
+                                <li>
+                                    <p class="text01">심장충격기 관리 영향도 분석</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="title-wrap">
+                            <p class="title">외부데이터 <span>0</span>건</p>
+                        </div>
+                        <div class="cont-wrap">
+                            <ul class="cont-list">
+                                <li>
+                                    <p class="no-data">검색 결과가 없습니다.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="title-wrap">
+                            <p class="title">이용안내 <span>1</span>건</p>
+                        </div>
+                        <div class="cont-wrap">
+                            <ul class="cont-list">
+                                <li>
+                                    <p class="text02">자동심장충격기(AED)관리</p>
+                                    <p class="text03">자동심장충격기에 달린 센서를 통해 기기의 상태·배터리 용량·패드 탈착</p>
+                                    <p class="depth">이용안내> 연계 서비스</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- e: 20201214 검색 영역 추가 -->
+
             <!-- s: 20201103 top-cont 추가 -->
             <div class="top-cont">
                 <div class="filter-box">
@@ -584,7 +718,7 @@
             </div>
             <!-- e: 20201103 top-cont 추가 -->
             <!-- s: 20201103 wrapper 추가 -->
-            <div class="wrapper scrollbar-outer"><!-- 20201107 클래스 추가 : scrollbar-inner -->
+            <div class="wrapper scrollbar-outer">
                 <div class="filter-box">
                     <div class="title-wrap">
                         <p class="title">서비스 목록</p>

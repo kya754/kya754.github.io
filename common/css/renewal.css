@@ -471,7 +471,8 @@ select.form-control {
 
 /* type01 */
 .box-body table {
-    width: 1080px;
+    /* width: 1080px; */
+    width: 100%;
     border-bottom: 1px solid #c4c6c8;
 }
 
@@ -2467,3 +2468,393 @@ ol.tab-cont li.active {
     align-items: center;
     justify-content: space-between;
  }
+
+
+
+
+ /* 모달 팝업 */
+.modal {
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal .fade.in {
+    opacity: 1;
+}
+
+.modal .fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.modal .modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal .modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    -o-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+}
+
+.modal .modal-dialog {
+    position: relative;
+    width: 1080px !important;
+    margin: 30px auto;
+}
+
+.modal .modal-content {
+    border-radius: 0;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    border: 0;
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+
+.modal .modal-header {
+    border-bottom-color: #f4f4f4;
+    min-height: 16.42857143px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal .modal-header .close {
+    margin-top: -2px;
+}
+
+.modal button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.modal .close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.modal .modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+}
+
+.modal .modal-body {
+    position: relative;
+    padding: 15px;
+}
+
+.modal .modal-footer {
+    border-top-color: #f4f4f4;
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.modal .btn.btn-default {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+}
+
+.modal .btn {
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+    height: auto;
+    min-width: auto;
+}
+
+.modal .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.modal .modal-footer .btn {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.modal .btn-info {
+    background-color: #00c0ef;
+    border-color: #00acd6;
+    color: #fff;
+}
+
+.modal .box-body {
+    margin-top: 0;
+    /* border-top: 0; */
+}
+
+/* support Font Awesome icons in form-control */
+.glyphicon-search {
+display: inline-block;
+background: url(/common/images/ic-search.png) center no-repeat;
+background-size: 22px 22px;
+width: 39px;
+height: 41px;
+vertical-align: middle;
+border: 0;
+cursor: pointer;
+padding: 0;
+}
+
+
+
+.modal .table > thead > tr > th,
+.modal .table > tbody > tr > th,
+.modal .table > tfoot > tr > th,
+.modal .table > thead > tr > td,
+.modal .table > tbody > tr > td,
+.modal .table > tfoot > tr > td {
+  border-top: 1px solid #f4f4f4;
+}
+.modal .table > thead > tr > th,
+.modal .table > tbody > tr > th {
+  border-bottom: 2px solid #f4f4f4;
+  background-color: rgba( 225, 235, 244, 0.45 );
+}
+.modal .table tr td .progress {
+  margin-top: 5px;
+}
+.modal .table-bordered {
+  border: 1px solid #eeeeee;
+}
+.modal .table-bordered > thead > tr > th,
+.modal .table-bordered > tbody > tr > th,
+.modal .table-bordered > tfoot > tr > th,
+.modal .table-bordered > thead > tr > td,
+.modal .table-bordered > tbody > tr > td,
+.modal .table-bordered > tfoot > tr > td {
+  border: 1px solid #eeeeee;
+}
+.modal .table-bordered > thead > tr > th,
+.modal .table-bordered > thead > tr > td {
+  border-bottom-width: 2px;
+}
+.modal .table.no-border,
+.modal .table.no-border td,
+.modal .table.no-border th {
+  border: 0;
+}
+/* .text-center in tables */
+.modal table.text-center,
+.modal table.text-center td,
+.modal table.text-center th {
+  text-align: center;
+}
+.modal .table.align th {
+  text-align: left;
+}
+.modal .table.align td {
+  text-align: right;
+}
+
+.modal .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.modal .text-center {
+    text-align: center;
+}
+
+.modal .table > thead > tr > th, .modal .table > tbody > tr > th, .table > tfoot > tr > th, .modal .table > thead > tr > td, .modal .table > tbody > tr > td, .modal .table > tfoot > tr > td {
+    padding: 8px 8px;
+    line-height: 2em;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.modal .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.modal .form-inline .form-group {
+    display: inline-block;
+}
+
+select.form-control {
+    background: #fff url(/common/images/ic-arrow.png) no-repeat;
+    background-position: right 10px bottom 50%;
+    background-size: 9px 5px;
+}
+
+.modal fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+.modal legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modal label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.modal input[type="search"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+.modal input[type="radio"],
+.modal input[type="checkbox"] {
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+}
+.modal  input[type="file"] {
+    display: block;
+}
+.modal  input[type="range"] {
+    display: block;
+    width: 100%;
+}
+.modal  select[multiple],
+.modal select[size] {
+    height: auto;
+}
+.modal input[type="file"]:focus,
+.modal  input[type="radio"]:focus,
+.modal input[type="checkbox"]:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.modal output {
+    display: block;
+    padding-top: 7px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+}
+.modal .form-control {
+    display: block;
+    width: 100%;
+    height: 34px !important;
+    padding: 4px 8px;
+    font-size: 14px !important;
+    line-height: 1.42857143;
+    color: #555;
+    /* background-color: #fff; */
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.modal .form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.modal .form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+.modal .form-control:-ms-input-placeholder {
+    color: #999;
+}
+.modal .form-control::-webkit-input-placeholder {
+    color: #999;
+}
+.modal .form-control[disabled],
+.modal .form-control[readonly],
+.modal fieldset[disabled] .form-control {
+    background-color: #eee;
+    opacity: 1;
+}
+.modal .form-control[disabled],
+.modal fieldset[disabled] .form-control {
+    cursor: not-allowed;
+}
+.modal  textarea.form-control {
+    height: auto;
+}
+.modal input[type="search"] {
+    -webkit-appearance: none;
+}
+
+.modal .table td input[type=text], .form-control {
+    border-radius: 0;
+}
+
+.modal select.form-control { 
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox; 
+    appearance: checkbox;
+}
