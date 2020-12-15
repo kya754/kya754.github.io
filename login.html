@@ -66,11 +66,14 @@
                             </div>
                         </div>
     
-                        <div class="find_info">
+                        <!-- s: 20201215 data-toggle, data-target 추가 -->
+                        <div class="find_info" data-toggle="modal" data-target="#findIdModal">
                             <a href="#">아이디</a>
                             <span>/</span>
-                            <a href="#">비밀번호 찾기</a>
+                            <a href="#" data-toggle="modal" data-target="#findPwModal">비밀번호 찾기</a>
                         </div>
+                        <!-- e: 20201215 data-toggle, data-target 추가 -->
+
                     </div>
                     
 
@@ -174,7 +177,7 @@
     <!-- end : footer -->
     <!-- start : popup -->
     <!-- 사용자 등록 창 -->
-    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" style="width:70%">
             <div class="modal-content">
                 <div class="modal-header">
@@ -286,7 +289,106 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- end : popup -->
+
+
+
+    <!-- s:20201215 팝업 : 아이디찾기 -->
+    <div class="modal fade" id="findIdModal">
+        <div class="pop-wrap" style="width: 650px;">
+            <div class="pop-head">
+                <h4 class="title">아이디 찾기</h4>
+                <button type="button" class="close-btn" data-dismiss="modal">
+                    <span class="hidden-txt">닫기</span>
+                </button>
+            </div>
+            <div class="pop-cont">
+                <div class="inner type01">
+                    <p class="text">회원정보에 등록된 이메일을 입력해 주세요.</p>
+                    <div class="input-wrap email">
+                        <div>
+                            <input type="text" name="" id="" class="input-txt">
+                        </div>
+                        <span>@</span>
+                        <div>
+                            <input type="text" name="" id="" class="input-txt">
+                        </div>
+                        <div>
+                            <select name="" id="" aria-label="직접입력" class="select-txt">
+                                <option value="">직접입력</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="submit-btn">
+                            <span>확인</span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- e:20201215 팝업 : 아이디찾기 -->
+
+
+    <!-- s:20201215 팝업 : 비밀번호 찾기 -->
+    <div class="modal fade" id="findPwModal">
+        <div class="pop-wrap" style="width: 650px;">
+            <div class="pop-head">
+                <h4 class="title">비밀번호 찾기</h4>
+                <button type="button" class="close-btn" data-dismiss="modal">
+                    <span class="hidden-txt">닫기</span>
+                </button>
+            </div>
+            <div class="pop-cont">
+                <div class="inner type01">
+                    <p class="text">회원님의 아이디와 이메일을 입력해 주세요</p>
+                    <div class="input-wrap">
+                        <input type="text" name="" id="" class="input-txt" placeholder="아이디를 입력해주세요">
+                    </div>
+                    <div class="input-wrap email">
+                        <div>
+                            <input type="text" name="" id="" class="input-txt">
+                        </div>
+                        <span>@</span>
+                        <div>
+                            <input type="text" name="" id="" class="input-txt">
+                        </div>
+                        <div>
+                            <select name="" id="" aria-label="직접입력" class="select-txt">
+                                <option value="">직접입력</option>
+                                <option value="">옵션1</option>
+                                <option value="">옵션2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="submit-btn">
+                            <span>확인</span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- e:20201215 팝업 : 비밀번호 찾기 -->
+
+
+    <!-- s:20201215 팝업 : alert -->
+    <div class="modal fade" id="customAlert">
+        
+    </div>
+    <!-- e:20201215 팝업 : alert -->
+
+    <!-- s:20201215 팝업 : 계정신청 -->
+    <div class="modal fade" id="signUpModal">
+        
+    </div>
+    <!-- e:20201215 팝업 : 계정신청 -->
 </body>
 </html>
