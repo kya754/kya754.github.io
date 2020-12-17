@@ -386,7 +386,7 @@
                                             </button>
                                         </div>
                                         <div class="cont">
-                                            <input type="range" min="0" max="100" value="40" class="input-range">
+                                            <input type="range" class="input-range" min="0" max="100" value="40">
                                         </div>
                                     </div>
                                     <div class="option type05">
@@ -441,9 +441,42 @@
 </body>
 
 <script>
-    // var check = $("input[type='checkbox']");
-    //     check.click(function(){
-    //         $("p").toggle();
-    // });
+    // 크롬 input range css 적용
+    var customRange = function(el){
+        var $rangeEl
+
+        function init(){
+            $rangeEl = $(el);
+            
+            checkingbrowser();
+        }
+
+        function checkingbrowser(){
+            var agent = navigator.userAgent.toLowerCase();
+            if (agent.indexOf("chrome") != -1) {
+                event();
+                rangeCss();
+            }
+        }
+
+        function event(){
+            $rangeEl.on('input', function(){
+                rangeCss();
+            });
+        }
+
+        function rangeCss(){
+            var val = $rangeEl.val();
+            $rangeEl.css('background', 'linear-gradient(to right, dodgerblue 0%, dodgerblue '+ val +'%, #d5d4d3 ' + val + '%, #d5d4d3 100%)');
+        }
+
+        return {
+            init: init
+        }
+    }
+
+    customRange('.input-range').init();
+        
+    
 </script>
 </html>
