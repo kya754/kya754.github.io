@@ -408,26 +408,22 @@
                 <div class="inner type02">
                     <p class="text">계정을 신청할 시스템을 선택해 주세요.</p>
                     <ul class="sel-system">
-                        <li class="sel-list">
-                            <button class="sel-btn active">
-                                <i class="sel-box"></i>
-                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
-                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
-                            </button>
+                        <li class="sel-list active">
+                            <i class="sel-box"></i>
+                            <span class="ttl">IoT 도시데이터 활용 시스템</span>
+                            <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
                         </li>
                         <li class="sel-list">
-                            <button class="sel-btn">
-                                <i class="sel-box"></i>
-                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
-                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
-                            </button>
+                            <i class="sel-box"></i>
+                            <span class="ttl">도시데이터(S-DoT) 조회 시스템</span>
+                            <span class="txt">
+                                서울시 행정망 이용 기관 직원용<br>
+                                (서울시 행정망 미이용 기관은 접속 불가)
+                            </span>
                         </li>
                         <li class="sel-list">
-                            <button class="sel-btn">
-                                <i class="sel-box"></i>
-                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
-                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
-                            </button>
+                            <i class="sel-box"></i>
+                            <span class="ttl">모두선택</span>
                         </li>
                     </ul>
                     <div class="table-wrap">
@@ -444,13 +440,15 @@
                                     <th>
                                         <label for="test1">회원 ID <span class="es">*</span></label>
                                     </th>
-                                    <td class="id-td">
-                                        <div class="input-wrap">
-                                            <input type="text" name="" id="test1" class="input-txt">
+                                    <td>
+                                        <div class="td-wrap">
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="test1" class="input-txt">
+                                            </div>
+                                            <button type="button" class="id-check">
+                                                <span>ID 중복확인</span>
+                                            </button>
                                         </div>
-                                        <button type="button" class="id-check">
-                                            <span>ID 중복확인</span>
-                                        </button>
                                     </td>
                                     <th>
                                         <label for="test2">비밀번호 <span class="es">*</span></label>
@@ -476,6 +474,70 @@
                                     <td>
                                         <div class="input-wrap">
                                             <input type="text" name="" id="test4" class="input-txt">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="">기관 <span class="es">*</span></label>
+                                    </th>
+                                    <td colspan="3">
+                                        <div class="input-wrap">
+                                            <select name="" id="" aria-label="기관" class="select-txt">
+                                                <option value="">서울 시청</option>
+                                                <option value="">옵션1</option>
+                                                <option value="">옵션2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="">연락처</label>
+                                    </th>
+                                    <td colspan="3">
+                                        <div class="input-wrap phone">
+                                            <div>
+                                                <select name="" id="" aria-label="핸드폰" class="select-txt">
+                                                    <option value="">핸드폰</option>
+                                                    <option value="">옵션1</option>
+                                                    <option value="">옵션2</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                            <span>-</span>
+                                            <div>
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                            <span>-</span>
+                                            <div>
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="">이메일</label>
+                                    </th>
+                                    <td colspan="3">
+                                        <div class="input-wrap email">
+                                            <div>
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                            <span>@</span>
+                                            <div>
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                            <div>
+                                                <select name="" id="" aria-label="직접입력" class="select-txt">
+                                                    <option value="">직접입력</option>
+                                                    <option value="">옵션1</option>
+                                                    <option value="">옵션2</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
