@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>IoT도시데이터시스템</title>
+
+    <!-- new css link -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/layout.css">
+    <link rel="stylesheet" href="/common/css/renewal.css">
+
+    <!-- new js link -->
+    <script src="/common/js/jquery.js"></script>
+    <script src="/common/js/jquery.scrollbar.min.js"></script>
+    <script src="/common/js/layout.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+    
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="#" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <div class="gnb-wrap">
+                <ul class="gnb-menu clfix">
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">센서 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수집 현황</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 시각화</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석 프로세스</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">시각화 그래프 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석리포트 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">외부 데이터 공유</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">검색 히스토리</a>
+                                </li>
+                                <li>
+                                    <a href="#">스크랩</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 시각화 그래프</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 분석 리포트</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 외부 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">회원정보 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">IoT 도시데이터 소개</a>
+                                </li>
+                                <li>
+                                    <a href="#">주요서비스</a>
+                                </li>
+                                <li>
+                                    <a href="#">자주 하는 질문</a>
+                                </li>
+                                <li>
+                                    <a href="#">공지사항</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        <div class="depth2-wrap clfix">
+                            <!-- 서비스 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">서비스 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">데이터 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 정보 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 수신 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 담당자 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">SMS 수신 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 시스템 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">시스템 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">공공데이터 이용 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 개방 현황</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">시스템 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">메뉴관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">페이지뷰</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">접속이력</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">계정 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한별 메뉴관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 개발자 도구 -->
+                            <div class="depth2-list">
+                                <p class="title">개발자 도구</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">API 인증키 운영 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">코드 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 수동 파싱</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 공개 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    <em class="icon-label">3</em>
+                </a>
+                <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+                <a href="javascript:void(0);" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    <em class="icon-label">5</em>
+                </a>
+            </div>
+            <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+            <div class="user-popup">
+                <p class="user-name"><span>김서울</span>&nbsp;님</p>
+                <ul>
+                    <li><a href="#">나의 정보 보기</a></li>
+                    <li><a href="#">비밀번호 변경</a></li>
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end : header -->
+    
+    <div class="content-wrapper visual">
+        <section class="content-header">
+            <h1>시각화 그래프</h1>
+            <small>IoT 도시데이터와 외부데이터를 원하는 그래프로 시각화할 수 있습니다.</small>
+        </section>
+
+        <!-- start : Main content -->
+        <section class="content">
+            <ul class="visual-tab">
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step01" aria-hidden="true"></span>
+                        <span class="txt">1. 데이터 선택</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step02" aria-hidden="true"></span>
+                        <span class="txt">2. 데이터 확인</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step03" aria-hidden="true"></span>
+                        <span class="txt">3. 시각화 선택</span>
+                    </a>
+                </li>
+                <li class="tab on">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step04" aria-hidden="true"></span>
+                        <span class="txt">4.  시각화 편집 / 완성</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="cont-wrap">
+                <h2 class="sub-txt">시각화 편집</h2>
+                <div class="step-cont">
+                    <section class="setting-box">
+                        <div class="box-header">
+                            <h3 class="box-title">시각화 설정 </h3>
+                            <span class="box-sub">| 레이아웃, 변수 및 그래프 스타일을 선택하세요.</span>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn save-btn">
+                                    <span>임시저장</span>
+                                </a>
+                                <a href="#" class="btn next-btn">
+                                    <span>다음</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="box-cont clfix">
+                            <div class="left-wrap">
+                                <button type="button" class="layout-btn">
+                                    <span>레이아웃</span>
+                                </button>
+                                <div class="setting-board">
+                                    <!-- 그래프 영역 -->
+                                    <div class="graph-wrap">
+                                        <img src="/common/images/img-graph-dccenter.png" alt="">
+                                    </div>
+                                </div>
+                                <button type="button" class="add-btn">
+                                    <span>시각 그래프 추가하기 +</span>
+                                </button>
+                            </div>
+                            <div class="right-wrap ver2">
+                                <ul class="setting-tab type1 clfix">
+                                    <button type="button" class="btn">
+                                        <span>그래프 설정</span>
+                                    </button>
+                                </ul>
+                                <div class="option-wrap">
+                                    <div class="option type01">
+                                        <div class="head">
+                                            <p class="title">그래프 유형</p>
+                                        </div>
+                                        <div class="cont">
+                                            <select id="" name="" class="form-control">
+                                                <option value="">막대</option>
+                                                <option value="">옵션1</option>
+                                                <option value="">옵션2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="option type02">
+                                        <div class="head">
+                                            <p class="title">컬러</p>
+                                            <button type="button" class="reset-btn">
+                                                <span>초기화</span>
+                                            </button>
+                                        </div>
+                                        <div class="cont">
+                                            <button type="button" class="color value01"></button>
+                                            <button type="button" class="color value02"></button>
+                                            <button type="button" class="color value03"></button>
+                                            <button type="button" class="color value04"></button>
+                                        </div>
+                                    </div>
+                                    <div class="option type03">
+                                        <div class="head">
+                                            <p class="title">축설정</p>
+                                            <button type="button" class="reset-btn">
+                                                <span>초기화</span>
+                                            </button>
+                                        </div>
+                                        <div class="cont">
+                                            <dl>
+                                                <dt>x축 라벨</dt>
+                                                <dd>
+                                                    <input type="text" class="form-control center" value="이용월">
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>y축 라벨</dt>
+                                                <dd>
+                                                    <input type="text" class="form-control center" value="방문자수">
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>y축 범위</dt>
+                                                <dd>
+                                                    <input type="text" class="form-control" value="0">
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>y축 범위</dt>
+                                                <dd>
+                                                    <input type="text" class="form-control" value="12040">
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="option type04">
+                                        <div class="head">
+                                            <p class="title">선굵기</p>
+                                            <button type="button" class="reset-btn">
+                                                <span>초기화</span>
+                                            </button>
+                                        </div>
+                                        <div class="cont">
+                                            <input type="range" min="0" max="100" value="40" class="input-range">
+                                        </div>
+                                    </div>
+                                    <div class="option type05">
+                                        <div class="head">
+                                            <p class="title">옵션</p>
+                                        </div>
+                                        <div class="cont">
+                                            <ul class="switch-list">
+                                                <li>
+                                                    <p class="switch-ttl">눈금선 표시</p>
+                                                    <label class="switch">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <p class="switch-ttl">포인트 표시</p>
+                                                    <label class="switch">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <p class="switch-ttl">데이터 레이블 표시  </p>
+                                                    <label class="switch">
+                                                        <input type="checkbox">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+        <!-- end : Main content -->
+    
+    </div>
+    
+    <!-- start : footer -->
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <!-- end : footer -->
+</body>
+
+<script>
+    // var check = $("input[type='checkbox']");
+    //     check.click(function(){
+    //         $("p").toggle();
+    // });
+</script>
+</html>

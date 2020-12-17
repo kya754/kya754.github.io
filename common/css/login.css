@@ -671,9 +671,14 @@ input[class="custom_chk"] {
 
 
 /* 팝업 */
+
+.modal {
+	text-align: center;
+}
 .pop-wrap {
+	display: inline-block;
 	background: #fff;
-	margin: 30px auto 0;
+	margin-top: 100px;
 }
 
 .pop-head {
@@ -700,7 +705,7 @@ input[class="custom_chk"] {
 
 .pop-cont .type01 {
 	text-align: center;
-	padding: 47px 48px;
+	padding: 47px 0 48px;
 }
 
 .pop-cont .type01 .text {
@@ -712,6 +717,7 @@ input[class="custom_chk"] {
 .pop-cont .type01 .input-wrap {
 	display: flex;
 	justify-content: left;
+	align-items: center;
 }
 
 .pop-cont .type01 .input-wrap {
@@ -766,23 +772,158 @@ input[class="custom_chk"] {
 	margin: 0 8px;
 }
 
-.submit-btn {
-	background: #426aff;
+.pop-wrap .btns {
+	display: flex;
+	justify-content: center;
+}
+
+.pop-wrap .btns .bttn {
+	min-width: 207px;
 	line-height: 50px;
 	height: 50px;
 	text-align: center;
-	min-width: 207px;
 }
 
-.submit-btn span {
+.pop-wrap .btns .bttn span {
 	color: #fff;
 	font-size: 18px;
 }
+
+.pop-wrap .btns .submit-btn {
+	background: #426aff;
+}
+.pop-wrap .btns .cancle-btn {
+	background: #929292;
+}
+
 
 .pop-cont .type01 .btns {
 	text-align: center;
 	margin-top: 40px;
 }
 
+.custom-alert {
+	padding: 40px 66px 48px;
+}
+
+.custom-alert .ttl {
+	font-size: 24px;
+	font-family: 'NotoSansKR-Medium';
+}
+.custom-alert .txt {
+	font-size: 20px;
+	color: #363636;
+	margin: 20px 0 31px;
+}
+
+#customAlert .pop-wrap {
+	margin-top: 89px;
+}
+
+#signUpModal .pop-wrap {
+	margin-top: 55px;
+}
+
+.sel-system {
+	display: flex;
+	margin-top: 20px;
+}
+
+.sel-system .sel-list {
+	margin-right: 26px;
+	width: 300px;
+}
+
+.sel-system .sel-list:last-child {
+	margin-right: 0;
+}
+
+.sel-system .sel-btn {
+	border: 1px solid #c4c6c8;
+	box-sizing: border-box;
+	min-height: 166px;
+	width: 100%;
+}
+
+.sel-system .sel-btn.active{
+	border: 1px solid #426aff;
+}
+
+.sel-system .sel-btn span {
+	display: block;
+}
+
+.sel-system .sel-btn .ttl {
+	font-family: 'NotoSansKR-Medium';
+	font-size: 18px;
+}
+.sel-system .sel-btn .txt {
+	font-size: 16px;
+	color: #7a7a7a;
+}
+
+.pop-cont .inner.type02 {
+	text-align: left;
+	padding: 30px 0 48px;
+}
+
+.pop-cont .inner.type02 .btns {
+	margin-top: 48px;
+}
+
+.pop-cont .inner.type02 .cancle-btn {
+	margin-right: 14px;
+}
+
+.pop-cont .inner.type02 > .text {
+	font-size: 18px;
+}
 
 
+.pop-cont .inner.type02 .table-wrap table {
+	width: 100%;
+	border-top: 1px solid #426aff;
+}
+.pop-cont .inner.type02 .table-wrap table th {
+	background: #f5f7fa;
+	padding-left: 16px;
+}
+.pop-cont .inner.type02 .table-wrap table td {
+	padding: 9px 16px;
+}
+
+.pop-cont .inner.type02 .table-wrap table th,
+.pop-cont .inner.type02 .table-wrap table td {
+	border-bottom: 1px solid #c4c6c8;
+}
+
+.pop-cont .inner.type02 .table-wrap table td.id-td {
+	display: flex;
+	justify-content: space-between;
+}
+
+.pop-cont .inner.type02 .id-check {
+	width: 111px;
+	height: 36px;
+	background: #183968;
+	margin-left: 8px;
+}
+
+.pop-cont .inner.type02 .id-check span {
+	color: #fff;
+	font-size: 16px;
+}
+
+.pop-cont .inner.type02 .input-wrap input[type="text"] {
+	height: 36px;
+	padding: 0 15px;
+	font-size: 14px;
+}
+
+.pop-cont .inner.type02 .input-wrap input.pw::placeholder {
+	font-size: 12px;
+}
+
+.es {
+	color: #ff2828;
+}

@@ -67,8 +67,8 @@
                         </div>
     
                         <!-- s: 20201215 data-toggle, data-target 추가 -->
-                        <div class="find_info" data-toggle="modal" data-target="#findIdModal">
-                            <a href="#">아이디</a>
+                        <div class="find_info">
+                            <a href="#" data-toggle="modal" data-target="#findIdModal">아이디</a>
                             <span>/</span>
                             <a href="#" data-toggle="modal" data-target="#findPwModal">비밀번호 찾기</a>
                         </div>
@@ -296,7 +296,7 @@
 
     <!-- s:20201215 팝업 : 아이디찾기 -->
     <div class="modal fade" id="findIdModal">
-        <div class="pop-wrap" style="width: 650px;">
+        <div class="pop-wrap">
             <div class="pop-head">
                 <h4 class="title">아이디 찾기</h4>
                 <button type="button" class="close-btn" data-dismiss="modal">
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                     <div class="btns">
-                        <button type="button" class="submit-btn">
+                        <button type="button" class="bttn submit-btn">
                             <span>확인</span>
                         </button>
                     </div>
@@ -337,7 +337,7 @@
 
     <!-- s:20201215 팝업 : 비밀번호 찾기 -->
     <div class="modal fade" id="findPwModal">
-        <div class="pop-wrap" style="width: 650px;">
+        <div class="pop-wrap">
             <div class="pop-head">
                 <h4 class="title">비밀번호 찾기</h4>
                 <button type="button" class="close-btn" data-dismiss="modal">
@@ -367,7 +367,7 @@
                         </div>
                     </div>
                     <div class="btns">
-                        <button type="button" class="submit-btn">
+                        <button type="button" class="bttn submit-btn">
                             <span>확인</span>
                         </button>
                     </div>
@@ -381,13 +381,119 @@
 
     <!-- s:20201215 팝업 : alert -->
     <div class="modal fade" id="customAlert">
-        
+        <div class="pop-wrap">
+            <div class="inner custom-alert">
+                <p class="ttl">비밀번호 찾기</p>
+                <p class="txt">등록된 이메일로<br>비밀번호가 발송되었습니다</p>
+                <div class="btns">
+                    <button type="button" class="bttn submit-btn">
+                        <span>확인</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- e:20201215 팝업 : alert -->
 
     <!-- s:20201215 팝업 : 계정신청 -->
     <div class="modal fade" id="signUpModal">
-        
+        <div class="pop-wrap">
+            <div class="pop-head">
+                <h4 class="title">신청 정보 입력</h4>
+                <button type="button" class="close-btn" data-dismiss="modal">
+                    <span class="hidden-txt">닫기</span>
+                </button>
+            </div>
+            <div class="pop-cont">
+                <div class="inner type02">
+                    <p class="text">계정을 신청할 시스템을 선택해 주세요.</p>
+                    <ul class="sel-system">
+                        <li class="sel-list">
+                            <button class="sel-btn active">
+                                <i class="sel-box"></i>
+                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
+                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
+                            </button>
+                        </li>
+                        <li class="sel-list">
+                            <button class="sel-btn">
+                                <i class="sel-box"></i>
+                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
+                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
+                            </button>
+                        </li>
+                        <li class="sel-list">
+                            <button class="sel-btn">
+                                <i class="sel-box"></i>
+                                <span class="ttl">IoT 도시데이터 활용 시스템</span>
+                                <span class="txt">서울시, 자치구, 투자출연기관 직원용</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="table-wrap">
+                        <table>
+                            <caption>신청정보 입력</caption>
+                            <colgroup>
+                                <col width="135px">
+                                <col width="340px">
+                                <col width="135px">
+                                <col width="auto">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <label for="test1">회원 ID <span class="es">*</span></label>
+                                    </th>
+                                    <td class="id-td">
+                                        <div class="input-wrap">
+                                            <input type="text" name="" id="test1" class="input-txt">
+                                        </div>
+                                        <button type="button" class="id-check">
+                                            <span>ID 중복확인</span>
+                                        </button>
+                                    </td>
+                                    <th>
+                                        <label for="test2">비밀번호 <span class="es">*</span></label>
+                                    </th>
+                                    <td>
+                                        <div class="input-wrap">
+                                            <input type="text" name="" id="test2" class="input-txt pw" placeholder="특수문자 / 문자 / 숫자 조합의 9자이상 ~ 20자 이하">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="test3">이름 <span class="es">*</span></label>
+                                    </th>
+                                    <td>
+                                        <div class="input-wrap">
+                                            <input type="text" name="" id="test3" class="input-txt">
+                                        </div>
+                                    </td>
+                                    <th>
+                                        <label for="test4">비밀번호 확인 <span class="es">*</span></label>
+                                    </th>
+                                    <td>
+                                        <div class="input-wrap">
+                                            <input type="text" name="" id="test4" class="input-txt">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="bttn cancle-btn">
+                            <span>취소</span>
+                        </button>
+                        <button type="button" class="bttn submit-btn">
+                            <span>확인</span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
     <!-- e:20201215 팝업 : 계정신청 -->
 </body>
