@@ -276,155 +276,197 @@
                 <li class="tab">
                     <a href="#" class="btn">
                         <span class="circle-ico step04" aria-hidden="true"></span>
-                        <span class="txt">4.  시각화 편집 / 완성</span>
+                        <span class="txt">4. 시각화<br>그래프 작성</span>
                     </a>
                 </li>
+                <!-- s: 20201217 추가 -->
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step05" aria-hidden="true"></span>
+                        <span class="txt">5. 분석 리포트 작성하기</span>
+                    </a>
+                </li>
+                <!-- e: 20201217 추가 -->
             </ul>
-            <div class="cont-wrap">
+            <div class="cont-wrap clfix"><!-- 20201217 클래스 추가 clfix -->
                 <h2 class="sub-txt">데이터 확인</h2>
-                <table class="table tab-wrap" style="border:0px;">
-                    <colgroup>
-                        <col style="width: 337px;">
-                        <col style="width: 337px;">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-primary" btn-default="" onclick="fnGoTap(''); return false;">미세먼지와 유동인구 상관관계_2020_1014</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default" btn-default="" onclick="fnGoTap(''); return false;">도서관 주차장 이용목록_2020_1014</button>
-                            </td>        
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="box">
-                    <div class="box-body">
-                        <table class="table">
+                <!-- s: 20201217 수정 -->
+                <div class="left-wrap">
+                    <div class="wrapper">
+                        <table class="table tab-wrap" style="border:0px;">
                             <colgroup>
-                                <col style="width: 80px">
-                                <col style="width: 121px;">
-                                <col style="width: 127px;">
-                                <col style="width: 184px;">
-                                <col style="width: 191px;">
-                                <col style="width: 209px;">
-                                <col style="width: auto;">
+                                <!-- s: 20201217 width 변경 -->
+                                <col style="width: 270px;">
+                                <col style="width: 270px;">
+                                <!-- e: 20201217 width 변경 -->
                             </colgroup>
-                            <thead>
+                            <tbody>
                                 <tr>
-                                    <th>번호</th>
-                                    <th>모델명</th>
-                                    <th>고유번호</th>
-                                    <th>IoT 기기 상태값</th>
-                                    <th>악취저감장치상태</th>
-                                    <th>악취저감장치 연속OFF 시간</th>
-                                    <th>등록일시</th>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" btn-default="" onclick="fnGoTap(''); return false;">미세먼지와 유동인구 상관관계_2020_1014</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" btn-default="" onclick="fnGoTap(''); return false;">도서관 주차장 이용목록_2020_1014</button>
+                                    </td>        
                                 </tr>
-                            </thead>
+                            </tbody>
                         </table>
-                        <div class="yscroll-table h286 scrollbar-inner">
+                        <button type="button" class="more-btn"></button>
+                    </div>
+                    <div class="box">
+                        <button type="button" class="tbl-down">
+                            <span>다운로드</span>
+                        </button>
+                        <div class="box-body">
                             <table class="table">
                                 <colgroup>
-                                    <col style="width: 80px">
-                                    <col style="width: 121px;">
-                                    <col style="width: 127px;">
-                                    <col style="width: 184px;">
-                                    <col style="width: 191px;">
-                                    <col style="width: 209px;">
+                                    <col style="width: 54px">
+                                    <col style="width: 90px;">
+                                    <col style="width: 81px;">
+                                    <col style="width: 126px;">
+                                    <col style="width: 152px;">
+                                    <col style="width: 211px;">
                                     <col style="width: auto;">
                                 </colgroup>
-                                <tbody>
+                                <thead>
                                     <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
+                                        <th>번호</th>
+                                        <th>모델명</th>
+                                        <th>고유번호</th>
+                                        <th>IoT 기기 상태값</th>
+                                        <th>악취저감장치상태</th>
+                                        <th>악취저감장치 연속OFF 시간</th>
+                                        <th>등록일시</th>
                                     </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000</td>
-                                        <td>NTS100</td>
-                                        <td>206</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td>3</td>
-                                        <td>2020.02.18 23:55:00</td>
-                                    </tr>
-                                </tbody>
+                                </thead>
                             </table>
+                            <div class="yscroll-table h286 scrollbar-inner">
+                                <table class="table">
+                                    <colgroup>
+                                        <col style="width: 54px">
+                                        <col style="width: 90px;">
+                                        <col style="width: 81px;">
+                                        <col style="width: 126px;">
+                                        <col style="width: 152px;">
+                                        <col style="width: 211px;">
+                                        <col style="width: auto;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1000</td>
+                                            <td>NTS100</td>
+                                            <td>206</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>3</td>
+                                            <td>2020.02.18 23:55:00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
-                <a href="#" class="step-btn">
-                    <span>다음</span>
-                </a>
+                
+                <div class="right-wrap">
+                    <ul class="link-wrap">
+                        <li class="top-link">
+                            <a href="#">외부데이터 바로가기</a>
+                        </li>
+                        <li class="link">
+                            <a href="#">서울시 교통정보</a>
+                        </li>
+                        <li class="link on">
+                            <a href="#">기상기후 빅데이터</a>
+                        </li>
+                        <li class="link">
+                            <a href="#">열린 데이터 광장</a>
+                        </li>
+                        <li class="link">
+                            <a href="#">공공 데이터 포털</a>
+                        </li>
+                        <li class="link">
+                            <a href="#">빅데이터 캠퍼스</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- e: 20201217 수정 -->
             </div>
+            <a href="#" class="step-btn">
+                <span>다음</span>
+            </a>
         </section>
         <!-- end : Main content -->
     

@@ -5,13 +5,6 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
     <title>IoT도시데이터시스템</title>
 
-    <script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/common/js/common.js"></script><!-- 20201109 : datepicker 관련 셋팅 수정 -->
-
-    <!-- datapicker 관련 소스 -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <!-- new css link -->
     <link rel="stylesheet" href="/common/css/font.css">
     <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
@@ -20,66 +13,10 @@
     <link rel="stylesheet" href="/common/css/renewal.css">
 
     <!-- new js link -->
+    <script src="/common/js/jquery.js"></script>
     <script src="/common/js/jquery.scrollbar.min.js"></script>
     <script src="/common/js/layout.js"></script>
-
-    
 </head>
-<script>
-    // s: 20201109 as-is 버전 datepicker 로 교체
-    $(function () {
-        $("#currentPage").val("1");
-        // datepick 한글 셋팅 common.js
-        settingdatepickerko();
-
-        $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
-        $("button:button[name=btn_dwnload]").prop("disabled", true);
-
-        // 공개 볌위 변경시 조회
-        $("#sch_public_yn").change(function () {
-            fnSearch();
-        });
-        // 목록 수 셀렉트 박스 변경시 조회
-        $("#sch_row_per_page").change(function () {
-            fnSearch();
-        });
-
-        $('[name=sch_start_ymd]').datepicker({
-            dateFormat: 'yy.mm.dd',
-            // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
-            // changeYear: true,
-            // changeMonth: true
-        });
-        $('[name=sch_end_ymd]').datepicker({
-            dateFormat: 'yy.mm.dd',
-            // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
-            // changeYear: true,
-            // changeMonth: true
-        });
-
-        $("input:checkbox[name=agre_chkbx]").change(function () {
-            if ($("input:checkbox[name=agre_chkbx]").is(":checked")) {
-                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
-                $("button:button[name=btn_dwnload]").prop("disabled", false);
-            } else {
-                $("input:checkbox[name=agre_chkbx]").prop("checked", false);
-                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
-                $("button:button[name=btn_dwnload]").prop("disabled", true);
-            }
-        });
-        $("input:checkbox[name=dis_agre_chkbx]").change(function () {
-            if ($("input:checkbox[name=dis_agre_chkbx]").is(":checked")) {
-                $("input:checkbox[name=agre_chkbx]").prop("checked", false);
-                $("button:button[name=btn_dwnload]").prop("disabled", true);
-            } else {
-                $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
-                $("input:checkbox[name=agre_chkbx]").prop("checked", true);
-                $("button:button[name=btn_dwnload]").prop("disabled", false);
-            }
-        });
-    });
-    // e: 20201109 as-is 버전 datepicker 로 교체
-</script>
 <body>
     <div class="wrapper">
     
@@ -309,141 +246,149 @@
     </div>
     <!-- end : header -->
     
-    <div class="content-wrapper visual">
+    <div class="content-wrapper admin01 view">
         <section class="content-header">
-            <h1>시각화 그래프</h1>
-            <small>IoT 도시데이터와 외부데이터를 원하는 그래프로 시각화할 수 있습니다.</small>
+            <h1>표준 측정 항목 관리</h1>
         </section>
 
         <!-- start : Main content -->
         <section class="content">
-            <ul class="visual-tab">
-                <li class="tab on">
-                    <a href="#" class="btn">
-                        <span class="circle-ico step01" aria-hidden="true"></span>
-                        <span class="txt">1. 데이터 선택</span>
-                    </a>
-                </li>
-                <li class="tab">
-                    <a href="#" class="btn">
-                        <span class="circle-ico step02" aria-hidden="true"></span>
-                        <span class="txt">2. 데이터 확인</span>
-                    </a>
-                </li>
-                <li class="tab">
-                    <a href="#" class="btn">
-                        <span class="circle-ico step03" aria-hidden="true"></span>
-                        <span class="txt">3. 시각화 선택</span>
-                    </a>
-                </li>
-                <li class="tab">
-                    <a href="#" class="btn">
-                        <span class="circle-ico step04" aria-hidden="true"></span>
-                        <span class="txt">4. 시각화<br>그래프 작성</span>
-                    </a>
-                </li>
-                <!-- s: 20201217 추가 -->
-                <li class="tab">
-                    <a href="#" class="btn">
-                        <span class="circle-ico step05" aria-hidden="true"></span>
-                        <span class="txt">5. 분석 리포트 작성하기</span>
-                    </a>
-                </li>
-                <!-- e: 20201217 추가 -->
-            </ul>
             <div class="cont-wrap">
-                <h2 class="sub-txt">데이터 선택</h2>
-                <div class="step-cont clfix">
-                    <div class="desc-box">
-                        <ul class="desc-list">
-                            <li>· 선택1(필수)는 서비스데이터에서만 선택.  선택2는 서비스데이터, 외부데이터, 로컬데이터  중 선택 업로드.</li>
-                            <li>· 선택2 데이터 업로드 선택 시, 업로딩 데이터 포맷은 엑셀, CSV</li>
-                            <li>· 선택2 데이터 업로드를 위해서,  제공하는 양식을 <span class="point-b">다운로드</span> 후 양식에 맞추어 데이터 정리 후 업로드</li>
-                        </ul>
+                <div class="box-body no-padding text-left">
+                    <table class="table table-bordered type02">
+                        <colgroup>
+                            <col style="width: 135px;">
+                            <col style="width: auto;">
+                            <col style="width: 135px;">
+                            <col style="width: auto;">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>데이터명 <span class="es">*</span></th>
+                                <td colspan="3">R0200000</td>
+                            </tr>
+                            <tr>
+                                <th>그룹코드명 <span class="es">*</span></th>
+                                <td><input type="text" value="표준 측정 항목"></td>
+                                <th>영문 그룹코드명</th>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr class="text-area">
+                                <th>이용업무</th>
+                                <td colspan="3">
+                                    <textarea style="height:80px" class="form-control">센서 데이터의 표준 측정 항목 </textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered type01">
+                        <colgroup>
+                            <col width="78px">
+                            <col width="183px">
+                            <col width="145px">
+                            <col width="*">
+                            <col width="*">
+                            <col width="*">
+                            <col width="101px">
+                            <col width="101px">
+                            <col width="71px">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th class="text-center">코드 <span class="es">*</span></th>
+                            <th class="text-center">코드명 <span class="es">*</span></th>
+                            <th class="text-center">영문명</th>
+                            <th class="text-center">속성1</th>
+                            <th class="text-center">속성2</th>
+                            <th class="text-center">속성3</th>
+                            <th class="text-center">순서</th>
+                            <th class="text-center">사용여부</th>
+                            <th class="text-center">삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" value="10"></td>
+                                <td><input type="text" class="form-control" value="미세먼지"></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td>
+                                    <input type="text" class="form-control" value="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="10">
+                                </td>
+                                <td>
+                                    <select id="" name="" class="form-control">
+                                        <option value="">예</option>
+                                        <option value="">옵션1</option>
+                                        <option value="">옵션2</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="mini color04">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="form-control" value="10"></td>
+                                <td><input type="text" class="form-control" value="미세먼지"></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td>
+                                    <input type="text" class="form-control" value="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="10">
+                                </td>
+                                <td>
+                                    <select id="" name="" class="form-control">
+                                        <option value="">예</option>
+                                        <option value="">옵션1</option>
+                                        <option value="">옵션2</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="mini color04">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="form-control" value="10"></td>
+                                <td><input type="text" class="form-control" value="미세먼지"></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td><input type="text" class="form-control" value=""></td>
+                                <td>
+                                    <input type="text" class="form-control" value="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="10">
+                                </td>
+                                <td>
+                                    <select id="" name="" class="form-control">
+                                        <option value="">예</option>
+                                        <option value="">옵션1</option>
+                                        <option value="">옵션2</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="mini color04">삭제</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix text-center">
+                    <button type="button" class="btn color03">목록</button>
+                    <div class="btn-wrap-right">
+                        <button type="button" name="" class="btn color02" onclick="">신규등록</button>
+                        <button type="button" name="" class="btn color00" onclick="">저장</button> 
                     </div>
-                    <section class="choice-data">
-                        <ul>
-                            <li class="clfix">
-                                <div class="box-header">
-                                    <h3 class="box-title">필드목록</h3>
-                                </div>
-                                <div class="box-cont">
-                                    <div class="form-group">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">유형</option>
-                                            <option value="">옵션1</option>
-                                            <option value="">옵션2</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">선택하세요</option>
-                                            <option value="">옵션1</option>
-                                            <option value="">옵션2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="clfix">
-                                <div class="box-header">
-                                    <h3 class="box-title">선택2</h3>
-                                </div>
-                                <div class="box-cont">
-                                    <div class="form-group">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">유형</option>
-                                            <option value="">옵션1</option>
-                                            <option value="">옵션2</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">선택하세요</option>
-                                            <option value="">옵션1</option>
-                                            <option value="">옵션2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
                 </div>
-                <h2 class="sub-txt">기간 선택</h2>
-                <div class="step-cont clfix">
-                    <section class="choice-period">
-                        <div class="box-cont">
-                            <ul class="clfix">
-                                <li>
-                                    <h2 class="sub-txt">조회 기간 (필수)</h2>
-                                    <!--날짜 검색-->
-                                    <div class="form-group date">
-                                        <input type="text" class="form-control input-sm" id="sch_start_ymd"
-                                            name="sch_start_ymd" placeholder="검색 시작일"
-                                            value="2020.11.06"/> -
-                                        <input type="text" class="form-control input-sm" id="sch_end_ymd"
-                                            name="sch_end_ymd" placeholder="검색 종료일"
-                                            value="2020.11.06"/>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2 class="sub-txt">조회 단위 (필수)</h2>
-                                    <div class="form-group">
-                                        <select id="" name="" class="form-control">
-                                            <option value="">유형</option>
-                                            <option value="">옵션1</option>
-                                            <option value="">옵션2</option>
-                                        </select>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <!-- s: 20201110 추가 -->
-                <a href="#" class="step-btn step01">
-                    <span>시각화 선택</span>
-                </a>
-                <!-- e: 20201110 추가 -->
             </div>
         </section>
         <!-- end : Main content -->
@@ -458,12 +403,5 @@
         </div>
     </div>
     <!-- end : footer -->
-
-    <script>
-        $('.graph-choice').children().on('click', function(){
-            $('.graph-choice').children().removeClass('checked');
-            $(this).addClass('checked');
-        });
-    </script>
 </body>
 </html>
