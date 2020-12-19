@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>IoT도시데이터시스템</title>
+
+    <!-- new css link -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/layout.css">
+    <link rel="stylesheet" href="/common/css/renewal.css">
+
+    <!-- new js link -->
+    <script src="/common/js/jquery.js"></script>
+    <script src="/common/js/jquery.scrollbar.min.js"></script>
+    <script src="/common/js/layout.js"></script>
+</head>
+<body class="skin-blue-light layout-top-nav">
+<div class="wrapper">
+
+<!-- start : header -->
+<div id="header">
+    <div class="inner clfix">
+        <h1 class="main-logo">
+            <a href="#">
+                <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+            </a>
+        </h1>
+        <a href="#" class="sdot-btn">
+            <span>S-DoT</span>
+        </a>
+        <div class="gnb-wrap">
+            <ul class="gnb-menu clfix">
+                <li class="depth-wrap category-data">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>데이터</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">센서 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">서비스 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">데이터 수집 현황</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-tool">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>분석시각화 도구</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">데이터 시각화</a>
+                            </li>
+                            <li>
+                                <a href="#">분석 프로세스</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-community">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>커뮤니티</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">시각화 그래프 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">분석리포트 공유</a>
+                            </li>
+                            <li>
+                                <a href="#">외부 데이터 공유</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-my">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>마이페이지</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">검색 히스토리</a>
+                            </li>
+                            <li>
+                                <a href="#">스크랩</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 시각화 그래프</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 분석 리포트</a>
+                            </li>
+                            <li>
+                                <a href="#">나의 외부 데이터</a>
+                            </li>
+                            <li>
+                                <a href="#">회원정보 관리</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-info">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>이용안내</span>
+                    </a>
+                    <div class="depth2-wrap">
+                        <ul class="depth2">
+                            <li>
+                                <a href="#">IoT 도시데이터 소개</a>
+                            </li>
+                            <li>
+                                <a href="#">주요서비스</a>
+                            </li>
+                            <li>
+                                <a href="#">자주 하는 질문</a>
+                            </li>
+                            <li>
+                                <a href="#">공지사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="depth-wrap category-admin">
+                    <a href="javascript:void(0);" class="depth1-menu">
+                        <em aria-hidden="true"></em>
+                        <span>관리자도구</span>
+                    </a>
+                    <div class="depth2-wrap clfix">
+                        <!-- 서비스 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">서비스 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 정보 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 수신 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 담당자 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">SMS 수신 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 시스템 관리 -->
+                        <div class="depth2-list">
+                            <p class="title">시스템 관리</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">공공데이터 이용 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 개방 현황</a>
+                                </li>
+                                <li>
+                                    <a href="#">시스템 대시보드</a>
+                                </li>
+                                <li>
+                                    <a href="#">메뉴관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">페이지뷰</a>
+                                </li>
+                                <li>
+                                    <a href="#">접속이력</a>
+                                </li>
+                                <li>
+                                    <a href="#">계정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">권한별 메뉴관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 개발자 도구 -->
+                        <div class="depth2-list">
+                            <p class="title">개발자 도구</p>
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">API 인증키 운영 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">코드 관리</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수동 파싱</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 공개 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="sub-menu clfix">
+            <a href="#" class="info-icon">
+                <span class="hidden-txt">정보</span>
+            </a>
+            <a href="#" class="alarm-icon">
+                <span class="hidden-txt">알림</span>
+                <em class="icon-label">3</em>
+            </a>
+            <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+            <a href="javascript:void(0);" class="mypage-icon">
+                <span class="hidden-txt">마이페이지</span>
+                <em class="icon-label">5</em>
+            </a>
+        </div>
+        <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+        <div class="user-popup">
+            <p class="user-name"><span>김서울</span>&nbsp;님</p>
+            <ul>
+                <li><a href="#">나의 정보 보기</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="#">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end : header -->
+
+    <!-- content -->
+    <div class="content-wrapper admin02">
+        <section class="content-header">
+            <h1>공공데이터 신청 관리  (IoT 센서 위치 정보)  </h1>
+        </section>
+        <section class="content">
+            <div class="cont-wrap">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">신청인 정보</h3>
+                    </div>
+                    <div class="box-body text-left">
+                        <table class="table type02">
+                            <colgroup>
+                                <col width="135px">
+                                <col width="406px">
+                                <col width="135px">
+                                <col width="auto">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>성명 <span class="es">*</span></th>
+                                    <td>
+                                        <input type="text" value="표준 측정 항목">
+                                    </td>
+                                    <th>나이 <span class="es">*</span></th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>단체명</th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                    <th>직업 <span class="es">*</span></th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호 <span class="es">*</span></th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                    <th>전자우편 주소 <span class="es">*</span></th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">신청인 정보</h3>
+                    </div>
+                    <div class="box-body text-left">
+                        <table class="table type02">
+                            <colgroup>
+                                <col width="135px">
+                                <col width="auto">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>공공데이터 명칭</th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>공공데이터 내용</th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>공공데이터 활용목적</th>
+                                    <td>
+                                        <input type="text" value="">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="desc-box">
+                    <p>신청인은 「서울특별시 데이터의 제공 및 이용활성화에 관한 조례」제18조에 따라 공공데이터의 제공을 신청하며 제공받는 공공데이터를 이용함에 있어 다음 사항을 준수 하겠습니다.</p>
+                    <ul>
+                        <li>1. 공공데이터 이용 시 공익에 반하거나 제3자의 권리를 침해하지 아니하도록 한다.</li>
+                        <li>2. 공공데이터를 승인 받는 목적 외의 용도로 이용하거나 불법적인 용도로 이용하지 않는다.</li>
+                        <li>3. 공공데이터를 복제 또는 제3자에게 제공·대여·판매하지 않는다.</li>
+                        <li>4. 공공데이터를 활용하여 보고서, 논문, 발표자료, 보도자료 등의 결과물이 발생 하는 경우  다음 사항을 명시한다.</li>
+                    </ul>
+                    <p>※ 본 자료는 서울시 IoT도시데이터 자료를 활용한 것이며, 연구 결과는 서울시와 관련 없음을 밝힙니다.</p>
+                    <div class="align-center">
+                        <p>xxxx년  xx월  xx일</p>
+                        <p>신청인: 김서울</p>
+                    </div>
+                </div>
+                <div class="box-footer clearfix text-center">
+                    <button type="button" class="btn color03">목록</button>
+                    <div class="btn-wrap-right">
+                        <button type="button" name="" class="btn color04" onclick="">반려</button>
+                        <button type="button" name="" class="btn color00" onclick="">승인</button> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- footer -->
+    
+<!-- start : footer -->
+<div id="footer">
+    <div class="inner clfix">
+        <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+        <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+    </div>
+</div>
+<!-- end : footer -->
+
+<!-- start: wrap -->
+<div id="loading-wrap" style="position: fixed;width: 100%;height: 100%;top: 0;left: 0; z-index: 11000; display:none;">
+		<div class="loading_img" style="text-align:center;padding-top:370px;"><img src="http://192.168.10.167:8080//common/images/common/code_loading.gif"></div>
+</div>
+<!-- end : wrap -->
+    <!-- //fooer -->
+</div>
+
+
+
+
+</body></html>

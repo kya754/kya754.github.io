@@ -777,8 +777,14 @@ input[class="custom_chk"] {
 	justify-content: center;
 }
 
+.pop-wrap .btns.align-r {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .pop-wrap .btns .bttn {
 	min-width: 207px;
+	padding: 0 38px;
 	line-height: 50px;
 	height: 50px;
 	text-align: center;
@@ -794,6 +800,9 @@ input[class="custom_chk"] {
 }
 .pop-wrap .btns .cancle-btn {
 	background: #929292;
+}
+.pop-wrap .btns .down-btn {
+	background: #8795ff;
 }
 
 
@@ -821,6 +830,10 @@ input[class="custom_chk"] {
 }
 
 #signUpModal .pop-wrap {
+	margin-top: 55px;
+}
+
+#dataLinkModal .pop-wrap {
 	margin-top: 55px;
 }
 
@@ -904,6 +917,7 @@ input[class="custom_chk"] {
 .pop-cont .inner.type02 .btns {
 	margin-top: 48px;
 }
+
 
 .pop-cont .inner.type02 .cancle-btn {
 	margin-right: 14px;
@@ -998,3 +1012,157 @@ input[class="custom_chk"] {
 .pop-cont .inner.type02 .input-wrap.email .select-txt {
 	width: 185px;
 }
+
+.pop-cont .inner.type03 {
+	padding: 20px 0 48px;
+	text-align: left;
+}
+
+.pop-cont .inner.type03 .btns {
+	margin-top: 48px;
+}
+
+.pop-cont .inner.type03 .cancle-btn {
+	margin-right: 14px;
+}
+
+.pop-cont .inner.type03 .btns.align-r {
+	margin-top: 16px;
+	margin-bottom: 8px;
+}
+
+.pop-cont  .desc-wrap {
+	padding: 23px 24px;
+	background: #f2f5f8;
+	color: #3f3f3f;
+	font-size: 14px;
+	line-height: 1.714;
+	font-family: 'NotoSansKR-Medium';
+}
+
+.pop-cont  .desc-wrap li {
+	line-height: inherit;
+}
+
+
+
+
+.pop-cont .inner.type03 > .text {
+	font-size: 18px;
+}
+
+.pop-cont .inner.type03 .table-wrap {
+	border-top: 1px solid #426aff;
+}
+.pop-cont .inner.type03 .table-wrap table {
+	width: 100%;
+	
+}
+.pop-cont .inner.type03 .table-wrap table th {
+	background: #f5f7fa;
+	padding-left: 16px;
+	border-right: 1px solid #c4c6c8;
+	border-left: 1px solid #c4c6c8;
+}
+
+.pop-cont .inner.type03 .table-wrap table th:first-child {
+	border-left: 0;
+}
+
+.pop-cont .inner.type03 .table-wrap table td {
+	padding: 8px 16px;
+}
+
+.pop-cont .inner.type03 .table-wrap table th,
+.pop-cont .inner.type03 .table-wrap table td {
+	border-bottom: 1px solid #c4c6c8;
+	font-size: 14px;
+}
+
+
+.pop-cont .inner.type03 .input-wrap input[type="text"],
+.pop-cont .inner.type03 .input-wrap select {
+	height: 36px;
+	padding: 0 15px;
+	font-size: 14px;
+	color: #3f3f3f;
+}
+
+th.md {
+	vertical-align: middle;
+}
+
+.text-area textarea {
+	height: 91px;
+	padding: 0;
+	padding: 10px;
+	width: 100%;
+	resize: none;
+	border: 1px solid #c4c6c8;
+	border-radius: 3px;
+	font-size: 14px;
+	color: #44474a;
+	font-family: 'NotoSansKR-Regular';
+	letter-spacing: -0.6px;
+}
+
+.text-area textarea::placeholder {
+	color: #9f9f9f;
+}
+
+.pop-cont .table-ttl {
+	font-family: 'NotoSansKR-Bold';
+	font-size: 16px;
+}
+
+.table-ttl + .table-wrap {
+	margin-top: 15px;
+}
+
+.table-box {
+	margin-bottom: 24px;
+}
+
+.upload-wrap {
+	height: 36px;
+	line-height: 36px;
+}
+
+
+/* 커스텀 인풋 */
+input.upload_text {/*읽기전용 인풋텍스트*/
+	float:left;
+	width:230px;/* 버튼 포함 전체 가로 길이*/
+	height:36px;
+	line-height:36px;
+	padding:0 16px;
+	border: 0;
+}
+
+.upload-btn_wrap input.input_file {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+.upload-btn_wrap {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:170px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:36px;
+	padding-left:3px;
+}
+.upload-btn_wrap button {/*버튼 div*/
+	width:100%;
+	height:36px;
+	font-weight:bold;
+	background:#f0f0f0;
+	border:1px solid #b0b0b0;
+	color:#3f3f3f;
+}
+

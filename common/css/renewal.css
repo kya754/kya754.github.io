@@ -2805,7 +2805,7 @@ ol.tab-cont li.active {
     background: url(/common/images/ic-search.png) center no-repeat;
     background-size: 22px 22px;
     width: 22px;
-    height: 22px;
+    height: 100%;
     border: 0;
     cursor: pointer;
     padding: 0;
@@ -3318,8 +3318,7 @@ select.form-control {
     -webkit-appearance: none;
 }
 
-.modal .table td input[type=text],
-.form-control {
+.modal .table td input[type=text].form-control {
     border-radius: 0;
 }
 
@@ -3410,13 +3409,13 @@ select.form-control {
 .cont-wrap .left-wrap {
     padding-top: 14px;
     float: left;
-    width: 869px;
+    width: 808px;
     border-top: 1px solid #666b70;
     margin-top: 24px;
 }
 .cont-wrap .right-wrap {
     float: right;
-    width: 195px;
+    width: 240px;
     margin-top: 24px;
 }
 
@@ -3489,9 +3488,33 @@ select.form-control {
     
 }
 
-.step-cont .desc-box {
+.admin02 .desc-box {
+    margin-top: 24px;
+    padding: 16px;
+}
+
+.admin02 .desc-box p,
+.admin02 .desc-box li {
+    font-size: 14px;
+    color: #3f3f3f;
+    line-height: 1.714;
+}
+
+.admin02 .box-footer {
+    margin-top: 40px;
+}
+
+.desc-box .align-center {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.desc-box {
     border: 1px solid #cccecf;
     box-sizing: border-box;
+}
+
+.step-cont .desc-box {
     padding: 18px 24px;
     margin-bottom: 40px;
 }
@@ -3526,4 +3549,419 @@ span.point-b {
     background: #e33d3e;
     color: #fff;
     font-size: 14px;
+}
+
+
+.admin-cont {
+    margin-top: 32px;
+    border-top: 1px solid #426aff;
+}
+
+.apply-list {
+    margin-top: 26px;
+    display: flex;
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    border-radius: 11px;
+}
+
+.apply-list > li {
+    flex: 1;
+    border-right: 1px solid #c4c6c8;
+}
+
+.apply-list > li:last-child {
+    border-right: 0;
+}
+
+.apply-list > li a {
+    text-align: center;
+    display: block;
+    padding: 19px 0 20px;
+}
+.apply-list .title {
+    display: inline-block;
+    position: relative;
+    padding-right: 14px;
+    font-size: 24px;
+    font-family: 'NotoSansKR-Bold';
+}
+
+.apply-list .title:after {
+    position: absolute;
+    right: 0;
+    top: 14px;
+    content:'';
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-top: 3px solid #79c628;
+    border-right: 3px solid #79c628;
+    transform: rotate(45deg);
+}
+
+.apply-list .title.red:after {
+    border-top: 3px solid #ec534e;
+    border-right: 3px solid #ec534e;
+}
+.apply-list .title.blue:after {
+    border-top: 3px solid #11a3f0;
+    border-right: 3px solid #11a3f0;
+}
+
+.apply-list .title.green {
+    color: #79c628;
+}
+.apply-list .title.red {
+    color: #ec534e;
+}
+.apply-list .title.blue {
+    color: #11a3f0;
+}
+
+.apply-list .text {
+    font-size: 14px;
+    color: #6a6e72;
+}
+
+.admin03 .only-search {
+    margin-right: 5px;
+}
+
+.admin03 .common-search .form-wrap.align-right .form-group {
+    margin-left: 16px;
+}
+
+
+
+
+
+
+/* 팝업 */
+
+.modal {
+	text-align: center;
+}
+.pop-wrap {
+	display: inline-block;
+	background: #fff;
+	margin-top: 100px;
+}
+
+.pop-head {
+	display: flex;
+	justify-content: space-between;
+	padding: 24px 24px 25px;
+	border-bottom: 1px solid #bfbfbf;
+}
+.pop-head .title {
+	font-size: 20px;
+	font-family: 'NotoSansKR-Medium';
+	line-height: 1;
+}
+.pop-head .close-btn {
+	width: 20px;
+	height: 20px;
+	background: url('/common/images/btn_close_t.png') center no-repeat;
+	background-size: 12px 12px;
+}
+
+.pop-cont {
+	padding: 0 24px;
+}
+
+.pop-cont .type01 {
+	text-align: center;
+	padding: 47px 0 48px;
+}
+
+.pop-cont .type01 .text {
+	color: #5b5b5b;
+	font-size: 18px;
+	margin-bottom: 24px;
+}
+
+.pop-cont .type01 .input-wrap {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.pop-cont .type01 .input-wrap {
+	margin-top: 16px;
+}
+
+.pop-cont .type01 .input-wrap:first-child {
+	margin-top: 0;
+}
+
+.pop-cont .input-wrap input[type="text"] {
+	border: 1px solid #d3d8e4;
+	height: 46px;
+	color:  #595959;
+	padding: 0;
+	width: 100%;
+	padding: 0 16px;
+}
+
+.pop-cont .input-wrap select{
+	border: 1px solid #d3d8e4;
+	height: 46px;
+	color:  #595959;
+	padding: 0;
+	width: 100%;
+	background: #fff url('/common/images/ic-arrow.png') no-repeat;
+	background-position: right 10px bottom 50%;
+	background-size: 9px 5px;
+	padding: 0 16px;
+}
+
+.pop-cont .input-wrap select { 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none;
+}
+
+
+.pop-cont .input-wrap input[type="text"]::placeholder {
+	color: #a4a3a3;
+}
+
+.input-wrap.email div {
+	width: 185px;
+}
+
+.input-wrap.email div:last-child {
+	margin-left: 16px;
+}
+
+.input-wrap.email > span {
+	margin: 0 8px;
+}
+
+.pop-wrap .btns {
+	display: flex;
+	justify-content: center;
+}
+
+.pop-wrap .btns .bttn {
+	min-width: 207px;
+	line-height: 50px;
+	height: 50px;
+	text-align: center;
+}
+
+.pop-wrap .btns .bttn span {
+	color: #fff;
+	font-size: 18px;
+}
+
+.pop-wrap .btns .submit-btn {
+	background: #426aff;
+}
+.pop-wrap .btns .cancle-btn {
+	background: #929292;
+}
+
+
+.pop-cont .type01 .btns {
+	text-align: center;
+	margin-top: 40px;
+}
+
+.custom-alert {
+	padding: 40px 66px 48px;
+}
+
+.custom-alert .ttl {
+	font-size: 24px;
+	font-family: 'NotoSansKR-Medium';
+}
+.custom-alert .txt {
+	font-size: 20px;
+	color: #363636;
+	margin: 20px 0 31px;
+}
+
+#customAlert .pop-wrap {
+	margin-top: 89px;
+}
+
+#signUpModal .pop-wrap {
+	margin-top: 55px;
+}
+
+.sel-system {
+	display: flex;
+	margin-top: 20px;
+}
+
+.sel-system .sel-list {
+	margin-right: 26px;
+	width: 300px;
+	border: 1px solid #c4c6c8;
+	box-sizing: border-box;
+	height: 166px;
+	position: relative;
+	text-align: center;
+}
+
+.sel-system .sel-list:last-child {
+	margin-right: 0;
+}
+
+.sel-system .sel-list.active{
+	border: 1px solid #426aff;
+}
+
+.sel-system .sel-list span {
+	display: block;
+}
+
+.sel-system .sel-list .sel-box {
+	width: 22px;
+	height: 22px;
+	border: 1px solid #c4c6c8;
+	border-radius: 100%;
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 32px;
+	transform: translateX(-50%);
+	
+}
+.sel-system .sel-list.active .sel-box {
+	border: 1px solid #426aff;
+	
+}
+
+.sel-system .sel-list.active .sel-box:after {
+	display: block;
+	content:'';
+	background: #426aff;
+	width: 14px;
+	height: 14px;
+	border-radius: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.sel-system .sel-list .ttl {
+	font-family: 'NotoSansKR-Medium';
+	font-size: 18px;
+	display: block;
+	margin-top: 69px;
+}
+.sel-system .sel-list .txt {
+	font-size: 16px;
+	color: #7a7a7a;
+	display: block;
+	line-height: 1.2;
+	margin-top: 5px;
+}
+
+.pop-cont .inner.type02 {
+	text-align: left;
+	padding: 30px 0 48px;
+}
+
+.pop-cont .inner.type02 .btns {
+	margin-top: 48px;
+}
+
+.pop-cont .inner.type02 .cancle-btn {
+	margin-right: 14px;
+}
+
+.pop-cont .inner.type02 > .text {
+	font-size: 18px;
+}
+
+.pop-cont .inner.type02 .table-wrap {
+	margin-top: 29px;
+	border-top: 1px solid #426aff;
+}
+.pop-cont .inner.type02 .table-wrap table {
+	width: 100%;
+	
+}
+.pop-cont .inner.type02 .table-wrap table th {
+	background: #f5f7fa;
+	padding-left: 16px;
+}
+.pop-cont .inner.type02 .table-wrap table td {
+	padding: 9px 16px;
+}
+
+.pop-cont .inner.type02 .table-wrap table th,
+.pop-cont .inner.type02 .table-wrap table td {
+	border-bottom: 1px solid #c4c6c8;
+}
+
+.pop-cont .inner.type02 .table-wrap table .td-wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+.pop-cont .inner.type02 .id-check {
+	width: 111px;
+	height: 36px;
+	background: #183968;
+	margin-left: 8px;
+}
+
+.pop-cont .inner.type02 .id-check span {
+	color: #fff;
+	font-size: 16px;
+}
+
+.pop-cont .inner.type02 .input-wrap input[type="text"],
+.pop-cont .inner.type02 .input-wrap select {
+	height: 36px;
+	padding: 0 15px;
+	font-size: 14px;
+	color: #3f3f3f;
+}
+
+.pop-cont .inner.type02 .input-wrap input.pw::placeholder {
+	font-size: 12px;
+}
+
+.es {
+	color: #ff2828;
+}
+
+.pop-cont .inner.type02 .input-wrap.phone{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+.pop-cont .inner.type02 .input-wrap.email{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.pop-cont .inner.type02 .input-wrap.phone .select-txt {
+	width: 109px;
+	margin-right: 16px;
+}
+
+.pop-cont .inner.type02 .input-wrap.phone .input-txt {
+	width: 90px;
+}
+
+.pop-cont .inner.type02 .input-wrap.phone span {
+	margin: 0 6px;
+}
+
+.pop-cont .inner.type02 .input-wrap .select-txt {
+	width: 309px;
+}
+
+.pop-cont .inner.type02 .input-wrap.email .select-txt {
+	width: 185px;
 }

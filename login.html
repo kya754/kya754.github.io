@@ -84,7 +84,7 @@
                             <em class="icon" aria-hidden="true"></em>
                             <span>계정신청</span>
                         </a>
-                        <a href="javascript:void(0);" class="sign-btn btn02" data-target="#dataApply">
+                        <a href="javascript:void(0);" class="sign-btn btn02" data-toggle="modal" data-target="#dataLinkModal">
                             <em class="icon" aria-hidden="true"></em>
                             <span>데이터 연계신청</span>
                         </a>
@@ -558,5 +558,210 @@
         </div>
     </div>
     <!-- e:20201215 팝업 : 계정신청 -->
+
+    <!-- s:20201219 팝업 : 데이터 연계신청 -->
+    <div class="modal fade" id="dataLinkModal">
+        <div class="pop-wrap">
+            <div class="pop-head">
+                <h4 class="title">데이터 연계 신청</h4>
+                <button type="button" class="close-btn" data-dismiss="modal">
+                    <span class="hidden-txt">닫기</span>
+                </button>
+            </div>
+            <div class="pop-cont">
+                <div class="inner type03">
+                    <div class="desc-wrap">
+                        <ul>
+                            <li>
+                                *외부 서비스 데이터를 IoT 도시데이터 활용 시스템에 연계하기 위한 서식입니다.
+                            </li>
+                            <li>
+                                *인증키 발급 양식을 다운로드하여 해당 서비스의 센서 정보(설치 위치, 패킷 상세 등) 작성 후 신청해주세요.  
+                            </li>
+                            <li>
+                                *신청 결과는 입력하신 이메일을 통해 제공됩니다.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btns align-r">
+                        <button type="button" class="bttn down-btn">
+                            <span>인증키 발급 양식 다운로드</span>
+                        </button>
+                    </div>
+                    
+                    <div class="table-box">
+                        <h3 class="table-ttl">서버정보</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>서버정보</caption>
+                                <colgroup>
+                                    <col width="135px">
+                                    <col width="135px">
+                                    <col width="270px">
+                                    <col width="135px">
+                                    <col width="135px">
+                                    <col width="auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th rowspan="4" class="md">관리기관(자치구) <span class="es">*</span></th>
+                                        <th>기관명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <select name="" id="" aria-label="기관" class="select-txt">
+                                                    <option value="">서울 시</option>
+                                                    <option value="">옵션1</option>
+                                                    <option value="">옵션2</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <th rowspan="2"  class="md">송신서버</th>
+                                        <th>송신 IP(공인 IP)<span class="es"> *</span></th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>부서명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                        <th>서버 명 <span class="es">*</span></th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>담당자명</th>
+                                        <td colspan="4">
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td colspan="4">
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="3" class="md">제작(설치)업체</th>
+                                        <th>업체명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                        <th rowspan="3"  class="md">유지보수업체</th>
+                                        <th>업체명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>담당자명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                        <th>담당자명</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                        <th>연락처</th>
+                                        <td>
+                                            <div class="input-wrap">
+                                                <input type="text" name="" id="" class="input-txt">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="md">비고(특이사항 기재)</th>
+                                        <td colspan="5">
+                                            <div class="text-area">
+                                                <textarea name="" id="" cols="30" rows="10"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="table-box">
+                        <h3 class="table-ttl">서비스 정보 등록</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>서비스 정보 등록</caption>
+                                <colgroup>
+                                    <col width="135px">
+                                    <col width="auto">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th class="md">첨부파일</th>
+                                        <td>
+                                            <!--button-->
+                                            <div class="upload-btn_wrap">
+                                            <button type="button" title="인증키 발급 양식 업로드">
+                                            <span>인증키 발급 양식 업로드</span>  
+                                            </button>
+                                            <input type="file" class="input_file" title="인증키 발급 양식 업로드">
+                                            </div>
+                                            <!--input box-->
+                                            <input type="text" class="upload_text" readonly="readonly">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="bttn cancle-btn">
+                            <span>취소</span>
+                        </button>
+                        <button type="button" class="bttn submit-btn">
+                            <span>신청</span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- e:20201219 팝업 : 데이터 연계신청 -->
 </body>
+
+<script>
+    // 20201219 데이터연계 신청 첨부파일 버튼 커스텀
+    $(function(){
+		$('.upload_text').val('선택된 파일 없음');
+		$('.input_file').change(function(){
+			var i = $(this).val();
+			$('.upload_text').val(i);
+		});
+	});
+</script>
 </html>
