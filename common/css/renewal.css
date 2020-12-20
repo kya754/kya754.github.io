@@ -3729,6 +3729,10 @@ span.point-b {
     margin-right: 16px;
 }
 
+.visual-cont .cont-wrap .left-box.unset {
+    margin-right: 0;
+}
+
 .visual-cont .cont-wrap .left-box th {
     text-align: center;
 }
@@ -3748,3 +3752,10 @@ span.point-b {
 .visual-cont .step-cont section.field-box {
     margin-right: 33px;
 }
+
+.cont-wrap .left-box.unset {
+    float: unset;
+    width: 100%;
+}
+
+.pop-wrap .cont-wrap .left-box.unset .box-body {width: 869px;}
