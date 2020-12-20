@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>IoT도시데이터시스템</title>
+
+    <script type="text/javascript" src="http://15.165.202.174:8080/common/js/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/common/js/common.js"></script><!-- 20201109 : datepicker 관련 셋팅 수정 -->
+
+    <!-- datapicker 관련 소스 -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- new css link -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/jquery.scrollbar.css">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/layout.css">
+    <link rel="stylesheet" href="/common/css/renewal.css">
+
+    <!-- new js link -->
+    <script src="/common/js/jquery.scrollbar.min.js"></script>
+    <script src="/common/js/layout.js"></script>
+
+    
+</head>
+
+<body>
+    <div class="wrapper">
+    
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <a href="#" class="sdot-btn">
+                <span>S-DoT</span>
+            </a>
+            <div class="gnb-wrap">
+                <ul class="gnb-menu clfix">
+                    <li class="depth-wrap category-data">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>데이터</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">센서 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">서비스 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">데이터 수집 현황</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-tool">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>분석시각화 도구</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">데이터 시각화</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석 프로세스</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-community">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>커뮤니티</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">시각화 그래프 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">분석리포트 공유</a>
+                                </li>
+                                <li>
+                                    <a href="#">외부 데이터 공유</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-my">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>마이페이지</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">검색 히스토리</a>
+                                </li>
+                                <li>
+                                    <a href="#">스크랩</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 시각화 그래프</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 분석 리포트</a>
+                                </li>
+                                <li>
+                                    <a href="#">나의 외부 데이터</a>
+                                </li>
+                                <li>
+                                    <a href="#">회원정보 관리</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-info">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>이용안내</span>
+                        </a>
+                        <div class="depth2-wrap">
+                            <ul class="depth2">
+                                <li>
+                                    <a href="#">IoT 도시데이터 소개</a>
+                                </li>
+                                <li>
+                                    <a href="#">주요서비스</a>
+                                </li>
+                                <li>
+                                    <a href="#">자주 하는 질문</a>
+                                </li>
+                                <li>
+                                    <a href="#">공지사항</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="depth-wrap category-admin">
+                        <a href="javascript:void(0);" class="depth1-menu">
+                            <em aria-hidden="true"></em>
+                            <span>관리자도구</span>
+                        </a>
+                        <div class="depth2-wrap clfix">
+                            <!-- 서비스 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">서비스 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">데이터 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 정보 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 수신 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">서비스 담당자 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">SMS 수신 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 시스템 관리 -->
+                            <div class="depth2-list">
+                                <p class="title">시스템 관리</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">공공데이터 이용 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 개방 현황</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">시스템 대시보드</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">메뉴관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">페이지뷰</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">접속이력</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">계정 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">권한별 메뉴관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 개발자 도구 -->
+                            <div class="depth2-list">
+                                <p class="title">개발자 도구</p>
+                                <ul class="depth2">
+                                    <li>
+                                        <a href="#">API 인증키 운영 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">코드 관리</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 수동 파싱</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">데이터 공개 관리</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="sub-menu clfix">
+                <a href="#" class="info-icon">
+                    <span class="hidden-txt">정보</span>
+                </a>
+                <a href="#" class="alarm-icon">
+                    <span class="hidden-txt">알림</span>
+                    <em class="icon-label">3</em>
+                </a>
+                <!-- 마이페이지 버튼 click시 on 클래스 : user-popup 보임 -->
+                <a href="javascript:void(0);" class="mypage-icon">
+                    <span class="hidden-txt">마이페이지</span>
+                    <em class="icon-label">5</em>
+                </a>
+            </div>
+            <!-- 마이페이지 버튼 click시 user-popup에 on 클래스 -->
+            <div class="user-popup">
+                <p class="user-name"><span>김서울</span>&nbsp;님</p>
+                <ul>
+                    <li><a href="#">나의 정보 보기</a></li>
+                    <li><a href="#">비밀번호 변경</a></li>
+                    <li><a href="#">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end : header -->
+    
+    <div class="content-wrapper visual">
+        <section class="content-header">
+            <h1>분석 리포트</h1>
+            <small>시각화 그래프를 완료한 데이터에 대한 분석 리포트를 작성할 수 있습니다.</small>
+        </section>
+
+        <!-- start : Main content -->
+        <section class="content">
+            <ul class="visual-tab">
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step01" aria-hidden="true"></span>
+                        <span class="txt">1. 데이터 선택</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step02" aria-hidden="true"></span>
+                        <span class="txt">2. 데이터 확인</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step03" aria-hidden="true"></span>
+                        <span class="txt">3. 시각화 선택</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step04" aria-hidden="true"></span>
+                        <span class="txt">4. 시각화<br>그래프 작성</span>
+                    </a>
+                </li>
+                <!-- s: 20201217 추가 -->
+                <li class="tab on">
+                    <a href="#" class="btn">
+                        <span class="circle-ico step05" aria-hidden="true"></span>
+                        <span class="txt">5. 분석 리포트 작성하기</span>
+                    </a>
+                </li>
+                <!-- e: 20201217 추가 -->
+            </ul>
+            <div class="cont-wrap">
+                <h2 class="sub-txt">분석 리포트</h2>
+                <div class="step-cont">
+                    <section class="setting-box">
+                        <div class="box-header">
+                            <h3 class="box-title">분석 리포트 편집</h3>
+                            <span class="box-sub">| 내용을 편집하고 문서 스타일을 선택하세요.</span>
+                            <div class="btn-wrap">
+                                <a href="#" class="btn simul-btn">
+                                    <span>시뮬레이션</span>
+                                </a>
+                                <a href="#" class="btn save-btn">
+                                    <span>임시저장</span>
+                                </a>
+                                <a href="#" class="btn next-btn">
+                                    <span>다음</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="report-box">
+                            <div class="report-cont">
+                                <div class="inner">
+
+                                    <h3 class="main-title">S-DoT 기반 서울시 대기질 변화분석</h3>
+                                    <p class="main-text">S-DoT 정보와 서울시 교통정보(TOPIS, 도로별 일자별 통행속도) 융합분석 - S-DoT 정보와 교통정보 융합분석 
+                                    (S-DoT 초미세먼지 측정값 “나쁨” 지역 특징) : 2020년 1월 S-DoT 초미세먼지 측정값 “나쁨” 지역을 도식화한 지도와 
+                                    : 1월 평균 교통통행속도 22Km/h 이하인 지점 중, 3월 평균 교통통행속도가 1월대비 10%이상 증가한 
+                                    지점을 도식화한 지도 비교 - S-DoT 초미세먼지 “나쁨” 지역(노란점)과 교통통행속도(빨간원)와의 높은 연관성 확인함 : 
+                                    교통량·통행속도가 초미세먼지·미세먼지 농도에 영향을 미침을 유추할 수 있음</p>
+
+                                    <h4 class="sub-title">
+                                        <span>2020 서울시 미세먼지 변동 추이</span>
+                                    </h4>
+                                    <div class="graph-box">
+                                        <p style="background: darkgray;width: 100%;height: 100%;">그래프 영역 테스트</p>
+                                    </div>
+                                    <p class="sub-text">대기오염 측정망 측정값은 1~3월 기간동안 모두 “보통” 등급으로 측정되었는데 반해, - S-DoT 측정값은 1월의 경우 850개소 중 52개소에서 “나쁨” 등급이 측정된 차이 발견 2~3월은 대부분 “보통” 등급으로 측정되어 대기오염 측정망 측정값과 거의 유사함<br>
+                                    - S-DoT 1월 측정등급이 대기오염 측정망과 다르게 나쁨 측정된 지역에 대한 확인필요 : 교통정보와의 연관성 검토 필요</p>
+
+                                    <h4 class="sub-title">
+                                        <span>2020 서울시 교통량 변동 추이</span>
+                                    </h4>
+                                    <div class="graph-box">
+                                        <p style="background: darkgray;width: 100%;height: 100%;">그래프 영역 테스트</p>
+                                    </div>
+                                    <p class="sub-text">2019년 3월대비 2020년 3월(COVID-19 확산시점) 교통량 많이 감소함 (90.19%)<br>
+                                    : 측정 지역별 특성을 살펴보면 도심지역 교통량이 전년대비 크게 감소함 (84.23%)</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+        <!-- end : Main content -->
+    
+    </div>
+    
+    <!-- start : footer -->
+    <div id="footer">
+        <div class="inner clfix">
+            <span class="copy">Copyright 2020. 서울특별시. All Rights Reserved.</span>
+            <span class="footer-info">대표전화 02-2133-2956 | 스마트도시담당관(서소문청사)</span>
+        </div>
+    </div>
+    <!-- end : footer -->
+
+    <script>
+        $('.graph-choice').children().on('click', function(){
+            $('.graph-choice').children().removeClass('checked');
+            $(this).addClass('checked');
+        });
+    </script>
+</body>
+</html>

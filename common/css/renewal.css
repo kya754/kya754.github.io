@@ -1052,7 +1052,7 @@ span[name=toggle-control] {
 .box-header .box-sub {
     font-size: 10px;
     vertical-align: middle;
-    margin-left: 6px;
+    margin-left: 3px;
     color: #44474a;
 }
 
@@ -1072,7 +1072,17 @@ span[name=toggle-control] {
 
 .box-header .btn-wrap .btn span {
     font-size: 14px;
-    vertical-align: middle;
+    /* vertical-align: middle; */
+    line-height: 31px;
+}
+
+.box-header .btn-wrap .btn.simul-btn {
+    background: #203583;
+    margin-right: 4px;
+}
+
+.box-header .btn-wrap .btn.simul-btn span {
+    color: #fff;
 }
 
 .box-header .btn-wrap .btn.save-btn {
@@ -1091,7 +1101,6 @@ span[name=toggle-control] {
 
 .box-header .btn-wrap .btn.next-btn span {
     color: #fff;
-    line-height: 1;
 }
 
 .visual .box-cont .field-table {
@@ -3759,3 +3768,70 @@ span.point-b {
 }
 
 .pop-wrap .cont-wrap .left-box.unset .box-body {width: 869px;}
+
+
+.report-box {
+    border: 1px solid #c4c6c8;
+    box-sizing: border-box;
+    padding: 41px;
+}
+.report-cont {
+    border: 2px solid #203583;
+    box-sizing: border-box;
+}
+
+.report-cont .inner {
+    width: 639px;
+    margin: 36px auto;
+}
+
+.report-cont .main-title {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 32px;
+    color: #44474a;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.report-cont .main-text {
+    font-size: 14px;
+    color: #44474a;
+    line-height: 1.714;
+    letter-spacing: -0.7px;
+    word-break: keep-all;
+
+}
+
+.report-cont .sub-title {
+    background: #eaeaea;
+    text-align: center;
+    height: 31px;
+    line-height: 30px;
+    margin-top: 32px;
+    margin-bottom: 40px;
+}
+
+.report-cont .sub-title span {
+    font-size: 16px;
+    font-family: 'NotoSansKR-Medium';
+    color: #44474a;
+}
+
+.report-cont .sub-text {
+    font-size: 12px;
+    color: #7c8288;
+    line-height: 1.333;
+    letter-spacing: -0.5px;
+    word-break: keep-all;
+}
+
+.report-cont .graph-box {
+    width: 100%;
+    height: 639px;
+    margin-bottom: 20px;
+}
+
+.report-cont .main-text + .sub-title {
+    margin-top: 49px;
+}
+
