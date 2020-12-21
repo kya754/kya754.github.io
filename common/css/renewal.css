@@ -668,7 +668,7 @@ border-top: 1px solid #c4c6c8; */
 
 .table.tab-wrap td {
     box-sizing: border-box;
-    border: 1px solid #babec8;
+    /* border: 1px solid #babec8; */
     background: #eef2fb;
     border-top: 0;
     border-bottom: 0;
@@ -692,13 +692,13 @@ border-top: 1px solid #c4c6c8; */
     background: #fff;
     color: #426aff;
     border: 2px solid #426aff;
-    border-bottom: 0;
+    border-bottom: 2px solid #fff;
     box-sizing: border-box;
 }
 
 .table.tab-wrap td .btn-default {
-    border-bottom: 1px solid #babec8;
-    border-top: 1px solid #babec8;
+    border: 1px solid #babec8;
+    /* border-top: 1px solid #babec8; */
 }
 
 
