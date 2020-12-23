@@ -729,7 +729,8 @@ input[class="custom_chk"] {
 	margin-top: 0;
 }
 
-.pop-cont .input-wrap input[type="text"] {
+.pop-cont .input-wrap input[type="text"],
+.pop-cont .input-wrap .input-txt {
 	border: 1px solid #d3d8e4;
 	height: 46px;
 	color:  #595959;
@@ -968,6 +969,7 @@ input[class="custom_chk"] {
 }
 
 .pop-cont .inner.type02 .input-wrap input[type="text"],
+.pop-cont .inner.type02 .input-wrap .input-txt,
 .pop-cont .inner.type02 .input-wrap select {
 	height: 36px;
 	padding: 0 15px;
