@@ -1033,6 +1033,10 @@ span[name=toggle-control] {
     float: left;
 }
 
+.step-cont section.field-box > .box-cont {
+    height: 409px;
+}
+
 .step-cont section.recm-box {
     width: 787px;
     float: right;
