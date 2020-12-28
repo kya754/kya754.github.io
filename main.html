@@ -171,9 +171,14 @@
 
                 var openSection = $(element);
                 var scrollSection = openSection.children('.wrapper');
-                var TopSection = openSection.children('.top-cont');
+                var TopSection = openSection.children('.top-cont').outerHeight();
+                var searchSection = $('.search-top').outerHeight();
 
-                var scrollHeight = window.innerHeight - TopSection.height() - 64;
+                if($('.search-top').length > 0){
+                    TopSection = TopSection + searchSection;
+                }
+
+                var scrollHeight = window.innerHeight - TopSection - 64;
 
                 scrollSection.css({
                     'height' : scrollHeight,
@@ -181,7 +186,7 @@
                 });
 
                 $(window).resize(function () {
-                    scrollHeight = window.innerHeight - TopSection.height() - 64;
+                    scrollHeight = window.innerHeight - TopSection - 64;
 
                     scrollSection.css({
                         'height' : scrollHeight,
@@ -449,7 +454,7 @@
                 </a>
             </div>
             <!-- s:20201213 알림 팝업 추가 -->
-            <div class="alarm-popup on">
+            <div class="alarm-popup">
                 <div class="alarm-top">
                     <p>알림</p>
                     <button type="button" class="read-btn">모두 읽음으로 표시</button>
@@ -613,77 +618,7 @@
                         <button type="button" class="search-btn"></button>
                     </div>
                 </div>
-                <div class="search-result">
-                    <div class="result-row">
-                        <p class="result-text"><span>‘심장충격기’</span> 검색 결과</p>
-                        <button type="button" class="close-btn">
-                            <span>닫기</span>
-                        </button>
-                    </div>
-                    <div class="list-wrap scrollbar-outer"><!-- 스크롤 가능 영역 스크립트 추가 예정 / 임시로 .list-wrap에 height:600px 지정해놓음-->
-                        <div class="title-wrap">
-                            <p class="title">서비스 바로가기 <span>1</span>건</p>
-                        </div>
-                        <div class="cont-wrap">
-                            <ul class="cont-list">
-                                <li>
-                                    <p class="text01">자동심장충격기(AED)관리</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="title-wrap">
-                            <p class="title">시각화 <span>3</span>건</p>
-                        </div>
-                        <div class="cont-wrap">
-                            <ul class="cont-list">
-                                <li>
-                                    <p class="text01">자동심장충격기(AED)관리</p>
-                                </li>
-                                <li>
-                                    <p class="text01">심장충격기 관리 정보 2019</p>
-                                </li>
-                                <li>
-                                    <p class="text01">심장충격기 관리 정보 2020</p>
-                                </li>
-                            </ul>
-                            <button type="button" class="view-more">
-                                <span>더보기</span>
-                            </button>
-                        </div>
-                        <div class="title-wrap">
-                            <p class="title">분석리포트 <span>1</span>건</p>
-                        </div>
-                        <div class="cont-wrap">
-                            <ul class="cont-list">
-                                <li>
-                                    <p class="text01">심장충격기 관리 영향도 분석</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="title-wrap">
-                            <p class="title">외부데이터 <span>0</span>건</p>
-                        </div>
-                        <div class="cont-wrap">
-                            <ul class="cont-list">
-                                <li>
-                                    <p class="no-data">검색 결과가 없습니다.</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="title-wrap">
-                            <p class="title">이용안내 <span>1</span>건</p>
-                        </div>
-                        <div class="cont-wrap">
-                            <ul class="cont-list">
-                                <li>
-                                    <p class="text02">자동심장충격기(AED)관리</p>
-                                    <p class="text03">자동심장충격기에 달린 센서를 통해 기기의 상태·배터리 용량·패드 탈착</p>
-                                    <p class="depth">이용안내> 연계 서비스</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <!-- e: 20201213 검색 영역 추가 -->
 
