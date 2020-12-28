@@ -67,7 +67,7 @@ body {
 	width: 408px;
 	background:#fff;
 	box-shadow: -2px 0px 6.2px 0.8px rgba(0, 0, 0, 0.22);
-	min-height: calc(100vh - 64px);
+	height: calc(100vh - 64px);
 }
 
 #contents .select-form {
