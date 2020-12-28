@@ -401,7 +401,7 @@ input[class="circle-type"]:checked + label {
 	color: #6b799b;
 	padding-top: 2px;
 	display: block;
-	margin-bottom: 33px;
+	padding-bottom: 33px;
 }
 
 #contents .graph-section .title-wrap {
