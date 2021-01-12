@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/common/css/font.css">
+    <link rel="stylesheet" href="/common/css/jquery.scrollbar.css"><!-- 20201107 : 커스텀 스크롤바 css 추가 -->
+    <link rel="stylesheet" href="/common/css/reset.css"> <!-- 20201030 : reset css 추가 -->
+        <!-- datapicker 관련 소스 -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
+        <!-- map 관련 소스 -->
+    <link rel="stylesheet" href="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapCss">
+    <link rel="stylesheet" href="/common/css/layout.css"> <!-- 20201103 : layout css 추가 -->
+    <link rel="stylesheet" href="/common/css/main.css">
+
+    <!-- js -->
+    <script src="/common/js/jquery.js"></script>
+    <script src="/common/js/jquery.scrollbar.min.js"></script><!-- 20201107 : 커스텀 스크롤바 js 추가 -->
+        <!-- datapicker 관련 소스 -->
+    <script src="/common/js/common.js"></script><!-- 20201109 : 추가 / datepicker 관련 셋팅 수정 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- map 관련 소스 -->
+    <script src="https://map.seoul.go.kr/smgis/apps/mapsvr.do?cmd=gisMapJs&key=6413fff343724983b9a0c343239f8654"></script>
+    <script src="/common/js/api.js"></script>
+    <script src="/common/js/layout.js"></script> <!-- 20201105 : layout js 추가 -->
+
+    <script>
+        //<![CDATA[
+        var map = null;
+        $(document).ready(function () {
+            mapInit();
+            // setPoint();
+        });
+
+        function mapInit() {
+            map = L.map('map', {
+                continuousWorld: true
+                , worldCopyJump: false
+                , zoomControl: false
+                , zoomAnimation: true
+                , markerZoomAnimation: true
+                , fadeAnimation: true
+                , inertia: false
+                , closePopupOnClick: false
+                , attributionControl: true
+                , center: [37.5683206, 126.9905207]
+                , zoom: 11
+            });
+
+            BaseMapChange(map, L.Dawul.BASEMAP_GEN);  // 일반지도
+
+            // 줌
+            // var slider = new L.Control.Zoomslider({
+            //     position: 'bottomright'
+            // });
+            // // 스케일바
+            // var scaleBar = new L.Control.Scale({
+            //     position: 'bottomright'
+            // });
+            // // 거리, 면적
+            // var userBtns = new L.Control.UserBtns({
+            //     position: 'bottomright'
+            // });
+            // map.addControl(scaleBar);
+            // map.addControl(slider);
+            // map.addControl(userBtns);
+        }
+
+        // s: 20201109 as-is 버전 datepicker 로 교체
+        $(function () {
+            $("#currentPage").val("1");
+            // datepick 한글 셋팅 common.js
+            settingdatepickerko();
+
+            $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+            $("button:button[name=btn_dwnload]").prop("disabled", true);
+
+            // 공개 볌위 변경시 조회
+            $("#sch_public_yn").change(function () {
+                fnSearch();
+            });
+            // 목록 수 셀렉트 박스 변경시 조회
+            $("#sch_row_per_page").change(function () {
+                fnSearch();
+            });
+
+            $('[name=sch_start_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+                // changeYear: true,
+                // changeMonth: true
+            });
+            $('[name=sch_end_ymd]').datepicker({
+                dateFormat: 'yy.mm.dd',
+                // 20201109 날짜 셀렉트 박스 false 처리 (전체 공통)
+                // changeYear: true,
+                // changeMonth: true
+            });
+
+            $("input:checkbox[name=agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                } else {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                }
+            });
+            $("input:checkbox[name=dis_agre_chkbx]").change(function () {
+                if ($("input:checkbox[name=dis_agre_chkbx]").is(":checked")) {
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", false);
+                    $("button:button[name=btn_dwnload]").prop("disabled", true);
+                } else {
+                    $("input:checkbox[name=dis_agre_chkbx]").prop("checked", false);
+                    $("input:checkbox[name=agre_chkbx]").prop("checked", true);
+                    $("button:button[name=btn_dwnload]").prop("disabled", false);
+                }
+            });
+        });
+        // e: 20201109 as-is 버전 datepicker 로 교체
+
+        
+        $(document).ready(function(){
+
+            //s: 20201109 삭제
+            // datepicker
+            // datepicker 공통 옵션 설정
+            // $.datepicker.setDefaults({
+            //     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            //     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+            //     monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+            //     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            //     yearSuffix: '년',
+            //     dateFormat: 'yy-mm-dd',
+            //     showMonthAfterYear:true,
+            //     constrainInput: true    
+            // });
+
+            // // datepicker 영역 선언
+            // $("#sch_start_ymd").datepicker();
+            // $("#sch_end_ymd").datepicker();
+
+            // // 초기값 설정
+            // // (today / -nD: n일전 / +nD: n일후 / -nM: n달전 / +nM: n달후 / -nY: n년전 / +nY: n년후)
+            // $("#sch_start_ymd").datepicker('setDate', 'today');
+            // $("#sch_end_ymd").datepicker('setDate', '+1D');
+            //e: 20201109 삭제
+
+
+
+            // 그래프 영역 열림
+            $('.open-btn').on('click', function(){
+                if($('.graph-section').hasClass('on')){
+                    $('.graph-section').removeClass('on');
+                }else {
+                    $('.graph-section').addClass('on');
+                }
+            });
+
+
+            //SectionScroll('스크롤 될 부분의 부모선택자')
+            SectionScroll('.filter-section');
+            SectionScroll('#periodSection');
+
+
+            // 그래프 영역 스크롤 높이 지정
+            function SectionScroll(element){
+
+                var openSection = $(element);
+                var scrollSection = openSection.children('.wrapper');
+                var TopSection = openSection.children('.top-cont');
+
+                var scrollHeight = window.innerHeight - TopSection.height() - 64;
+
+                scrollSection.css({
+                    'height' : scrollHeight,
+                    'overflow-y' : 'scroll'
+                });
+
+                $(window).resize(function () {
+                    scrollHeight = window.innerHeight - TopSection.height() - 64;
+
+                    scrollSection.css({
+                        'height' : scrollHeight,
+                        'overflow-y' : 'scroll'
+                    });
+                });
+
+            }
+
+
+            // s: 20201106 추가
+
+            // 서비스 목록 전체선택 -> 전체해제 버튼
+            var serviceListCheckBox = $('.filter-box .list-wrap input[type=checkbox]');
+
+            $(".check-btn").click(function(){ 
+                if($(".check-btn").hasClass('checked')) {
+                    $('.check-btn').removeClass('checked');
+                    serviceListCheckBox.prop("checked",false); 
+                    $(".check-btn span").html('전체선택');
+                } 
+                else {
+                    $('.check-btn').addClass('checked');
+                    serviceListCheckBox.prop("checked",true);
+                    $(".check-btn span").html('전체해제');
+                }
+            });
+
+            // graph-section 아코디언
+            $('.graph-section .title-wrap').on('click', function(){
+
+                if($(this).hasClass('open')){
+                    $(this).next().slideUp();
+                    $(this).removeClass('open');
+                }
+                else {
+                    $(this).next().slideDown();
+                    $(this).addClass('open');
+                }
+            })
+
+            // e: 20201106 추가
+            
+
+        });
+
+
+    </script>
+    
+</head>
+<body class="main region-type">
+    <!-- start : header -->
+    <div id="header">
+        <div class="inner clfix">
+            <h1 class="main-logo">
+                <a href="#">
+                    <img src="/common/images/main_seoul_logo.png" alt="I SEOUL U IoT 도시데이터시스템 로고">
+                </a>
+            </h1>
+            <h2 class="region">강남구</h2>
+        </div>
+    </div>
+    <!-- end : header -->
+    <!-- start : contents -->
+    <div id="contents" class="clfix">
+        <div class="map-section">
+            <div id="map" style="height: 100%;">
+            
+                <!-- start : 맵 커스텀 -->
+
+                <!-- 일반/3d 버튼 -->
+                <!-- bttn에 on클래스 활성화 -->
+                <div class="custom-3d">
+                    <button type="button" class="bttn on">
+                        <span>일반</span>
+                    </button>
+                    <button type="button" class="bttn">
+                        <span>항공</span><!-- 20201103 텍스트 수정 -->
+                    </button>
+                </div>
+
+                <!-- 저장 메뉴 -->
+                <div class="custom-menu sec01">
+                    <button type="button" class="btn on"> <!-- 20201103 활성화 시 on 클래스 추가 -->
+                        <em class="ico-map" aria-hidden="true"></em>
+                        <span>지도 저장</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-data" aria-hidden="true"></em>
+                        <span>데이터 저장</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-keep" aria-hidden="true"></em>
+                        <span>보관하기</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-view" aria-hidden="true"></em>
+                        <span>시각화 시작</span>
+                    </button>
+                </div>
+
+                <!-- 측정 메뉴 -->
+                <div class="custom-menu sec02">
+                    <button type="button" class="btn">
+                        <em class="ico-radius" aria-hidden="true"></em>
+                        <span>반경</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-square" aria-hidden="true"></em>
+                        <span>면적</span>
+                    </button>
+                    <button type="button" class="btn">
+                        <em class="ico-distance" aria-hidden="true"></em>
+                        <span>거리</span>
+                    </button>
+                </div>
+
+                <!-- 줌 버튼 -->
+                <div class="custom-zoom">
+                    <button type="button" class="zoom-in btn" title="Zoom in"></button>
+                    <button type="button" class="zoom-out btn" title="Zoom out"></button>
+                </div>
+
+                <!-- 툴팁 -->
+                <div class="custom-tooltip" style="top: 200px; left: 200px">
+                    <button class="tooltip-close-btn">
+                        <span class="hidden-txt">닫기</span>
+                    </button>
+                    <div class="inner">
+                        <p class="head-ttl">미세먼지</p>
+                        <p class="sub-ttl">도시데이터센서(S-DoT) 측정 데이터</p>
+                        <p class="txt">서울시 성북구 북악산로 913</p>
+                        <div class="info">
+                            <dl class="clfix">
+                                <dt>미세먼지</dt>
+                                <dd>5 ㎍/㎥</dd>
+                            </dl>
+                            <dl class="clfix">
+                                <dt>초미세먼지</dt>
+                                <dd>50 ㎍/㎥</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="date">
+                        <span>2020-10-20 18:18</span>
+                    </div>
+                </div>
+
+                <!-- end : 맵 커스텀 -->
+
+            </div>
+        </div>
+        <!-- start : 서비스 목록 -->
+        <div class="filter-section">
+            <div class="wrapper scrollbar-outer">
+                <div class="filter-box">
+                    <div class="title-wrap">
+                        <p class="title">서비스 목록</p>
+                        <button type="button" class="check-btn">
+                            <span>전체선택</span>
+                        </button>
+                    </div>
+                    <div class="scroll-wrap scrollbar-inner">
+                        <div class="cont-wrap">
+                            <div class="list-wrap">
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk01" name="" class="custom_chk" checked>
+                                    <label for="chk01">도시데이터센서(S-DoT) 측정 데이터</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk02" name="" class="custom_chk" checked>
+                                    <label for="chk02">실내환경 모니터링 서비스</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk03" name="" class="custom_chk">
+                                    <label for="chk03">도서관 공기질 현황</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk04" name="" class="custom_chk">
+                                    <label for="chk04">홀몸어르신 고독사 관리</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk05" name="" class="custom_chk">
+                                    <label for="chk05">소음 모니터링 및 저감장치</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk06" name="" class="custom_chk">
+                                    <label for="chk06">텍스트 줄바꿈 테스트 텍스트 줄바꿈 테스트 텍스트 줄바꿈 테스트</label>
+                                </div>
+                                <div class="check_list">
+                                    <input type="checkbox" id="chk07" name="" class="custom_chk">
+                                    <label for="chk07">스크롤 테스트</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-wrap type-list">
+                        <div class="dl-wrap clfix">
+                            <dl class="data-box">
+                                <dt class="tit">서비스 연계 수</dt>
+                                <dd class="num">5<span>건</span></dd>
+                            </dl>
+                            <dl class="data-box">
+                                <dt class="tit">일별 수집<br>데이터 건수</dt>
+                                <dd class="num">197,821<span>건</span></dd>
+                            </dl>
+                            <dl class="data-box">
+                                <dt class="tit">센서 설치 수 </dt>
+                                <dd class="num">185<span>개</span></dd>
+                            </dl>
+                            <dl class="data-box">
+                                <dt class="tit">누적 수집<br>데이터 건수</dt>
+                                <dd class="num">3,197,821<span>건</span></dd>
+                            </dl>
+                            <dl class="data-box">
+                                <dt class="tit">정상</dt>
+                                <dd class="num">1,000,821<span>건</span></dd>
+                                <dd class="per blue">97%</dd>
+                            </dl>
+                            <dl class="data-box">
+                                <dt class="tit">오류</dt>
+                                <dd class="num">109,000<span>건</span></dd>
+                                <dd class="per red">3%</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="title-wrap">
+                        <p class="title">실시간 S-DoT 측정 현황</p>
+                    </div>
+                    <div class="cont-wrap type-box">
+                        <div class="list">
+                            <dl>
+                                <dd class="data">19 ㎍/m³</dd>
+                                <dt class="tit">미세먼지</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">9 ㎍/m³</dd>
+                                <dt class="tit">초미세먼지</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">24 ℃</dd>
+                                <dt class="tit">대기온도</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">24 ℃</dd>
+                                <dt class="tit">흑구온도</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">24 %</dd>
+                                <dt class="tit">상대습도</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">34 lux</dd>
+                                <dt class="tit">조도</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">14 dB</dd>
+                                <dt class="tit">소음</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">14 m/s</dd>
+                                <dt class="tit">풍속</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">33 UVI</dd>
+                                <dt class="tit">자외선</dt>
+                            </dl>
+                            <dl>
+                                <dd class="data">33 명</dd>
+                                <dt class="tit">유동인구 / Wi-Fi</dt>
+                            </dl>
+                        </div>
+                        <p class="last-update">최종 업데이트 시각 : <span>2020.11.29 23:53:37</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end : 검색 필터 영역 -->
+
+
+        <!-- start : 측정 항목 현황 영역 -->
+        <!-- graph-section에 on클래스 활성화 -->
+        <div class="graph-section on" id="">
+            <button type="button" class="open-btn"></button>
+            <div class="top-cont">
+                <div class="head">
+                    <p class="head-ttl">측정 항목 현황</p>
+                </div>
+            </div>
+            <div class="wrapper scrollbar-inner">
+                <div class="option-wrap sub border-n">
+                    <div class="list-wrap">
+                        <dl>
+                            <dt>서비스</dt>
+                            <dd>정화조악취저감감시 서비스</dd>
+                        </dl>
+                    </div>
+                    <div class="list-wrap">
+                        <dl>
+                            <dt>모델명</dt>
+                            <dd>NTS100</dd>
+                        </dl>
+                        <dl>
+                            <dt>고유번호</dt>
+                            <dd>206</dd>
+                        </dl>
+                    </div>
+                    <div class="list-wrap">
+                        <dl>
+                            <dt>IoT기기상태값</dt>
+                            <dd>2</dd>
+                        </dl>
+                        <dl>
+                            <dt>악취저감장치상태</dt>
+                            <dd>2</dd>
+                        </dl>
+                        <dl>
+                            <dt>악취저감장치</dt>
+                            <dd></dd>
+                        </dl>
+                        <dl>
+                            <dt>연속OFF시간</dt>
+                            <dd>6094</dd>
+                        </dl>
+                    </div>
+                    <div class="list-wrap">
+                        <dl>
+                            <dt>등록일시</dt>
+                            <dd>2020.11.29 23:53:37</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="title-wrap2">
+                    <p class="title">서비스 데이터 수신 현황</p>
+                </div>
+                <div class="cont-wrap type-table">
+                    <table>
+                        <caption>서비스 데이터 수신 현황</caption>
+                        <colgroup>
+                            <col width="40px">
+                            <col width="187px">
+                            <col width="79px">
+                            <col width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>서비스명</th>
+                                <th>수집 간격</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="text-left">청정공기 휴게공간</td>
+                                <td>실시간</td>
+                                <td>정상</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="text-left">청정공기 휴게공간</td>
+                                <td>실시간</td>
+                                <td>정상</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="text-left">청정공기 휴게공간</td>
+                                <td>실시간</td>
+                                <td>정상</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="text-left">청정공기 휴게공간</td>
+                                <td>실시간</td>
+                                <td>정상</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination-wrap">
+                        <ul class="pagination pagination-sm no-margin">
+                            <li><a href="#" title="맨앞으로가기" onclick="fnGoPage('1'); return false;">«</a></li>
+                            <li class="active"><a href="#" onclick="fnGoPage('1'); return false;">1</a></li>
+                            <li><a href="#" onclick="fnGoPage('2'); return false;">2</a></li>
+                            <li><a href="#" onclick="fnGoPage('3'); return false;">3</a></li>
+                            <li><a href="#" onclick="fnGoPage('4'); return false;">4</a></li>
+                            <li><a href="#" onclick="fnGoPage('5'); return false;">5</a></li>
+                            <li><a href="#" title="맨뒤로가기" onclick="fnGoPage('99'); return false;">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="title-wrap2">
+                    <p class="title">강남구 데이터 수집 통계</p>
+                </div>
+                <div class="cont-wrap type-graph">
+                    <div class="tab-btn">
+                        <a href="#" class="bttns on">주간</a>
+                        <a href="#" class="bttns">월간</a>
+                        <a href="#" class="bttns">연간</a>
+                    </div>
+                    <div class="graph-wrap">
+                        <img src="/common/images/graph-test3.PNG" alt="" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end : 측정 항목 현황 영역 -->
+
+        
+    </div>
+    <!-- end : contents -->
+</body>
+</html>
