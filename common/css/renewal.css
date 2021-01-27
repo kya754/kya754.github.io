@@ -3839,3 +3839,54 @@ span.point-b {
     margin-top: 49px;
 }
 
+/* 시각화편집 요소 추가 */
+.dot-group {
+    position: absolute;
+    left: 26px;
+    top: 26px;
+    border: 1px solid #b7b7b7;
+    padding: 9px 17px;
+    background: #fff;
+}
+
+.dot-group li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.dot-group li:last-child {
+    margin-bottom: 0;
+}
+.dot-group li em {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    margin-right: 6px;
+}
+
+.dot-group li .circle {
+    border-radius: 100%;
+}
+
+.dot-group li p {
+    color: #4b4b4b;
+    font-size: 12px;
+    line-height: 1;
+}
+
+
+.color01 {background: #253595;}
+.color02 {background: #3080b5;}
+.color03 {background: #44b3c7;}
+.color04 {background: #a5d8b7;}
+.color05 {background: #ffffc9;}
+
+.color06 {background: #26a2ed;}
+.color07 {background: #41c572;}
+.color08 {background: #f05050;}
+.color09 {background: #f4d646;}
+.color10 {background: #b2a1e2;}
+
+
